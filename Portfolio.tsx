@@ -31,7 +31,7 @@
  *        -webkit-mask-image:radial-gradient(125% 115% at 50% 38%, transparent 30%, #000 100%); }
  * ──────────────────────────────────────────────────────────────────────── */
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 // import Image from "next/image"; // ← swap PlaceholderFrame's <div> for <Image> when ready
 
 /* ── Types ──────────────────────────────────────────────────────────────── */
@@ -50,13 +50,13 @@ type AboutRow = { label: string; value: string };
 
 /* ── Content (map your own data here) ─────────────────────────────────────── */
 const PROFILE = {
-  eyebrow: "PRODUCT MANAGER · MEDIOCRE CYCLIST · BUILDING WITH AI",
+  eyebrow: "PRODUCT MANAGER · AI & B2B SAAS",
   name: "Michael Hoefert",
-  role: "My Personal Portfolio!",
+  role: "Product Manager & Other Stuff",
   intro: (
     <div className="flex flex-col gap-4">
       <p>
-        I'm a product manager that loves to spend time understanding my customers (<span className="italic">note: the best book I've read on product is User Story Mapping by Jeff Patton</span>) and building products that customers actually like to use.
+        I'm a product manager that loves to spend time understanding my customers (<i>note: the best book I've read on product is User Story Mapping by Jeff Patton</i>) and building products that customers actually like to use.
       </p>
       <p>
         Outside of my day job I get obsessed playing around with new technologies and building things. My current obsession is building out my Second Brain in Obsidian using Andrej Karpathy's model.
@@ -67,10 +67,10 @@ const PROFILE = {
 };
 
 const ABOUT: AboutRow[] = [
-  { label: "FOCUS", value: "Playing around with new tools, building things, and getting as fast as possible on my bike" },
-  { label: "APPROACH", value: "Build things that solve actual problems. I start with design partners (myself with these solo projects) to scope the problem and then use systems thinking to ensure the architecture is efficient." },
-  { label: "LATELY", value: "Having so much fun with building Second Brain systems to codify knowledge and ways of working to actually change and improve my workflows. And a ton of cycling because I love it." },
-  { label: "SAY HI!", value: "mhoefert1@gmail.com" },
+  { label: "FOCUS", value: "Agentic AI · B2B SaaS · 0→1 product" },
+  { label: "APPROACH", value: "Systems thinking, sharp data, close design partnership" },
+  { label: "LATELY", value: "Cycling analytics & second-brain tooling" },
+  { label: "SAY HI", value: "hello@michaelhoefert.com" },
 ];
 
 const PROJECTS: Project[] = [
@@ -80,7 +80,7 @@ const PROJECTS: Project[] = [
     subtitle: "B2B Adaptive Sales Playbook",
     tag: "SALES ENABLEMENT · 0 to 1",
     summary:
-      "A self-evolving sales coaching platform built with Next.js and Supabase that grades transcripts against custom rubrics using a multi-agent pipeline, flags rule-breaking wins, and programmatically generates schema-validated playbook evolutions.\n\nBuilt over 7+ months as a solo founder project, the real complexity lives in the closed feedback loop the platform creates. Every graded call feeds a \"maverick\" detection layer that surfaces wins where reps broke the playbook and still closed deals. Each maverick is analyzed by complex context-seeking LLM APIs to distinguish replicable techniques from deal-specific context, then verified by the manager. The manager verification stage is crucial; it provides a human-in-the-loop verification gate but also allows managers to add commentary on why or why they are not verifying a call. The manager commentary is then stored and used to power the self-learning maverick detection engine so that over time, the detections are more aligned with what the manager wants. Once enough verified mavericks accumulate, a correlation engine cross-references bypass frequency against historical coaching session records, and when a criterion has been coached repeatedly but top performers keep skipping it in winning calls, the system classifies it as terminally flawed and flags it for removal in the next evolution proposal. That proposal renders as a side-by-side rubric comparison with per-change rationale and evidence strength, with the pre-computed frequency analysis injected as structured context. The result is a methodology that updates itself from the team's own winning patterns, and a system that can tell a manager not just that their reps aren't following the script, but that the script is wrong.",
+      "A self-evolving sales coaching platform built with Next.js and Supabase that grades transcripts against custom rubrics using a multi-agent Gemini pipeline, flags rule-breaking wins, and programmatically generates schema-validated playbook evolutions.\n\nBuilt over 7+ months as a solo founder project, the real complexity lives in the closed feedback loop the platform creates. Every graded call feeds a \"maverick\" detection layer that surfaces wins where reps broke the playbook and still closed deals. Each maverick is analyzed by complex context-seeking LLM APIs to distinguish replicable techniques from deal-specific context, then verified by the manager. The manager verification stage is crucial; it provides a human-in-the-loop verification gate but also allows managers to add commentary on why or why they are not verifying a call. The manager commentary is then stored and used to power the self-learning maverick detection engine so that over time, the detections are more aligned with what the manager wants. Once enough verified mavericks accumulate, a correlation engine cross-references bypass frequency against historical coaching session records, and when a criterion has been coached repeatedly but top performers keep skipping it in winning calls, the system classifies it as terminally flawed and flags it for removal in the next evolution proposal. That proposal renders as a side-by-side rubric comparison with per-change rationale and evidence strength, with the pre-computed frequency analysis injected as structured context. The result is a methodology that updates itself from the team's own winning patterns, and a system that can tell a manager not just that their reps aren't following the script, but that the script is wrong.",
     metrics: [
       { v: "+31%", l: "mid-market win rate" },
       { v: "90→38d", l: "new-rep ramp" },
@@ -94,8 +94,8 @@ const PROJECTS: Project[] = [
       { caption: "team performance", image: "/playi-5.png" },
       { caption: "detailed call report", image: "/playi-6.png" },
       { caption: "user management portal", image: "/playi-7.png" },
-      { caption: "transcript grading workflow", image: "/playi-8.png" },
-      { caption: "playbook rubric generator workflow ", image: "/playi-9.png" },
+      { caption: "transcript grading interface", image: "/playi-8.png" },
+      { caption: "playbook analysis details", image: "/playi-9.png" },
     ],
   },
   {
@@ -112,11 +112,11 @@ const PROJECTS: Project[] = [
     ],
     slides: [
       { caption: "relationship graph overview", image: "/market-intelligence-1.png" },
-      { caption: "HTML Dashboard - Frontier Models", image: "/market-intelligence-2.png" },
-      { caption: "HTML Dashboard - Frontier Model Product Stack", image: "/market-intelligence-3.png" },
-      { caption: "HTML Dashboard - AI Technology Layers", image: "/market-intelligence-4.png" },
-      { caption: "Obsidian Artifact Inventory", image: "/market-intelligence-5.png" },
-      { caption: "Obsidian Second Brain Index", image: "/market-intelligence-6.png" },
+      { caption: "automated signal ingestion", image: "/market-intelligence-2.png" },
+      { caption: "entity extraction pipeline", image: "/market-intelligence-3.png" },
+      { caption: "compounding intelligence wiki", image: "/market-intelligence-4.png" },
+      { caption: "frontier technology mapping", image: "/market-intelligence-5.png" },
+      { caption: "queryable graph database", image: "/market-intelligence-6.png" },
     ],
   },
   {
@@ -132,17 +132,17 @@ const PROJECTS: Project[] = [
       { v: "3", l: "agents in concert" },
     ],
     slides: [
-      { caption: "relationship graph overview", image: "/career-engine-1.png" },
-      { caption: "multi-agent resume workflow", image: "/career-engine-2.png" },
-      { caption: "multi-agent resume workflow", image: "/career-engine-3.png" },
-      { caption: "compounding memory and self-improvement", image: "/career-engine-4.png" },
+      { caption: "agentic workspace console", image: "/career-engine-1.png" },
+      { caption: "advocate-critic debate loop", image: "/career-engine-2.png" },
+      { caption: "factual audit report", image: "/career-engine-3.png" },
+      { caption: "design-spec artifact export", image: "/career-engine-4.png" },
     ],
   },
   {
     index: "04",
     title: "Claude the Cycling Coach",
     subtitle: "Live Dashboards & Professional Coaching",
-    tag: "PERSONAL AI · ENDURANCE PERFORMANCE",
+    tag: "CONSUMER AI · DATA",
     summary:
       "A self-updating training intelligence system wired directly to Strava reading every session I log and turns it into actual coaching. It includes per-second power streams, zone compliance, and aerobic decoupling to generate structured coaching, progressive periodization blocks, and PPL-integrated fatigue management. Refreshed nightly via a scheduled Claude digest.",
     metrics: [
@@ -151,9 +151,9 @@ const PROJECTS: Project[] = [
       { v: "350 watts", l: "One target. 8 protocols. Zero guesswork." },
     ],
     slides: [
-      { caption: "ytd riding statistics dashboard", image: "/strava-1.png" },
-      { caption: "individual ride analysis", image: "/strava-2.png" },
-      { caption: "HR to Power decoupling analysis", image: "/strava-3.png" },
+      { caption: "live ride dashboard", image: "/strava-1.png" },
+      { caption: "power & HR zones", image: "/strava-2.png" },
+      { caption: "coaching chat", image: "/strava-3.png" },
     ],
   },
 ];
@@ -336,7 +336,7 @@ function ProjectDescription({ p }: { p: Project }) {
         </div>
       )}
       <p className="mt-2 font-[var(--font-serif)] text-xl italic text-[var(--gray-10)]">{p.subtitle}</p>
-
+      
       {/* First Paragraph */}
       <p className="mt-5 max-w-md text-[15px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty]">
         {firstParagraph}
@@ -364,14 +364,15 @@ function ProjectDescription({ p }: { p: Project }) {
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
-
+          
           <div
-            className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${isExpanded ? "max-h-[220px] mt-3 opacity-100" : "max-h-0 opacity-0 pointer-events-none"
-              }`}
+            className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${
+              isExpanded ? "max-h-[220px] mt-3 opacity-100" : "max-h-0 opacity-0 pointer-events-none"
+            }`}
           >
-            <div
+            <div 
               className="max-h-[190px] overflow-y-auto pr-2 custom-scrollbar text-[14px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty] flex flex-col gap-4 border-l-2 pl-3"
-              style={{
+              style={{ 
                 borderColor: "var(--accent-soft)",
               }}
             >
@@ -463,7 +464,7 @@ function ProjectDescription({ p }: { p: Project }) {
               <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">Tailored Narrative Compiler</span>
             </div>
           </div>
-          {/* Integrity & Learning */}
+          {/* Memory & Truth */}
           <div className="flex flex-col">
             <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">Memory & Truth</h4>
             <div className="mt-4 flex flex-col gap-0.5">
@@ -567,9 +568,9 @@ function ProfilePhoto() {
   };
 
   return (
-    <div
+    <div 
       className="w-[155px] shrink-0 rounded-[22px] overflow-hidden border bg-[var(--gray-2)] relative group/photo select-none"
-      style={{
+      style={{ 
         borderColor: "var(--gray-4)",
         boxShadow: "var(--card-shadow)"
       }}
@@ -581,8 +582,9 @@ function ProfilePhoto() {
             key={p.src}
             src={p.src}
             alt={p.alt}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-in-out ${i === idx ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-105 pointer-events-none"
-              }`}
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-in-out ${
+              i === idx ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-105 pointer-events-none"
+            }`}
           />
         ))}
       </div>
@@ -591,7 +593,7 @@ function ProfilePhoto() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/25 opacity-0 group-hover/photo:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
       {/* In-frame Left Arrow */}
-      <button
+      <button 
         onClick={prev}
         aria-label="Previous photo"
         className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-[var(--gray-12)] hover:text-[var(--accent-strong)] flex items-center justify-center shadow-md transition-all duration-300 opacity-0 group-hover/photo:opacity-100 translate-x-[-4px] group-hover/photo:translate-x-0 cursor-pointer border border-[var(--gray-3)] z-10"
@@ -602,7 +604,7 @@ function ProfilePhoto() {
       </button>
 
       {/* In-frame Right Arrow */}
-      <button
+      <button 
         onClick={next}
         aria-label="Next photo"
         className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-[var(--gray-12)] hover:text-[var(--accent-strong)] flex items-center justify-center shadow-md transition-all duration-300 opacity-0 group-hover/photo:opacity-100 translate-x-[4px] group-hover/photo:translate-x-0 cursor-pointer border border-[var(--gray-3)] z-10"
@@ -615,8 +617,8 @@ function ProfilePhoto() {
       {/* Indicator dots at the bottom */}
       <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex gap-1 px-1.5 py-0.5 rounded-full bg-black/30 backdrop-blur-xs opacity-0 group-hover/photo:opacity-100 transition-opacity duration-300 select-none z-10">
         {photos.map((_, i) => (
-          <span
-            key={i}
+          <span 
+            key={i} 
             className={`h-1 rounded-full transition-all duration-300 ${i === idx ? "w-3 bg-[var(--accent)]" : "w-1 bg-white/70"}`}
           />
         ))}
@@ -628,90 +630,9 @@ function ProfilePhoto() {
 /* ── Page ─────────────────────────────────────────────────────────────────── */
 export default function Portfolio() {
   const [hover, setHover] = useState<number | null>(null);
-  const backgroundRef = useRef<HTMLDivElement>(null);
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!backgroundRef.current) return;
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = totalHeight > 0 ? window.scrollY / totalHeight : 0;
-
-      setShowScrollTop(window.scrollY > 400);
-
-      // Warm accent glow (wanders across the whole page organically)
-      // Centered at 50% with an amplitude of 40% (ranges from 10% to 90%)
-      const warmX = 50 + 40 * Math.sin(progress * Math.PI * 4 + 0.5);
-      const warmY = 50 + 40 * Math.cos(progress * Math.PI * 3.2 - 0.3);
-
-      // Grey wash (wanders across the whole page organically)
-      // Centered at 50% with an amplitude of 40% (ranges from 10% to 90%)
-      const greyX = 50 + 40 * Math.sin(progress * Math.PI * 2.8 + 1.8);
-      const greyY = 50 + 40 * Math.cos(progress * Math.PI * 4.4 + 0.8);
-
-      backgroundRef.current.style.setProperty("--warm-x", `${warmX}%`);
-      backgroundRef.current.style.setProperty("--warm-y", `${warmY}%`);
-      backgroundRef.current.style.setProperty("--grey-x", `${greyX}%`);
-      backgroundRef.current.style.setProperty("--grey-y", `${greyY}%`);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    const resizeObserver = new ResizeObserver(() => {
-      handleScroll();
-    });
-    resizeObserver.observe(document.documentElement);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      resizeObserver.disconnect();
-    };
-  }, []);
 
   return (
     <div className="relative z-[1] min-h-screen">
-      {/* Dynamic Wandering Background */}
-      <div
-        ref={backgroundRef}
-        className="fixed inset-0 pointer-events-none -z-10 overflow-hidden"
-        style={{
-          "--warm-x": "70%",
-          "--warm-y": "25%",
-          "--grey-x": "30%",
-          "--grey-y": "70%",
-        } as React.CSSProperties}
-      >
-        {/* Textured dot pattern with subtle colors */}
-        <div
-          className="absolute inset-0 opacity-[0.8]"
-          style={{
-            backgroundImage: `
-              radial-gradient(circle at 0px 0px, rgba(99,99,94,.22) 1.2px, transparent 1.2px),
-              radial-gradient(circle at 22px 22px, rgba(99,99,94,.22) 1.2px, transparent 1.2px),
-              radial-gradient(circle at 22px 0px, rgba(247,107,21,.38) 1.2px, transparent 1.2px),
-              radial-gradient(circle at 0px 22px, rgba(247,107,21,.38) 1.2px, transparent 1.2px)
-            `,
-            backgroundSize: "44px 44px",
-          }}
-        />
-
-        {/* Wandering Warm Accent Glow */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "radial-gradient(circle 600px at var(--warm-x) var(--warm-y), rgba(247, 107, 21, 0.14) 0%, rgba(255, 239, 214, 0.07) 50%, transparent 100%)",
-          }}
-        />
-
-        {/* Wandering Grey Wash */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "radial-gradient(circle 700px at var(--grey-x) var(--grey-y), rgba(130, 130, 124, 0.22) 0%, rgba(130, 130, 124, 0.06) 60%, transparent 100%)",
-          }}
-        />
-      </div>
       {/* Top section — 50/50 hero */}
       <header className="mx-auto flex min-h-screen max-w-[1240px] items-center px-6 py-20 md:px-10">
         <div className="grid w-full items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -721,7 +642,7 @@ export default function Portfolio() {
               <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
               <span className="whitespace-nowrap font-[var(--font-mono)] text-[11px] uppercase tracking-[0.14em] text-[var(--gray-11)]">{PROFILE.availability}</span>
             </div>
-
+            
             <div className="mt-8 flex flex-row items-stretch gap-6 md:gap-8">
               {/* Photo Card */}
               <ProfilePhoto />
@@ -821,39 +742,9 @@ export default function Portfolio() {
               </svg>
             </a>
           </div>
-          <p className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.14em] text-[var(--gray-9)] mt-1">my portfolio</p>
+          <p className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.14em] text-[var(--gray-9)] mt-1">One page · contact · by design</p>
         </div>
       </footer>
-
-      {/* Back to top floating circular button */}
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={`fixed top-6 right-6 z-50 grid h-10 w-10 place-items-center rounded-full border bg-white/90 text-[var(--gray-11)] shadow-sm transition-all duration-300 hover:text-[var(--accent-strong)] hover:border-[var(--accent)] cursor-pointer group ${
-          showScrollTop
-            ? "opacity-100 translate-y-0 scale-100"
-            : "opacity-0 -translate-y-4 scale-90 pointer-events-none"
-        }`}
-        style={{
-          borderColor: "var(--gray-4)",
-          boxShadow: "var(--card-shadow)",
-        }}
-        aria-label="Scroll to top"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2.5}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="transition-transform duration-300 group-hover:-translate-y-0.5"
-        >
-          <line x1="12" y1="19" x2="12" y2="5" />
-          <polyline points="5 12 12 5 19 12" />
-        </svg>
-      </button>
     </div>
   );
 }

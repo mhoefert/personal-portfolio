@@ -1,26 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gray-1:#fdfdfc; --gray-2:#f9f9f8; --gray-3:#f1f0ef; --gray-4:#e9e8e6;
+  --gray-5:#e2e1de; --gray-6:#dad9d6; --gray-7:#cfceca; --gray-8:#bcbbb5;
+  --gray-9:#8d8d86; --gray-10:#82827c; --gray-11:#63635e; --gray-12:#21201c;
+  --orange-3:#ffefd6; --orange-9:#f76b15; --orange-10:#ef5f00;
+  --accent:var(--orange-9);
+  --display-font: var(--font-serif);
+  --accent-strong:color-mix(in oklab, var(--accent), black 16%);
+  --accent-soft:color-mix(in oklab, var(--accent), white 87%);
+  --card-radius:26px;
+  --card-shadow:0 1px 2px rgba(40,33,28,.04), 0 16px 36px -14px rgba(40,33,28,.12);
+  --float-shadow:0 2px 4px rgba(40,33,28,.04), 0 42px 90px -30px rgba(40,33,28,.18);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+body { 
+  background: var(--gray-1); 
+  color: var(--gray-12); 
+  font-family: var(--font-sans); 
+  -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+
+@keyframes pulseDot { 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+.pulse-dot { animation: pulseDot 2.4s ease-in-out infinite; }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--gray-5);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-7);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
