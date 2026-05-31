@@ -52,7 +52,7 @@ type AboutRow = { label: string; value: string };
 const PROFILE = {
   eyebrow: "PRODUCT MANAGER · MEDIOCRE CYCLIST · BUILDING WITH AI",
   name: "Michael Hoefert",
-  role: "My Personal Portfolio!",
+  role: "My Personal Portfolio! test",
   intro: (
     <div className="flex flex-col gap-4">
       <p>
@@ -828,11 +828,10 @@ export default function Portfolio() {
       {/* Back to top floating circular button */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={`fixed top-6 right-6 z-50 grid h-10 w-10 place-items-center rounded-full border bg-white/90 text-[var(--gray-11)] shadow-sm transition-all duration-300 hover:text-[var(--accent-strong)] hover:border-[var(--accent)] cursor-pointer group ${
-          showScrollTop
+        className={`fixed top-6 right-6 z-50 grid h-10 w-10 place-items-center rounded-full border bg-white/90 text-[var(--gray-11)] shadow-sm transition-all duration-300 hover:text-[var(--accent-strong)] hover:border-[var(--accent)] cursor-pointer group ${showScrollTop
             ? "opacity-100 translate-y-0 scale-100"
             : "opacity-0 -translate-y-4 scale-90 pointer-events-none"
-        }`}
+          }`}
         style={{
           borderColor: "var(--gray-4)",
           boxShadow: "var(--card-shadow)",
