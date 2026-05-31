@@ -700,7 +700,7 @@ export default function Portfolio() {
         <div
           className="absolute inset-0"
           style={{
-            background: "radial-gradient(circle 600px at var(--warm-x) var(--warm-y), rgba(247, 107, 21, 0.14) 0%, rgba(255, 239, 214, 0.07) 50%, transparent 100%)",
+            background: "radial-gradient(circle 600px at var(--warm-x) var(--warm-y), rgba(247, 107, 21, 0.09) 0%, rgba(255, 239, 214, 0.04) 50%, transparent 100%)",
           }}
         />
 
@@ -708,7 +708,7 @@ export default function Portfolio() {
         <div
           className="absolute inset-0"
           style={{
-            background: "radial-gradient(circle 700px at var(--grey-x) var(--grey-y), rgba(130, 130, 124, 0.22) 0%, rgba(130, 130, 124, 0.06) 60%, transparent 100%)",
+            background: "radial-gradient(circle 700px at var(--grey-x) var(--grey-y), rgba(130, 130, 124, 0.13) 0%, rgba(130, 130, 124, 0.03) 60%, transparent 100%)",
           }}
         />
       </div>
