@@ -575,7 +575,7 @@ function ProfilePhoto() {
 
   return (
     <div
-      className="w-[155px] shrink-0 rounded-[22px] overflow-hidden border bg-[var(--gray-2)] relative group/photo select-none"
+      className="w-[155px] h-[190px] shrink-0 rounded-[22px] overflow-hidden border bg-[var(--gray-2)] relative group/photo select-none"
       style={{
         borderColor: "var(--gray-4)",
         boxShadow: "var(--card-shadow)"
@@ -720,7 +720,7 @@ export default function Portfolio() {
         />
       </div>
       {/* Top section — 50/50 hero */}
-      <header className="mx-auto flex min-h-screen max-w-[1240px] items-center px-6 py-20 md:px-10">
+      <header className="w-full mx-auto flex min-h-screen max-w-[1240px] items-center px-6 py-20 md:px-10">
         <div className="grid w-full items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left: intro */}
           <div className="flex flex-col">
@@ -735,8 +735,8 @@ export default function Portfolio() {
 
               {/* Text Group */}
               <div className="flex flex-col min-w-0">
-                <p className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.2em] text-[var(--gray-10)] [text-wrap:pretty]">{PROFILE.eyebrow}</p>
-                <h1 className="mt-2.5 font-[var(--font-serif)] text-[2.4rem] min-[380px]:text-[2.8rem] sm:text-[4.2rem] lg:text-[4.4rem] font-medium leading-[0.98] tracking-[-0.02em] text-[var(--gray-12)] [text-wrap:balance]">{PROFILE.name}</h1>
+                <p className="font-[var(--font-mono)] text-[9px] sm:text-[11px] uppercase tracking-[0.05em] sm:tracking-[0.2em] text-[var(--gray-10)] break-words whitespace-normal w-full">{PROFILE.eyebrow}</p>
+                <h1 className="mt-2.5 font-[var(--font-serif)] text-[2.2rem] min-[380px]:text-[2.6rem] sm:text-[4.2rem] lg:text-[4.4rem] font-medium leading-[0.98] tracking-[-0.02em] text-[var(--gray-12)] [text-wrap:balance]">{PROFILE.name}</h1>
                 <p className="mt-2.5 font-[var(--font-serif)] text-2xl italic text-[var(--gray-10)]">{PROFILE.role}</p>
               </div>
             </div>
@@ -744,10 +744,10 @@ export default function Portfolio() {
             <div className="mt-8 max-w-md text-[16px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty]">{PROFILE.intro}</div>
 
             {/* Scroll Indicator */}
-            <div className="mt-12 flex items-center gap-3 text-[11px] font-[var(--font-mono)] uppercase tracking-[0.16em] text-[var(--gray-10)] select-none">
-              <span>Scroll for selected work</span>
-              <span className="h-px w-36 bg-[var(--gray-5)]" />
-              <span className="text-[var(--accent)] font-bold text-[13px] translate-y-[-1px]">↓</span>
+            <div className="mt-12 flex items-center gap-3 text-[9.5px] sm:text-[11px] font-[var(--font-mono)] uppercase tracking-[0.05em] sm:tracking-[0.16em] text-[var(--gray-10)] select-none">
+              <span className="whitespace-nowrap">Scroll for selected work</span>
+              <span className="h-px flex-1 sm:flex-none sm:w-36 bg-[var(--gray-5)]" />
+              <span className="text-[var(--accent)] font-bold text-[13px] translate-y-[-1px] shrink-0">↓</span>
             </div>
           </div>
 
@@ -796,11 +796,11 @@ export default function Portfolio() {
       </header>
 
       {/* Projects — alternating floating tiles */}
-      <main className="mx-auto flex max-w-[1240px] flex-col gap-20 px-6 pb-24 md:gap-28 md:px-10">
+      <main className="w-full mx-auto flex max-w-[1240px] flex-col gap-20 px-6 pb-24 md:gap-28 md:px-10">
         {PROJECTS.map((p, idx) => <ProjectTile key={p.index} p={p} reversed={idx % 2 === 1} />)}
       </main>
 
-      <footer className="mx-auto max-w-[1240px] px-6 pb-16 pt-4 md:px-10">
+      <footer className="w-full mx-auto max-w-[1240px] px-6 pb-16 pt-4 md:px-10">
         <div className="flex flex-col items-center gap-3 border-t pt-10 text-center" style={{ borderColor: "var(--gray-4)" }}>
           <p className="font-[var(--font-serif)] text-xl text-[var(--gray-12)]">{PROFILE.name}</p>
           <div className="flex items-center gap-4 mt-2">
