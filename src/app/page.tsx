@@ -32,6 +32,7 @@
  * ──────────────────────────────────────────────────────────────────────── */
 
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 // import Image from "next/image"; // ← swap PlaceholderFrame's <div> for <Image> when ready
 
 /* ── Types ──────────────────────────────────────────────────────────────── */
@@ -206,6 +207,7 @@ function PlaceholderFrame({
 function Carousel({ slides }: { slides: Slide[] }) {
   const [i, setI] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const n = slides.length;
   const go = (d: number) => setI((p) => (p + d + n) % n);
   const hasImages = slides.some((s) => typeof s !== "string" && s.image);
@@ -213,6 +215,10 @@ function Carousel({ slides }: { slides: Slide[] }) {
   const activeSlide = slides[i];
   const activeCaption = typeof activeSlide === "string" ? activeSlide : activeSlide.caption;
   const activeImage = typeof activeSlide === "string" ? undefined : activeSlide.image;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (isExpanded) {
@@ -282,11 +288,11 @@ function Carousel({ slides }: { slides: Slide[] }) {
         </div>
       </div>
 
-      {isExpanded && activeImage && (
+      {isExpanded && activeImage && mounted && createPortal(
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 backdrop-blur-md transition-all duration-300"
           onClick={() => setIsExpanded(false)}>
           <button onClick={() => setIsExpanded(false)} aria-label="Close view"
-            className="absolute right-6 top-6 rounded-full bg-white/10 p-2 text-white/80 transition-colors hover:bg-white/20 hover:text-white">
+            className="absolute right-6 top-6 rounded-full bg-white/10 p-2 text-white/80 transition-colors hover:bg-white/20 hover:text-white cursor-pointer z-50">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
             </svg>
@@ -298,7 +304,8 @@ function Carousel({ slides }: { slides: Slide[] }) {
               <span className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.16em] text-white/90">{activeCaption}</span>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
@@ -383,7 +390,7 @@ function ProjectDescription({ p }: { p: Project }) {
         </div>
       )}
       {p.index === "01" ? (
-        <div className="mt-8 grid grid-cols-3 gap-x-4 gap-y-6 sm:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
+        <div className="mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
           {/* Core Platform */}
           <div className="flex flex-col">
             <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">Core Platform</h4>
@@ -426,7 +433,7 @@ function ProjectDescription({ p }: { p: Project }) {
           </div>
         </div>
       ) : p.index === "02" ? (
-        <div className="mt-8 grid grid-cols-3 gap-x-4 gap-y-6 sm:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
+        <div className="mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
           {/* Phase 1: Ingest */}
           <div className="flex flex-col">
             <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">01 / Ingest</h4>
@@ -450,7 +457,7 @@ function ProjectDescription({ p }: { p: Project }) {
           </div>
         </div>
       ) : p.index === "03" ? (
-        <div className="mt-8 grid grid-cols-3 gap-x-4 gap-y-6 sm:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
+        <div className="mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
           {/* Core Compilers */}
           <div className="flex flex-col">
             <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">Core Compilers</h4>
@@ -490,7 +497,7 @@ function ProjectDescription({ p }: { p: Project }) {
         </div>
       ) : p.index === "04" ? (
         <div className="mt-8 flex flex-col">
-          <div className="grid grid-cols-3 gap-x-4 gap-y-6 sm:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
+          <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
             {/* YTD Count */}
             <div className="flex flex-col">
               <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">YTD Count</h4>
@@ -722,14 +729,14 @@ export default function Portfolio() {
               <span className="whitespace-nowrap font-[var(--font-mono)] text-[11px] uppercase tracking-[0.14em] text-[var(--gray-11)]">{PROFILE.availability}</span>
             </div>
 
-            <div className="mt-8 flex flex-row items-stretch gap-6 md:gap-8">
+            <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-stretch gap-6 md:gap-8">
               {/* Photo Card */}
               <ProfilePhoto />
 
               {/* Text Group */}
               <div className="flex flex-col min-w-0">
-                <p className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.2em] text-[var(--gray-10)]">{PROFILE.eyebrow}</p>
-                <h1 className="mt-2.5 font-[var(--font-serif)] text-[3.4rem] font-medium leading-[0.98] tracking-[-0.02em] text-[var(--gray-12)] sm:text-[4.2rem] lg:text-[4.4rem] [text-wrap:balance]">{PROFILE.name}</h1>
+                <p className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.2em] text-[var(--gray-10)] [text-wrap:pretty]">{PROFILE.eyebrow}</p>
+                <h1 className="mt-2.5 font-[var(--font-serif)] text-[2.4rem] min-[380px]:text-[2.8rem] sm:text-[4.2rem] lg:text-[4.4rem] font-medium leading-[0.98] tracking-[-0.02em] text-[var(--gray-12)] [text-wrap:balance]">{PROFILE.name}</h1>
                 <p className="mt-2.5 font-[var(--font-serif)] text-2xl italic text-[var(--gray-10)]">{PROFILE.role}</p>
               </div>
             </div>
@@ -777,7 +784,7 @@ export default function Portfolio() {
               <p className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-[var(--gray-10)]">More About Me</p>
               <dl className="mt-4 flex flex-col gap-3">
                 {ABOUT.map((row, idx) => (
-                  <div key={idx} className="flex items-baseline gap-4">
+                  <div key={idx} className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
                     <dt className="w-[58px] shrink-0 font-[var(--font-mono)] text-[10px] uppercase tracking-[0.15em] text-[var(--gray-9)]">{row.label}</dt>
                     <dd className="text-[14px] leading-snug text-[var(--gray-11)]">{row.value}</dd>
                   </div>
