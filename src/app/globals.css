@@ -14,6 +14,11 @@
   --float-shadow:0 2px 4px rgba(40,33,28,.04), 0 42px 90px -30px rgba(40,33,28,.18);
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body { 
   background: var(--gray-1); 
   color: var(--gray-12); 

@@ -51,7 +51,11 @@ type AboutRow = { label: string; value: string };
 
 /* ── Content (map your own data here) ─────────────────────────────────────── */
 const PROFILE = {
-  eyebrow: "PRODUCT MANAGER · MEDIOCRE CYCLIST · BUILDING WITH AI",
+  eyebrow: (
+    <span>
+      PRODUCT MANAGER · MEDIOCRE CYCLIST ·<br className="sm:hidden" /> BUILDING WITH AI
+    </span>
+  ),
   name: "Michael Hoefert",
   role: "My Personal Portfolio!",
   intro: (
@@ -260,7 +264,7 @@ function Carousel({ slides }: { slides: Slide[] }) {
           <span className="font-[var(--font-mono)] text-[11px] tracking-[0.12em] text-[var(--gray-10)]">
             {String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
           </span>
-          <div className="flex items-center gap-1.5">
+          <div className="hidden sm:flex items-center gap-1.5">
             {slides.map((_, idx) => (
               <button key={idx} aria-label={`View frame ${idx + 1}`} onClick={() => setI(idx)}
                 className="h-1.5 rounded-full transition-all duration-300"
@@ -321,10 +325,10 @@ function ProjectDescription({ p }: { p: Project }) {
 
   return (
     <div className="flex flex-col">
-      <div className="flex items-center gap-3">
-        <span className="font-[var(--font-mono)] text-[13px] text-[var(--accent-strong)]">{p.index}</span>
-        <span className="h-px w-6" style={{ background: "var(--gray-6)" }} />
-        <span className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-[var(--gray-10)]">{p.tag}</span>
+      <div className="flex items-center gap-3 w-full min-w-0">
+        <span className="font-[var(--font-mono)] text-[13px] text-[var(--accent-strong)] shrink-0">{p.index}</span>
+        <span className="h-px w-6 shrink-0" style={{ background: "var(--gray-6)" }} />
+        <span className="font-[var(--font-mono)] text-[10px] sm:text-[11px] uppercase tracking-[0.08em] sm:tracking-[0.16em] text-[var(--gray-10)] break-words whitespace-normal flex-1 min-w-0">{p.tag}</span>
       </div>
       <h3 className="mt-5 font-[var(--font-serif)] text-4xl leading-[1.04] tracking-[-0.01em] text-[var(--gray-12)] md:text-[2.7rem]">{p.title}</h3>
       {p.index === "01" && (
@@ -547,9 +551,9 @@ function ProjectTile({ p, reversed }: { p: Project; reversed: boolean }) {
     <section id={`project-${p.index}`} className="scroll-mt-28">
       <article className="rounded-[var(--card-radius)] border bg-white p-6 sm:p-8 lg:p-12"
         style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)" }}>
-        <div className="grid items-center gap-9 lg:grid-cols-2 lg:gap-16">
-          <div className={reversed ? "lg:order-2" : "lg:order-1"}><Carousel slides={p.slides} /></div>
-          <div className={reversed ? "lg:order-1" : "lg:order-2"}><ProjectDescription p={p} /></div>
+        <div className="grid items-center gap-9 lg:grid-cols-2 lg:gap-16 w-full min-w-0">
+          <div className={`${reversed ? "lg:order-2" : "lg:order-1"} w-full min-w-0`}><Carousel slides={p.slides} /></div>
+          <div className={`${reversed ? "lg:order-1" : "lg:order-2"} w-full min-w-0`}><ProjectDescription p={p} /></div>
         </div>
       </article>
     </section>
@@ -677,7 +681,7 @@ export default function Portfolio() {
   }, []);
 
   return (
-    <div className="relative z-[1] min-h-screen">
+    <div className="relative z-[1] min-h-screen w-full overflow-x-hidden">
       {/* Dynamic Wandering Background */}
       <div
         ref={backgroundRef}
@@ -721,23 +725,23 @@ export default function Portfolio() {
       </div>
       {/* Top section — 50/50 hero */}
       <header className="w-full mx-auto flex min-h-screen max-w-[1240px] items-center px-6 py-20 md:px-10">
-        <div className="grid w-full items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid w-full items-center gap-12 lg:grid-cols-2 lg:gap-16 min-w-0">
           {/* Left: intro */}
-          <div className="flex flex-col">
+          <div className="flex flex-col w-full min-w-0">
             <div className="inline-flex items-center gap-2 self-start rounded-full border bg-white px-3 py-1.5 shadow-sm" style={{ borderColor: "var(--gray-4)" }}>
               <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
               <span className="whitespace-nowrap font-[var(--font-mono)] text-[11px] uppercase tracking-[0.14em] text-[var(--gray-11)]">{PROFILE.availability}</span>
             </div>
 
-            <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-stretch gap-6 md:gap-8">
+            <div className="mt-8 flex flex-row items-center sm:items-stretch gap-4 sm:gap-6 md:gap-8">
               {/* Photo Card */}
               <ProfilePhoto />
 
               {/* Text Group */}
               <div className="flex flex-col min-w-0">
-                <p className="font-[var(--font-mono)] text-[9px] sm:text-[11px] uppercase tracking-[0.05em] sm:tracking-[0.2em] text-[var(--gray-10)] break-words whitespace-normal w-full">{PROFILE.eyebrow}</p>
-                <h1 className="mt-2.5 font-[var(--font-serif)] text-[2.2rem] min-[380px]:text-[2.6rem] sm:text-[4.2rem] lg:text-[4.4rem] font-medium leading-[0.98] tracking-[-0.02em] text-[var(--gray-12)] [text-wrap:balance]">{PROFILE.name}</h1>
-                <p className="mt-2.5 font-[var(--font-serif)] text-2xl italic text-[var(--gray-10)]">{PROFILE.role}</p>
+                <p className="font-[var(--font-mono)] text-[8px] sm:text-[11px] uppercase tracking-[0.05em] sm:tracking-[0.2em] text-[var(--gray-10)] break-words whitespace-normal w-full leading-relaxed">{PROFILE.eyebrow}</p>
+                <h1 className="mt-1.5 font-[var(--font-serif)] text-[2.4rem] min-[380px]:text-[2.8rem] sm:text-[4.2rem] lg:text-[4.4rem] font-medium leading-[0.95] sm:leading-[0.98] tracking-[-0.02em] text-[var(--gray-12)] [text-wrap:balance]">{PROFILE.name}</h1>
+                <p className="mt-1.5 font-[var(--font-serif)] text-xl sm:text-2xl italic text-[var(--gray-10)] leading-none">{PROFILE.role}</p>
               </div>
             </div>
 
@@ -752,7 +756,7 @@ export default function Portfolio() {
           </div>
 
           {/* Right: floating contents card + more about me */}
-          <aside className="rounded-[var(--card-radius)] border bg-white p-7 sm:p-9" style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)" }}>
+          <aside className="rounded-[var(--card-radius)] border bg-white p-7 sm:p-9 w-full min-w-0" style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)" }}>
             <div className="flex items-baseline justify-between">
               <h2 className="whitespace-nowrap font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--gray-11)]">Selected Work</h2>
               <span className="font-[var(--font-mono)] text-[12px] text-[var(--gray-9)]">({String(PROJECTS.length).padStart(2, "0")})</span>
