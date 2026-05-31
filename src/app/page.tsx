@@ -599,15 +599,15 @@ function ProfilePhoto() {
       </div>
 
       {/* Subtle overlay gradient to make arrows highly legible */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/25 opacity-0 group-hover/photo:opacity-100 transition-opacity duration-300 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/25 opacity-100 md:opacity-0 md:group-hover/photo:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
       {/* In-frame Left Arrow */}
       <button
         onClick={prev}
         aria-label="Previous photo"
-        className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-[var(--gray-12)] hover:text-[var(--accent-strong)] flex items-center justify-center shadow-md transition-all duration-300 opacity-0 group-hover/photo:opacity-100 translate-x-[-4px] group-hover/photo:translate-x-0 cursor-pointer border border-[var(--gray-3)] z-10"
+        className="absolute left-2.5 bottom-2.5 w-6 h-6 rounded-full bg-black/25 hover:bg-black/45 text-white/90 flex items-center justify-center shadow-sm transition-all duration-300 opacity-100 md:opacity-0 md:group-hover/photo:opacity-100 cursor-pointer border border-white/10 z-10"
       >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
       </button>
@@ -616,15 +616,15 @@ function ProfilePhoto() {
       <button
         onClick={next}
         aria-label="Next photo"
-        className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-[var(--gray-12)] hover:text-[var(--accent-strong)] flex items-center justify-center shadow-md transition-all duration-300 opacity-0 group-hover/photo:opacity-100 translate-x-[4px] group-hover/photo:translate-x-0 cursor-pointer border border-[var(--gray-3)] z-10"
+        className="absolute right-2.5 bottom-2.5 w-6 h-6 rounded-full bg-black/25 hover:bg-black/45 text-white/90 flex items-center justify-center shadow-sm transition-all duration-300 opacity-100 md:opacity-0 md:group-hover/photo:opacity-100 cursor-pointer border border-white/10 z-10"
       >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
       </button>
 
       {/* Indicator dots at the bottom */}
-      <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex gap-1 px-1.5 py-0.5 rounded-full bg-black/30 backdrop-blur-xs opacity-0 group-hover/photo:opacity-100 transition-opacity duration-300 select-none z-10">
+      <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex gap-1 px-1.5 py-0.5 rounded-full bg-black/30 backdrop-blur-xs opacity-100 md:opacity-0 md:group-hover/photo:opacity-100 transition-opacity duration-300 select-none z-10">
         {photos.map((_, i) => (
           <span
             key={i}
