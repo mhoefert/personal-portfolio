@@ -57,7 +57,6 @@ const PROFILE = {
     </span>
   ),
   name: "Michael Hoefert",
-  role: "My Personal Portfolio!",
   intro: (
     <div className="flex flex-col gap-4">
       <p>
@@ -72,7 +71,7 @@ const PROFILE = {
 };
 
 const ABOUT: AboutRow[] = [
-  { label: "FOCUS", value: "Playing around with new tools, building things, and getting as fast as possible on my bike" },
+  { label: "FOCUS", value: "Playing around with new tools, building things, and getting as fast as possible on my bike." },
   { label: "APPROACH", value: "Build things that solve actual problems. I start with design partners (myself with these solo projects) to scope the problem and then use systems thinking to ensure the architecture is efficient." },
   { label: "LATELY", value: "Having so much fun with building Second Brain systems to codify knowledge and ways of working to actually change and improve my workflows. And a ton of cycling because I love it." },
   { label: "SAY HI!", value: "mhoefert1@gmail.com" },
@@ -741,7 +740,6 @@ export default function Portfolio() {
               <div className="flex flex-col min-w-0">
                 <p className="font-[var(--font-mono)] text-[8px] sm:text-[11px] uppercase tracking-[0.05em] sm:tracking-[0.2em] text-[var(--gray-10)] break-words whitespace-normal w-full leading-relaxed">{PROFILE.eyebrow}</p>
                 <h1 className="mt-1.5 font-[var(--font-serif)] text-[2.4rem] min-[380px]:text-[2.8rem] sm:text-[4.2rem] lg:text-[4.4rem] font-medium leading-[0.95] sm:leading-[0.98] tracking-[-0.02em] text-[var(--gray-12)] [text-wrap:balance]">{PROFILE.name}</h1>
-                <p className="mt-1.5 font-[var(--font-serif)] text-xl sm:text-2xl italic text-[var(--gray-10)] leading-none">{PROFILE.role}</p>
               </div>
             </div>
 
@@ -758,7 +756,7 @@ export default function Portfolio() {
           {/* Right: floating contents card + more about me */}
           <aside className="rounded-[var(--card-radius)] border bg-white p-7 sm:p-9 w-full min-w-0" style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)" }}>
             <div className="flex items-baseline justify-between">
-              <h2 className="whitespace-nowrap font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--gray-11)]">Selected Work</h2>
+              <h2 className="whitespace-nowrap font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--gray-11)]">Selected Projects</h2>
               <span className="font-[var(--font-mono)] text-[12px] text-[var(--gray-9)]">({String(PROJECTS.length).padStart(2, "0")})</span>
             </div>
             <ul className="mt-5">
