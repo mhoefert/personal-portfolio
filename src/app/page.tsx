@@ -144,20 +144,23 @@ const PROJECTS: Project[] = [
   },
   {
     index: "04",
-    title: "Claude the Cycling Coach",
-    subtitle: "Live Dashboards & Professional Coaching",
-    tag: "PERSONAL AI · ENDURANCE PERFORMANCE",
+    title: "Antigravity Cycling Coach",
+    subtitle: "Live Dashboards & Professional AI Coaching",
+    tag: "04 — PERSONAL AI · ENDURANCE PERFORMANCE",
     summary:
-      "A self-updating training intelligence system wired directly to Strava reading every session I log and turns it into actual coaching. It includes per-second power streams, zone compliance, and aerobic decoupling to generate structured coaching, progressive periodization blocks, and PPL-integrated fatigue management. Refreshed nightly via a scheduled Claude digest.",
+      "An elite-level training intelligence engine built on Next.js that processes raw sensor streams (power, heart rate, cadence) directly from the Strava API. The system performs advanced mathematical modeling, including cardiac drift (aerobic decoupling), Normalized Power (NP), and a dynamic CTL/ATL fatigue decay model, to compute performance metrics far beyond Strava's out-of-the-box analytics.\nUsing daily scheduled workflows (GitHub Actions scripts and Antigravity agentic scheduled tasks), an autonomous Antigravity AI Agent processes these metrics along with my subjective training feedback in Airtable to self-correct, adapt training plans, and write morning coaching digests.\n\nBuilt as a fully custom, self-improving training engine, the real complexity lives in the automated closed feedback loop. Raw data is server-side rendered directly from Airtable, ensuring the dashboard is always hydrated with live metrics. Every activity logged on Strava triggers a scheduled GitHub Actions workflow that streams raw sensor data into our Python math engine. Here, we run decay calculations to track CTL (Fitness), ATL (Fatigue), and TSB (Form), along with cardiac drift (Pa:HR) metrics to flag aerobic decoupling. Every morning, an autonomous Antigravity AI Agent runs an analysis on the updated metrics, cross-references my subjective recovery notes and IT-band pain logs in Airtable, and writes back detailed coaching narratives. These narratives actively shape future workout intensities, closing the loop from raw biometrics to physical adaptations.",
     metrics: [
-      { v: "93 rides + 50 lifts", l: "actual YTD count (70 real outdoor rides + 23 Zwift sessions)" },
-      { v: "240+ hours", l: "calculated volume (Farewell Ride to The Hague: 15.5h)" },
-      { v: "350 watts", l: "One target. 8 protocols. Zero guesswork." },
+      { v: "112 rides + 56 lifts", l: "RAW STRAVA FILES CONSUMED VIA PYTHON API PIPELINE" },
+      { v: "280+ hours", l: "SERVER-SIDE RETRIEVED FROM LIVE AIRTABLE INGESTION ENGINE" },
+      { v: "350 watts", l: "FTP TARGET. 8 COGGAN POWER ZONES. ZERO GUESSWORK." },
     ],
     slides: [
-      { caption: "ytd riding statistics dashboard", image: "/strava-1.png" },
-      { caption: "individual ride analysis", image: "/strava-2.png" },
-      { caption: "HR to Power decoupling analysis", image: "/strava-3.png" },
+      { caption: "Cycling Coach Dashboard", image: "/strava-1.png" },
+      { caption: "Cycling Coach Dashboard", image: "/strava-2.png" },
+      { caption: "Cycling Coach Dashboard", image: "/strava-3.png" },
+      { caption: "Cycling Coach Dashboard", image: "/strava-4.png" },
+      { caption: "individual ride analysis", image: "/strava-5.png" },
+      { caption: "HR to Power decoupling analysis", image: "/strava-6.png" },
     ],
   },
 ];
@@ -317,6 +320,7 @@ function Carousel({ slides }: { slides: Slide[] }) {
 /* ── Components ───────────────────────────────────────────────────────────── */
 function ProjectDescription({ p }: { p: Project }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isStatsExpanded, setIsStatsExpanded] = useState(false);
   const paragraphs = p.summary.split("\n\n");
   const firstParagraph = paragraphs[0];
   const remainingParagraphs = paragraphs.slice(1);
@@ -348,9 +352,13 @@ function ProjectDescription({ p }: { p: Project }) {
       <p className="mt-2 font-[var(--font-serif)] text-xl italic text-[var(--gray-10)]">{p.subtitle}</p>
 
       {/* First Paragraph */}
-      <p className="mt-5 max-w-md text-[15px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty]">
-        {firstParagraph}
-      </p>
+      <div className="mt-5 max-w-md text-[15px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty]">
+        {firstParagraph.split("\n").map((line, idx) => (
+          <p key={idx} className={idx > 0 ? "mt-3" : ""}>
+            {line}
+          </p>
+        ))}
+      </div>
 
       {/* Expandable Section */}
       {hasMore && (
@@ -359,20 +367,27 @@ function ProjectDescription({ p }: { p: Project }) {
             onClick={() => setIsExpanded(!isExpanded)}
             className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.12em] text-[var(--accent)] hover:text-[var(--accent-strong)] transition-colors inline-flex items-center gap-1.5 focus:outline-none"
           >
-            <span>{isExpanded ? "Collapse details" : "Expand for more details..."}</span>
-            <svg
-              className={`transform transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
-              width="10"
-              height="10"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={3}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
+            <span>
+              {p.index === "04"
+                ? (isExpanded ? "COLLAPSE DETAILS ^" : "EXPAND FOR TECHNICAL DETAILS... v")
+                : (isExpanded ? "Collapse details" : "Expand for more details...")
+              }
+            </span>
+            {p.index !== "04" && (
+              <svg
+                className={`transform transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={3}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            )}
           </button>
 
           <div
@@ -500,35 +515,95 @@ function ProjectDescription({ p }: { p: Project }) {
         </div>
       ) : p.index === "04" ? (
         <div className="mt-8 flex flex-col">
+          {/* Tech Stack Grid */}
           <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
-            {/* YTD Count */}
+            {/* Core Platform */}
             <div className="flex flex-col">
-              <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">YTD Count</h4>
+              <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">Core Platform</h4>
               <div className="mt-4 flex flex-col gap-0.5">
-                <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">93 rides + 50 lifts</span>
-                <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">70 real outdoor rides + 23 Zwift sessions</span>
+                <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">Next.js 16</span>
+                <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">SSR APP ROUTER & VERCEL</span>
+              </div>
+              <div className="mt-4 flex flex-col gap-0.5">
+                <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">Airtable API</span>
+                <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">LIVE DATA REVALIDATION</span>
               </div>
             </div>
-            {/* Total Volume */}
+            {/* Data & Biometrics */}
             <div className="flex flex-col">
-              <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">Total Volume</h4>
+              <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">Data & Biometrics</h4>
               <div className="mt-4 flex flex-col gap-0.5">
-                <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">240+ hours</span>
-                <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">Calculated from full activity list (incl. 15.5h Farewell to The Hague)</span>
+                <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">Strava API</span>
+                <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">RAW STREAM INGESTION</span>
+              </div>
+              <div className="mt-4 flex flex-col gap-0.5">
+                <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">Python Engine</span>
+                <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">NP, TSS, CARDIAC DRIFT, & CTL/ATL/TSB</span>
               </div>
             </div>
-            {/* Training Target */}
+            {/* Agentic AI & Crons */}
             <div className="flex flex-col">
-              <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">Training Target</h4>
+              <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">Agentic AI & Crons</h4>
               <div className="mt-4 flex flex-col gap-0.5">
-                <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">350 watts</span>
-                <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">One target. 8 protocols. Zero guesswork.</span>
+                <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">Antigravity SDK</span>
+                <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">MORNING COACHING NARRATIVES</span>
+              </div>
+              <div className="mt-4 flex flex-col gap-0.5">
+                <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">GitHub Actions</span>
+                <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">DAILY/WEEKLY SCHEDULED WORKFLOWS</span>
               </div>
             </div>
           </div>
-          <div className="mt-6 flex items-center gap-1.5 font-[var(--font-serif)] text-[12.5px] italic text-[var(--accent)] font-medium">
-            <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] pulse-dot" />
-            Updated with Live Strava Data: May 30
+
+          {/* Collapsible Stats section */}
+          <div className="mt-8 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
+            <button
+              onClick={() => setIsStatsExpanded(!isStatsExpanded)}
+              className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.12em] text-[var(--accent)] hover:text-[var(--accent-strong)] transition-colors inline-flex items-center gap-1.5 focus:outline-none"
+            >
+              <span>
+                {isStatsExpanded ? "COLLAPSE PERFORMANCE STATS ^" : "EXPAND PERFORMANCE STATS... v"}
+              </span>
+            </button>
+
+            <div
+              className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${
+                isStatsExpanded ? "max-h-[450px] mt-6 opacity-100" : "max-h-0 opacity-0 pointer-events-none"
+              }`}
+            >
+              <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10">
+                {/* YTD Activity Log */}
+                <div className="flex flex-col">
+                  <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">YTD ACTIVITY LOG</h4>
+                  <div className="mt-4 flex flex-col gap-0.5">
+                    <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">112 rides + 56 lifts</span>
+                    <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">RAW STRAVA FILES CONSUMED VIA PYTHON API PIPELINE</span>
+                  </div>
+                </div>
+                {/* Data Pipeline */}
+                <div className="flex flex-col">
+                  <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">DATA PIPELINE</h4>
+                  <div className="mt-4 flex flex-col gap-0.5">
+                    <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">280+ hours</span>
+                    <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">SERVER-SIDE RETRIEVED FROM LIVE AIRTABLE INGESTION ENGINE</span>
+                  </div>
+                </div>
+                {/* Training Target */}
+                <div className="flex flex-col">
+                  <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">TRAINING TARGET</h4>
+                  <div className="mt-4 flex flex-col gap-0.5">
+                    <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">350 watts</span>
+                    <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">FTP TARGET. 8 COGGAN POWER ZONES. ZERO GUESSWORK.</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Status indicator inside stats collapsible container */}
+              <div className="mt-6 flex items-center gap-1.5 font-[var(--font-serif)] text-[12.5px] italic text-[var(--accent)] font-medium">
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] pulse-dot" />
+                Updated live with Strava & Airtable: June 4
+              </div>
+            </div>
           </div>
         </div>
       ) : (
