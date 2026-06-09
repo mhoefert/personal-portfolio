@@ -163,6 +163,24 @@ const PROJECTS: Project[] = [
       { caption: "HR to Power decoupling analysis", image: "/strava-6.png" },
     ],
   },
+  {
+    index: "05",
+    title: "Developer-PM GitHub Engine",
+    subtitle: "CI/CD Pipelines & Deterministic API Ingestion",
+    tag: "CI/CD & AUTOMATION · DEVELOPER PM",
+    summary:
+      "I believe the most effective way to lead product is to build. By rolling up my sleeves to write code and experiment with technologies, I gain the technical context needed to engage far more effectively with engineering teams and clearly translate complex system capabilities to our customers. To keep my technical skills sharp I have built a full stack product and also automated my own daily workflows (some of the most fun I've had!) through a production-grade infrastructure on GitHub. Using GitHub I can manage all my deployments to production for my full stack sales product and my personal website, automate personal biometrics with Strava API scripts, and handle pipeline crons, acting as a personal proving ground for building my technical skills.\n\nThe core of this setup is designed around architectural reliability and efficiency. There is so much I want to speak about here with my GitHub but one of the most fascinating learnings I had recently was while exploring agentic systems, I found that relying on Model Context Protocol (MCP) servers and LLMs to query live third-party databases was highly token-inefficient and prone to latency or formatting issues. To solve this, I designed a pipeline of scheduled Python scripts that fetch data deterministically via direct APIs, storing clean datasets before any AI models are invoked. Every morning, three separate GitHub Actions workflows spin up: two prepare daily intelligence briefings for my day, and one runs a weekly analysis to structure my Sunday reviews (I also built 10+ other scripts for other data ingestion tasks like syncing my complete tasks from my task tracker app - I won't get into them all here). By building this deterministic data layer, I can leverage LLMs and custom knowledge skills on structured, predictable outputs, showing firsthand how a PM's architecture choices dictate both product utility and operational margins.",
+    metrics: [
+      { v: "278 commits", l: "YEARLY CONTRIBUTIONS" },
+      { v: "4 active repos", l: "SYSTEM REPOSITORIES" },
+      { v: "3 crons", l: "SCHEDULED ACTIONS" },
+    ],
+    slides: [
+      { caption: "my github commit metrics snapshot", image: "/github-1.png" },
+      { caption: "my active repos", image: "/github-2.png" },
+      { caption: "github actions automated crons", image: "/github-3.png" },
+    ],
+  },
 ];
 
 /* ── Primitives ───────────────────────────────────────────────────────────── */
@@ -567,9 +585,8 @@ function ProjectDescription({ p }: { p: Project }) {
             </button>
 
             <div
-              className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${
-                isStatsExpanded ? "max-h-[450px] mt-6 opacity-100" : "max-h-0 opacity-0 pointer-events-none"
-              }`}
+              className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${isStatsExpanded ? "max-h-[450px] mt-6 opacity-100" : "max-h-0 opacity-0 pointer-events-none"
+                }`}
             >
               <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10">
                 {/* YTD Activity Log */}
@@ -604,6 +621,37 @@ function ProjectDescription({ p }: { p: Project }) {
                 Updated live with Strava & Airtable: June 4
               </div>
             </div>
+          </div>
+        </div>
+      ) : p.index === "05" ? (
+        <div className="mt-8 flex flex-col">
+          <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
+            {/* Column 1: Contributions */}
+            <div className="flex flex-col">
+              <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">01 / Contributions</h4>
+              <p className="mt-3.5 font-[var(--font-sans)] text-[13.5px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty]">
+                278 commits across all development repositories in the last year
+              </p>
+            </div>
+            {/* Column 2: Repositories */}
+            <div className="flex flex-col">
+              <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">02 / Repositories</h4>
+              <p className="mt-3.5 font-[var(--font-sans)] text-[13.5px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty]">
+                4 active repos: Playi product, website portfolio, Life OS, & second brains
+              </p>
+            </div>
+            {/* Column 3: Actions */}
+            <div className="flex flex-col">
+              <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">03 / Actions</h4>
+              <p className="mt-3.5 font-[var(--font-sans)] text-[13.5px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty]">
+                3 scheduled crons (2 daily morning scripts + 1 weekly review tracker)
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 flex items-center gap-1.5 font-[var(--font-serif)] text-[12.5px] italic text-[var(--accent)] font-medium">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] pulse-dot" />
+            Updated via GitHub API: June 9
           </div>
         </div>
       ) : (
