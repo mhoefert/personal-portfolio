@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Newsreader, Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 const serif = Newsreader({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased">
       <body className={`${serif.variable} ${sans.variable} ${mono.variable} min-h-full flex flex-col`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
