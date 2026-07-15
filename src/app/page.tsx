@@ -146,7 +146,7 @@ const PROJECTS: Project[] = [
     subtitle: "Self-Learning Application Compiler & Vault",
     tag: "AGENTIC SYSTEMS · MULTI-AGENT SYNTHESIS",
     summary:
-      "A compounding, self-learning application engine that orchestrates a 6-agent resume pipeline and a 5-agent Q&A essay compiler. The system ingests target job descriptions to map core competencies, runs a dynamic advocate-critic positioning loop that pre-vets all resume and Q&A drafts against a corporate jargon veto list, and runs a cold factual audit before exporting perfectly styled, single-page print assets.",
+      "A compounding, self-learning application engine that orchestrates a 6-agent resume pipeline and a 5-agent Q&A essay compiler. This DIY Obsidian and Codex system inspired the Joey build. This DIY system ingests target job descriptions to map core competencies, runs a dynamic advocate-critic positioning loop that pre-vets all resume and Q&A drafts against a corporate jargon veto list, and runs a cold factual audit before exporting perfectly styled, single-page print assets.",
     metrics: [
       { v: "60%", l: "recurring work automated" },
       { v: "~11h", l: "reclaimed / week" },
