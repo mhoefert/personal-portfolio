@@ -80,6 +80,23 @@ const ABOUT: AboutRow[] = [
 const PROJECTS: Project[] = [
   {
     index: "01",
+    title: "Joey",
+    subtitle: "AI Career Engine Coach",
+    tag: "AGENTIC SYSTEMS · CAREER VAULT",
+    summary:
+      "In today's job market, you need a custom-tailored resume just to even have a chance. I kept hearing the same pain from so many friends that relying on AI chatbots, or even something like Claude Cowork, just doesn't cut it. They don't learn your language, they don't get better over time, and they constantly hallucinate. Friends were spending more time babysitting the AI and editing its lies than if they had just written it themselves.\nTo fix this, I built Joey. A self-learning AI career engine that orchestrates a 7-agent adversarial LangGraph pipeline to generate hyper-tailored resumes without hallucinations, powered by a compounding memory system that adapts to your unique writing style over time.\n\nInstead of relying on a single AI prompt, I have challenger and defender agents literally debating each other to fact-check claims and kill hallucinations before you ever see the output. I also integrated LangSmith so we can actually understand and measure agent performance. To keep the AI from hallucinating logic, I built a Shared Tool Registry—the agents are bound to deterministic Python scripts they can call to scrape job descriptions with Firecrawl, execute exact KNN vector searches against a Postgres database, and securely decrypt PII during document export.\n\nBut the coolest part is the Compounding Memory System. In the background, Joey's memory agents analyze your edits and feedback to build specific writing 'skills' tailored to different job titles, company sizes, and industries (e.g., a Staff PM at a Growth-Stage FinTech). When you apply for a job that fits those criteria, the system's writing agents automatically retrieve and use those exact skills via a HyDE (Hypothetical Document Embeddings) RAG model. These skills are constantly refined every time you provide feedback or make an edit, meaning Joey learns your unique voice over time. The product uses some of the best agentic memory practices so that you aren't constantly context seeding. Coupled with a 'Labor Illusion' UI that shows you the agents' thought processes in real-time, it's an engine built from the ground up to actually learn your career narrative and never lie.",
+    metrics: [],
+    slides: [
+      { caption: "7-agent Adversarial Pipeline [Part 1]", image: "/joey-1.png" },
+      { caption: "7-agent Adversarial Pipeline [Part 2]", image: "/joey-2.png" },
+      { caption: "Compounding Memory Architecture", image: "/joey-3.png" },
+      { caption: "Google Stitch Design Artifacts", image: "/joey-4.png" },
+      { caption: "Joey Design Theme & Design.md Artifact", image: "/joey-5.png" },
+      { caption: "Information Architecture Planning", image: "/joey-6.png" },
+    ],
+  },
+  {
+    index: "02",
     title: "Playi",
     subtitle: "B2B Adaptive Sales Playbook",
     tag: "SALES ENABLEMENT · 0 to 1",
@@ -103,7 +120,7 @@ const PROJECTS: Project[] = [
     ],
   },
   {
-    index: "02",
+    index: "03",
     title: "AI Intelligence Second Brain",
     subtitle: "Compounding LLM Wiki",
     tag: "KNOWLEDGE GRAPHS — MARKDOWN & AGENTS",
@@ -124,7 +141,7 @@ const PROJECTS: Project[] = [
     ],
   },
   {
-    index: "03",
+    index: "04",
     title: "Career Expansion Second Brain",
     subtitle: "Self-Learning Application Compiler & Vault",
     tag: "AGENTIC SYSTEMS · MULTI-AGENT SYNTHESIS",
@@ -143,10 +160,10 @@ const PROJECTS: Project[] = [
     ],
   },
   {
-    index: "04",
+    index: "05",
     title: "Antigravity Cycling Coach",
     subtitle: "Live Dashboards & Professional AI Coaching",
-    tag: "04 — PERSONAL AI · ENDURANCE PERFORMANCE",
+    tag: "05 — PERSONAL AI · ENDURANCE PERFORMANCE",
     summary:
       "An elite-level training intelligence engine built on Next.js that processes raw sensor streams (power, heart rate, cadence) directly from the Strava API. The system performs advanced mathematical modeling, including cardiac drift (aerobic decoupling), Normalized Power (NP), and a dynamic CTL/ATL fatigue decay model, to compute performance metrics far beyond Strava's out-of-the-box analytics.\nUsing daily scheduled workflows (GitHub Actions scripts and Antigravity agentic scheduled tasks), an autonomous Antigravity AI Agent processes these metrics along with my subjective training feedback in Airtable to self-correct, adapt training plans, and write morning coaching digests.\n\nBuilt as a fully custom, self-improving training engine, the real complexity lives in the automated closed feedback loop. Raw data is server-side rendered directly from Airtable, ensuring the dashboard is always hydrated with live metrics. Every activity logged on Strava triggers a scheduled GitHub Actions workflow that streams raw sensor data into our Python math engine. Here, we run decay calculations to track CTL (Fitness), ATL (Fatigue), and TSB (Form), along with cardiac drift (Pa:HR) metrics to flag aerobic decoupling. Every morning, an autonomous Antigravity AI Agent runs an analysis on the updated metrics, cross-references my subjective recovery notes and IT-band pain logs in Airtable, and writes back detailed coaching narratives. These narratives actively shape future workout intensities, closing the loop from raw biometrics to physical adaptations.",
     metrics: [
@@ -164,7 +181,7 @@ const PROJECTS: Project[] = [
     ],
   },
   {
-    index: "05",
+    index: "06",
     title: "Developer-PM GitHub Engine",
     subtitle: "CI/CD Pipelines & Deterministic API Ingestion",
     tag: "CI/CD & AUTOMATION · DEVELOPER PM",
@@ -352,7 +369,7 @@ function ProjectDescription({ p }: { p: Project }) {
         <span className="font-[var(--font-mono)] text-[10px] sm:text-[11px] uppercase tracking-[0.08em] sm:tracking-[0.16em] text-[var(--gray-10)] break-words whitespace-normal flex-1 min-w-0">{p.tag}</span>
       </div>
       <h3 className="mt-5 font-[var(--font-serif)] text-4xl leading-[1.04] tracking-[-0.01em] text-[var(--gray-12)] md:text-[2.7rem]">{p.title}</h3>
-      {p.index === "01" && (
+      {p.index === "02" && (
         <div className="mt-1">
           <a
             href="https://playihq.com"
@@ -386,12 +403,12 @@ function ProjectDescription({ p }: { p: Project }) {
             className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.12em] text-[var(--accent)] hover:text-[var(--accent-strong)] transition-colors inline-flex items-center gap-1.5 focus:outline-none"
           >
             <span>
-              {p.index === "04"
+              {p.index === "05"
                 ? (isExpanded ? "COLLAPSE DETAILS ^" : "EXPAND FOR TECHNICAL DETAILS... v")
                 : (isExpanded ? "Collapse details" : "Expand for more details...")
               }
             </span>
-            {p.index !== "04" && (
+            {p.index !== "05" && (
               <svg
                 className={`transform transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
                 width="10"
@@ -426,6 +443,45 @@ function ProjectDescription({ p }: { p: Project }) {
         </div>
       )}
       {p.index === "01" ? (
+        <div className="mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
+          {/* Multi-Agent Orchestration */}
+          <div className="flex flex-col">
+            <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">Multi-Agent Orchestration</h4>
+            <div className="mt-4 flex flex-col gap-0.5">
+              <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">7-Agent Adversarial Pipeline</span>
+              <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">LangGraph Debate Engine</span>
+            </div>
+            <div className="mt-4 flex flex-col gap-0.5">
+              <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">Agentic Observability</span>
+              <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">LangSmith Reasoning Measurement</span>
+            </div>
+          </div>
+          {/* Compounding Memory System */}
+          <div className="flex flex-col">
+            <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">Compounding Memory System</h4>
+            <div className="mt-4 flex flex-col gap-0.5">
+              <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">HyDE RAG Retrieval</span>
+              <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">Contextual Search via pgvector</span>
+            </div>
+            <div className="mt-4 flex flex-col gap-0.5">
+              <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">Dynamic Baseline Profiles</span>
+              <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">Background Learning & Refinement</span>
+            </div>
+          </div>
+          {/* The User Experience */}
+          <div className="flex flex-col">
+            <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">The User Experience</h4>
+            <div className="mt-4 flex flex-col gap-0.5">
+              <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">Labor Illusion UI</span>
+              <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">Supabase Realtime Transparency</span>
+            </div>
+            <div className="mt-4 flex flex-col gap-0.5">
+              <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">Shared Tool Registry</span>
+              <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">Deterministic Script Calling</span>
+            </div>
+          </div>
+        </div>
+      ) : p.index === "02" ? (
         <div className="mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
           {/* Core Platform */}
           <div className="flex flex-col">
@@ -468,7 +524,7 @@ function ProjectDescription({ p }: { p: Project }) {
             </div>
           </div>
         </div>
-      ) : p.index === "02" ? (
+      ) : p.index === "03" ? (
         <div className="mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
           {/* Phase 1: Ingest */}
           <div className="flex flex-col">
@@ -492,7 +548,7 @@ function ProjectDescription({ p }: { p: Project }) {
             </p>
           </div>
         </div>
-      ) : p.index === "03" ? (
+      ) : p.index === "04" ? (
         <div className="mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
           {/* Core Compilers */}
           <div className="flex flex-col">
@@ -531,7 +587,7 @@ function ProjectDescription({ p }: { p: Project }) {
             </div>
           </div>
         </div>
-      ) : p.index === "04" ? (
+      ) : p.index === "05" ? (
         <div className="mt-8 flex flex-col">
           {/* Tech Stack Grid */}
           <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
@@ -623,7 +679,7 @@ function ProjectDescription({ p }: { p: Project }) {
             </div>
           </div>
         </div>
-      ) : p.index === "05" ? (
+      ) : p.index === "06" ? (
         <div className="mt-8 flex flex-col">
           <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
             {/* Column 1: Contributions */}
