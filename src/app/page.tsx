@@ -87,12 +87,17 @@ const PROJECTS: Project[] = [
       "In today's job market, you need a custom-tailored resume just to even have a chance. I kept hearing the same pain from so many friends that relying on AI chatbots, or even something like Claude Cowork, just doesn't cut it. They don't learn your language, they don't get better over time, and they constantly hallucinate. Friends were spending more time babysitting the AI and editing its lies than if they had just written it themselves.\nTo fix this, I built Joey. A self-learning AI career engine that orchestrates a 7-agent adversarial LangGraph pipeline to generate hyper-tailored resumes without hallucinations, powered by a compounding memory system that adapts to your unique writing style over time.\n\nInstead of relying on a single AI prompt, I have challenger and defender agents literally debating each other to fact-check claims and kill hallucinations before you ever see the output. I also integrated LangSmith so we can actually understand and measure agent performance. To keep the AI from hallucinating logic, I built a Shared Tool Registry—the agents are bound to deterministic Python scripts they can call to scrape job descriptions with Firecrawl, execute exact KNN vector searches against a Postgres database, and securely decrypt PII during document export.\n\nBut the coolest part is the Compounding Memory System. In the background, Joey's memory agents analyze your edits and feedback to build specific writing 'skills' tailored to different job titles, company sizes, and industries (e.g., a Staff PM at a Growth-Stage FinTech). When you apply for a job that fits those criteria, the system's writing agents automatically retrieve and use those exact skills via a HyDE (Hypothetical Document Embeddings) RAG model. These skills are constantly refined every time you provide feedback or make an edit, meaning Joey learns your unique voice over time. The product uses some of the best agentic memory practices so that you aren't constantly context seeding. Coupled with a 'Labor Illusion' UI that shows you the agents' thought processes in real-time, it's an engine built from the ground up to actually learn your career narrative and never lie.",
     metrics: [],
     slides: [
-      { caption: "7-agent Adversarial Pipeline [Part 1]", image: "/joey-1.png" },
-      { caption: "7-agent Adversarial Pipeline [Part 2]", image: "/joey-2.png" },
+      { caption: "invite-only landing page", image: "/joey-7.png" },
+      { caption: "the whole pipeline; seven specialists", image: "/joey-8.png" },
+      { caption: "dashboard & ready-to-review drafts", image: "/joey-9.png" },
+      { caption: "tailoring studio block editor", image: "/joey-10.png" },
+      { caption: "my experience career vault", image: "/joey-11.png" },
       { caption: "Compounding Memory Architecture", image: "/joey-3.png" },
       { caption: "Google Stitch Design Artifacts", image: "/joey-4.png" },
       { caption: "Joey Design Theme & Design.md Artifact", image: "/joey-5.png" },
       { caption: "Information Architecture Planning", image: "/joey-6.png" },
+      { caption: "7-agent Adversarial Pipeline [Part 1]", image: "/joey-1.png" },
+      { caption: "7-agent Adversarial Pipeline [Part 2]", image: "/joey-2.png" },
     ],
   },
   {
@@ -369,6 +374,21 @@ function ProjectDescription({ p }: { p: Project }) {
         <span className="font-[var(--font-mono)] text-[10px] sm:text-[11px] uppercase tracking-[0.08em] sm:tracking-[0.16em] text-[var(--gray-10)] break-words whitespace-normal flex-1 min-w-0">{p.tag}</span>
       </div>
       <h3 className="mt-5 font-[var(--font-serif)] text-4xl leading-[1.04] tracking-[-0.01em] text-[var(--gray-12)] md:text-[2.7rem]">{p.title}</h3>
+      {p.index === "01" && (
+        <div className="mt-1">
+          <a
+            href="https://growwithjoey.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-[var(--font-mono)] text-[12px] lowercase tracking-normal text-[var(--accent)] hover:text-[var(--accent-strong)] transition-colors inline-flex items-center gap-1.5"
+          >
+            growwithjoey.com
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+            </svg>
+          </a>
+        </div>
+      )}
       {p.index === "02" && (
         <div className="mt-1">
           <a
