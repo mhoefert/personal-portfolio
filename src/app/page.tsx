@@ -108,9 +108,8 @@ const PROJECTS: Project[] = [
     summary:
       "A self-evolving sales coaching platform built with Next.js and Supabase that grades transcripts against custom rubrics using a multi-agent pipeline, flags rule-breaking wins, and programmatically generates schema-validated playbook evolutions.\n\nBuilt over 7+ months as a solo founder project, the real complexity lives in the closed feedback loop the platform creates. Every graded call feeds a \"maverick\" detection layer that surfaces wins where reps broke the playbook and still closed deals. Each maverick is analyzed by complex context-seeking LLM APIs to distinguish replicable techniques from deal-specific context, then verified by the manager. The manager verification stage is crucial; it provides a human-in-the-loop verification gate but also allows managers to add commentary on why or why they are not verifying a call. The manager commentary is then stored and used to power the self-learning maverick detection engine so that over time, the detections are more aligned with what the manager wants. Once enough verified mavericks accumulate, a correlation engine cross-references bypass frequency against historical coaching session records, and when a criterion has been coached repeatedly but top performers keep skipping it in winning calls, the system classifies it as terminally flawed and flags it for removal in the next evolution proposal. That proposal renders as a side-by-side rubric comparison with per-change rationale and evidence strength, with the pre-computed frequency analysis injected as structured context. The result is a methodology that updates itself from the team's own winning patterns, and a system that can tell a manager not just that their reps aren't following the script, but that the script is wrong.",
     metrics: [
-      { v: "+31%", l: "mid-market win rate" },
-      { v: "90→38d", l: "new-rep ramp" },
-      { v: "5", l: "design partners" },
+      { v: "15+", l: "design partners" },
+      { v: "40%", l: "token usage cut" },
     ],
     slides: [
       { caption: "winning sales techniques", image: "/playi-1.png" },
@@ -128,14 +127,10 @@ const PROJECTS: Project[] = [
     index: "03",
     title: "AI Intelligence Second Brain",
     subtitle: "Compounding LLM Wiki",
-    tag: "KNOWLEDGE GRAPHS — MARKDOWN & AGENTS",
+    tag: "KNOWLEDGE GRAPHS - MARKDOWN & AGENTS",
     summary:
       "An automated, agent-assisted, compounding knowledge engine built on Obsidian and LLMs that ingests raw market signals, filters them through a multi-stage classification pipeline, and maintains a clean, queryable database of the rapidly shifting artificial intelligence landscape.",
-    metrics: [
-      { v: "4.2k+", l: "warm intros surfaced" },
-      { v: "+22%", l: "network-sourced pipeline" },
-      { v: "<200ms", l: "graph query" },
-    ],
+    metrics: [],
     slides: [
       { caption: "relationship graph overview", image: "/market-intelligence-1.png" },
       { caption: "HTML Dashboard - Frontier Models", image: "/market-intelligence-2.png" },
@@ -152,11 +147,7 @@ const PROJECTS: Project[] = [
     tag: "AGENTIC SYSTEMS · MULTI-AGENT SYNTHESIS",
     summary:
       "A compounding, self-learning application engine that orchestrates a 6-agent resume pipeline and a 5-agent Q&A essay compiler. This DIY Obsidian and Codex system inspired the Joey build. This DIY system ingests target job descriptions to map core competencies, runs a dynamic advocate-critic positioning loop that pre-vets all resume and Q&A drafts against a corporate jargon veto list, and runs a cold factual audit before exporting perfectly styled, single-page print assets.",
-    metrics: [
-      { v: "60%", l: "recurring work automated" },
-      { v: "~11h", l: "reclaimed / week" },
-      { v: "3", l: "agents in concert" },
-    ],
+    metrics: [],
     slides: [
       { caption: "relationship graph overview", image: "/career-engine-1.png" },
       { caption: "multi-agent resume workflow", image: "/career-engine-2.png" },
@@ -172,8 +163,9 @@ const PROJECTS: Project[] = [
     summary:
       "An elite-level training intelligence engine built on Next.js that processes raw sensor streams (power, heart rate, cadence) directly from the Strava API. The system performs advanced mathematical modeling, including cardiac drift (aerobic decoupling), Normalized Power (NP), and a dynamic CTL/ATL fatigue decay model, to compute performance metrics far beyond Strava's out-of-the-box analytics.\nUsing daily scheduled workflows (GitHub Actions scripts and Antigravity agentic scheduled tasks), an autonomous Antigravity AI Agent processes these metrics along with my subjective training feedback in Airtable to self-correct, adapt training plans, and write morning coaching digests.\n\nBuilt as a fully custom, self-improving training engine, the real complexity lives in the automated closed feedback loop. Raw data is server-side rendered directly from Airtable, ensuring the dashboard is always hydrated with live metrics. Every activity logged on Strava triggers a scheduled GitHub Actions workflow that streams raw sensor data into our Python math engine. Here, we run decay calculations to track CTL (Fitness), ATL (Fatigue), and TSB (Form), along with cardiac drift (Pa:HR) metrics to flag aerobic decoupling. Every morning, an autonomous Antigravity AI Agent runs an analysis on the updated metrics, cross-references my subjective recovery notes and IT-band pain logs in Airtable, and writes back detailed coaching narratives. These narratives actively shape future workout intensities, closing the loop from raw biometrics to physical adaptations.",
     metrics: [
-      { v: "112 rides + 56 lifts", l: "RAW STRAVA FILES CONSUMED VIA PYTHON API PIPELINE" },
-      { v: "280+ hours", l: "SERVER-SIDE RETRIEVED FROM LIVE AIRTABLE INGESTION ENGINE" },
+      { v: "136 rides", l: "VOLUME DOWN AFTER A 4-MONTH ITB INJURY" },
+      { v: "105 lifts", l: "RAW STRAVA FILES CONSUMED VIA PYTHON API PIPELINE" },
+      { v: "352.5 hours", l: "TOTAL ACTIVITY FROM LIVE AIRTABLE INGEST" },
       { v: "350 watts", l: "FTP TARGET. 8 COGGAN POWER ZONES. ZERO GUESSWORK." },
     ],
     slides: [
@@ -191,11 +183,11 @@ const PROJECTS: Project[] = [
     subtitle: "CI/CD Pipelines & Deterministic API Ingestion",
     tag: "CI/CD & AUTOMATION · DEVELOPER PM",
     summary:
-      "I believe the most effective way to lead product is to build. By rolling up my sleeves to write code and experiment with technologies, I gain the technical context needed to engage far more effectively with engineering teams and clearly translate complex system capabilities to our customers. To keep my technical skills sharp I have built a full stack product and also automated my own daily workflows (some of the most fun I've had!) through a production-grade infrastructure on GitHub. Using GitHub I can manage all my deployments to production for my full stack sales product and my personal website, automate personal biometrics with Strava API scripts, and handle pipeline crons, acting as a personal proving ground for building my technical skills.\n\nThe core of this setup is designed around architectural reliability and efficiency. There is so much I want to speak about here with my GitHub but one of the most fascinating learnings I had recently was while exploring agentic systems, I found that relying on Model Context Protocol (MCP) servers and LLMs to query live third-party databases was highly token-inefficient and prone to latency or formatting issues. To solve this, I designed a pipeline of scheduled Python scripts that fetch data deterministically via direct APIs, storing clean datasets before any AI models are invoked. Every morning, three separate GitHub Actions workflows spin up: two prepare daily intelligence briefings for my day, and one runs a weekly analysis to structure my Sunday reviews (I also built 10+ other scripts for other data ingestion tasks like syncing my complete tasks from my task tracker app - I won't get into them all here). By building this deterministic data layer, I can leverage LLMs and custom knowledge skills on structured, predictable outputs, showing firsthand how a PM's architecture choices dictate both product utility and operational margins.",
+      "I believe the most effective way to lead product is to build. By rolling up my sleeves to write code and experiment with technologies, I gain the technical context needed to engage far more effectively with engineering teams and clearly translate complex system capabilities to our customers. To keep my technical skills sharp I have built a full stack product and also automated my own daily workflows (some of the most fun I've had!) through a production-grade infrastructure on GitHub. Using GitHub I can manage all my deployments to production for my full stack sales product and my personal website, automate personal biometrics with Strava API scripts, and handle pipeline crons, acting as a personal proving ground for building my technical skills.\n\nThe core of this setup is designed around architectural reliability and efficiency. There is so much I want to speak about here with my GitHub but one of the most fascinating learnings I had recently was while exploring agentic systems, I found that relying on Model Context Protocol (MCP) servers and LLMs to query live third-party databases was highly token-inefficient and prone to latency or formatting issues. To solve this, I designed a pipeline of scheduled Python scripts that fetch data deterministically via direct APIs, storing clean datasets before any AI models are invoked. Nine scheduled GitHub Actions crons cover daily intelligence briefings, a weekly Sunday review, and other ingest jobs (including syncing completed tasks from my tracker). By building this deterministic data layer, I can leverage LLMs and custom knowledge skills on structured, predictable outputs, showing firsthand how a PM's architecture choices dictate both product utility and operational margins.",
     metrics: [
-      { v: "278 commits", l: "YEARLY CONTRIBUTIONS" },
-      { v: "4 active repos", l: "SYSTEM REPOSITORIES" },
-      { v: "3 crons", l: "SCHEDULED ACTIONS" },
+      { v: "1,198", l: "contributions in 2026" },
+      { v: "5", l: "active repos" },
+      { v: "9", l: "scheduled crons" },
     ],
     slides: [
       { caption: "my github commit metrics snapshot", image: "/github-1.png" },
@@ -204,6 +196,190 @@ const PROJECTS: Project[] = [
     ],
   },
 ];
+
+type SkillFilter = "ai" | "pm" | "all";
+type HighlightPill = {
+  label: string;
+  tag: "ai" | "pm";
+};
+type HighlightCol = { title: string; pills: HighlightPill[] };
+
+const SKILL_FILTERS: { id: SkillFilter; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "ai", label: "Building" },
+  { id: "pm", label: "Product & strategy" },
+];
+
+const PILL_BUILD: React.CSSProperties = {
+  background: "#ffefd6",
+  color: "var(--gray-12)",
+  border: "1px solid color-mix(in oklab, #ffefd6, var(--gray-8) 28%)",
+};
+const PILL_PM: React.CSSProperties = {
+  background: "#fdbf74",
+  color: "var(--gray-12)",
+  border: "1px solid color-mix(in oklab, #fdbf74, var(--gray-8) 22%)",
+};
+
+function pillStyle(tag: "ai" | "pm"): React.CSSProperties {
+  return tag === "ai" ? PILL_BUILD : PILL_PM;
+}
+
+const HIGHLIGHT_COLS: HighlightCol[] = [
+  {
+    title: "Industries",
+    pills: [
+      { label: "AI landscape / infra", tag: "ai" },
+      { label: "Facilities / FM", tag: "pm" },
+      { label: "PropTech / CRE", tag: "pm" },
+      { label: "Sales enablement", tag: "ai" },
+      { label: "Career tech", tag: "ai" },
+    ],
+  },
+  {
+    title: "Functional expertise",
+    pills: [
+      { label: "User journey workshops", tag: "pm" },
+      { label: "LLM evaluation harnesses", tag: "ai" },
+      { label: "Discovery → roadmap", tag: "pm" },
+      { label: "LangGraph AI agents", tag: "ai" },
+      { label: "Cost-to-serve", tag: "pm" },
+      { label: "Human-in-the-loop", tag: "ai" },
+      { label: "0-to-1 product", tag: "pm" },
+      { label: "Compounding memory", tag: "ai" },
+      { label: "Corporate strategy", tag: "pm" },
+      { label: "Context & harness engineering", tag: "ai" },
+      { label: "Build / buy / invest", tag: "pm" },
+      { label: "OTel / Axiom", tag: "ai" },
+      { label: "LangSmith", tag: "ai" },
+      { label: "Postgres / SQL", tag: "ai" },
+      { label: "Hot / warm / cold storage", tag: "ai" },
+    ],
+  },
+  {
+    title: "How I ship",
+    pills: [
+      { label: "Internal enablement", tag: "pm" },
+      { label: "Obsidian Second Brain", tag: "ai" },
+      { label: "Cross-functional", tag: "pm" },
+      { label: "Cursor + Claude Code", tag: "ai" },
+      { label: "Design-partner discovery", tag: "pm" },
+      { label: "Preview + prod CI/CD", tag: "ai" },
+      { label: "Pre-customer GTM", tag: "pm" },
+    ],
+  },
+  {
+    title: "Tech & tools",
+    pills: [
+      { label: "Next.js", tag: "ai" },
+      { label: "Power Automate", tag: "pm" },
+      { label: "Postgres", tag: "ai" },
+      { label: "Pendo", tag: "pm" },
+      { label: "Supabase", tag: "ai" },
+      { label: "Copilot Studio", tag: "pm" },
+      { label: "RLS", tag: "ai" },
+      { label: "Monday.com", tag: "pm" },
+      { label: "LangGraph + FastAPI", tag: "ai" },
+      { label: "Inngest", tag: "ai" },
+      { label: "n8n", tag: "ai" },
+      { label: "Python", tag: "ai" },
+      { label: "Render", tag: "ai" },
+      { label: "Vercel", tag: "ai" },
+      { label: "GitHub Actions", tag: "ai" },
+      { label: "LangSmith", tag: "ai" },
+      { label: "Axiom", tag: "ai" },
+      { label: "OpenTelemetry", tag: "ai" },
+      { label: "Karpathy LLM Wiki", tag: "ai" },
+      { label: "Cloudflare R2", tag: "ai" },
+    ],
+  },
+];
+
+type TakeawayOutcome =
+  | { kind: "delta"; from: string; fromL: string; to: string; toL: string }
+  | { kind: "stats"; items: Metric[] }
+  | { kind: "line"; text: string };
+
+const HIGHLIGHT_TAKEAWAYS: {
+  title: string;
+  projectIndex: string;
+  what: string;
+  problem: string;
+  how: string;
+  outcome: TakeawayOutcome;
+}[] = [
+  {
+    title: "Joey + Career Expansion Second Brain",
+    projectIndex: "01",
+    what: "Joey is a LangGraph career engine that writes tailored resume drafts. It started as the Career Expansion Second Brain, an Obsidian compiler I ran for myself and close friends.",
+    problem: "Chatbots invent tenure and voice. Friends spent more time editing lies and bot-sitting than writing. Hand-matching one job took about 30 minutes.",
+    how: "A 6-agent resume pipeline and a 5-agent Q&A compiler ran in Cursor as the harness. That design became Joey: a production LangGraph product with compounding memory and a factual audit.",
+    outcome: { kind: "delta", from: "30 min", fromL: "hand-matching", to: "10 min", toL: "async pipeline" },
+  },
+  {
+    title: "Playi",
+    projectIndex: "02",
+    what: "Playi is a pre-customer B2B product: adaptive sales playbooks that update from verified field behaviour, not a static PDF.",
+    problem: "Enablement docs go stale the week you publish them. Managers cannot see which rubric lines still win, or which ones top reps skip on purpose.",
+    how: "Calls are graded against the playbook, managers verify mavericks, and an eval harness optimized the pipeline with flash and reasoning models so we were not overpaying for tokens and increasing latency unnecessarily.",
+    outcome: {
+      kind: "stats",
+      items: [
+        { v: "15+", l: "design partners engaged" },
+        { v: "40%", l: "token cost reduction" },
+      ],
+    },
+  },
+  {
+    title: "AI Intelligence Second Brain",
+    projectIndex: "03",
+    what: "A compounding Karpathy-style LLM Wiki of the AI landscape: technologies, methodologies, and trends in one place I can query. It has context on everything I am building and gives me actionable tips based on leading practices. For example, I learned about how Sierra AI built their compounding memory system through this and replicated the functionality in Joey.",
+    problem: "I was having a huge problem trying to keep up with the AI landscape and the latest research and trends. I was spending too much time trying to stay up to date and then find the real value from all the noice.",
+    how: "Various Perplexity and Grok Bot automations + an Obsidian Web Clipper allow me to ingest the raw AI news stream, classify it, and keep a wiki that compounds. I can then query the wiki and get the latest insights and trends.",
+    outcome: {
+      kind: "stats",
+      items: [
+        { v: "21", l: "AI Trends Tracked" },
+        { v: "59", l: "AI Technologies Tracked" },
+        { v: "4,018", l: "Indexed Wiki Links" },
+      ],
+    },
+  },
+  {
+    title: "Antigravity Cycling Coach",
+    projectIndex: "05",
+    what: "A closed coaching loop from Strava sensor streams into Airtable and a live Next.js dashboard.",
+    problem: "Stock Strava stats do not turn yesterday's power and heart rate into tomorrow's session, or into a note that accounts for injury. In mid-May I had a serious IT band injury and needed a way to not only feed raw ride stats to a coach, but also feed all my qualitative ride feel data (eg. when did I start feeling pain, how bad was the pain, was the pain localized, etc.) and also feed all the deep research Gemini and Perplexity did for me on ITB recovery and return to cycling regiments.",
+    how: "Strava API GitHub Actions cron into Airtable -> Python computes NP, cardiac drift, and CTL/ATL + I feed qualitative feel data into Airtable + all ITB research -> an agent writes the morning digest based on all Airtable data.",
+    outcome: {
+      kind: "stats",
+      items: [
+        { v: "136", l: "rides ytd" },
+        { v: "105", l: "lifts ytd" },
+        { v: "352.5 h", l: "total activity ytd" },
+      ],
+    },
+  },
+  {
+    title: "Developer-PM GitHub Engine",
+    projectIndex: "06",
+    what: "A PM practicing all things Git related, shipping real repos with real CI/CD tests. Repos include: Playi, this site, Life OS (I use this for cron jobs for my own personal workflows), second brain systems.",
+    problem: "Besides the problems that GitHub naturally solves, there really wasn't a problem here to be sovled. I just wanted to learn how to do all things Git related and needed a place to store all my code to ensure versional control. It's been a blast to learn this all hands on.",
+    how: "For the cron jobs; scheduled scripts hit various APIs I use directly (Strava, Todoist, Airtable, etc.), store clean tables, then models run on that layer. The same Actions paths run preview and production. I quicky learned that if you're running deterministic workflows everyday, there is no point for an LLM to be doing that, so I built repeatable Python scripts to do it instead (saving my poor wallet some money).",
+    outcome: {
+      kind: "stats",
+      items: [
+        { v: "1,198", l: "contributions ytd" },
+        { v: "5", l: "repos" },
+        { v: "9", l: "crons" },
+      ],
+    },
+  },
+];
+
+function pillsForFilter(pills: HighlightPill[], filter: SkillFilter) {
+  return pills.filter((p) => filter === "all" || p.tag === filter);
+}
 
 /* ── Primitives ───────────────────────────────────────────────────────────── */
 function Chevron({ dir = "right" }: { dir?: "left" | "right" }) {
@@ -502,7 +678,8 @@ function ProjectDescription({ p }: { p: Project }) {
           </div>
         </div>
       ) : p.index === "02" ? (
-        <div className="mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
+        <div className="mt-8 flex flex-col">
+        <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
           {/* Core Platform */}
           <div className="flex flex-col">
             <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">Core Platform</h4>
@@ -543,6 +720,15 @@ function ProjectDescription({ p }: { p: Project }) {
               <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">Transactional Emails</span>
             </div>
           </div>
+        </div>
+        <div className="mt-8 flex flex-wrap gap-x-10 gap-y-5 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
+          {p.metrics.map((m, idx) => (
+            <div key={idx} className="flex flex-col gap-1">
+              <span className="font-[var(--font-serif)] text-2xl text-[var(--gray-12)]">{m.v}</span>
+              <span className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.12em] text-[var(--gray-10)]">{m.l}</span>
+            </div>
+          ))}
+        </div>
         </div>
       ) : p.index === "03" ? (
         <div className="mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10 border-t pt-6" style={{ borderColor: "var(--gray-4)" }}>
@@ -664,24 +850,28 @@ function ProjectDescription({ p }: { p: Project }) {
               className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${isStatsExpanded ? "max-h-[450px] mt-6 opacity-100" : "max-h-0 opacity-0 pointer-events-none"
                 }`}
             >
-              <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 md:gap-x-10">
-                {/* YTD Activity Log */}
+              <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 lg:grid-cols-4 sm:gap-x-4 sm:gap-y-6 md:gap-x-8">
                 <div className="flex flex-col">
-                  <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">YTD ACTIVITY LOG</h4>
+                  <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">RIDES</h4>
                   <div className="mt-4 flex flex-col gap-0.5">
-                    <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">112 rides + 56 lifts</span>
+                    <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">136 rides</span>
+                    <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">VOLUME DOWN AFTER A 4-MONTH ITB INJURY</span>
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">LIFTS</h4>
+                  <div className="mt-4 flex flex-col gap-0.5">
+                    <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">105 lifts</span>
                     <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">RAW STRAVA FILES CONSUMED VIA PYTHON API PIPELINE</span>
                   </div>
                 </div>
-                {/* Data Pipeline */}
                 <div className="flex flex-col">
-                  <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">DATA PIPELINE</h4>
+                  <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">TOTAL ACTIVITY</h4>
                   <div className="mt-4 flex flex-col gap-0.5">
-                    <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">280+ hours</span>
-                    <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">SERVER-SIDE RETRIEVED FROM LIVE AIRTABLE INGESTION ENGINE</span>
+                    <span className="font-[var(--font-serif)] text-[17px] font-medium text-[var(--gray-12)] leading-snug">352.5 hours</span>
+                    <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">SERVER-SIDE RETRIEVED FROM LIVE AIRTABLE INGEST</span>
                   </div>
                 </div>
-                {/* Training Target */}
                 <div className="flex flex-col">
                   <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">TRAINING TARGET</h4>
                   <div className="mt-4 flex flex-col gap-0.5">
@@ -689,12 +879,6 @@ function ProjectDescription({ p }: { p: Project }) {
                     <span className="font-[var(--font-mono)] text-[9.5px] uppercase tracking-[0.06em] text-[var(--gray-10)] leading-none">FTP TARGET. 8 COGGAN POWER ZONES. ZERO GUESSWORK.</span>
                   </div>
                 </div>
-              </div>
-
-              {/* Status indicator inside stats collapsible container */}
-              <div className="mt-6 flex items-center gap-1.5 font-[var(--font-serif)] text-[12.5px] italic text-[var(--accent)] font-medium">
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] pulse-dot" />
-                Updated live with Strava & Airtable: June 4
               </div>
             </div>
           </div>
@@ -706,28 +890,23 @@ function ProjectDescription({ p }: { p: Project }) {
             <div className="flex flex-col">
               <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">01 / Contributions</h4>
               <p className="mt-3.5 font-[var(--font-sans)] text-[13.5px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty]">
-                278 commits across all development repositories in the last year
+                1,198 contributions in 2026 across development repositories
               </p>
             </div>
             {/* Column 2: Repositories */}
             <div className="flex flex-col">
               <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">02 / Repositories</h4>
               <p className="mt-3.5 font-[var(--font-sans)] text-[13.5px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty]">
-                4 active repos: Playi product, website portfolio, Life OS, & second brains
+                5 active repos: Playi product, website portfolio, Life OS, & second brains
               </p>
             </div>
             {/* Column 3: Actions */}
             <div className="flex flex-col">
               <h4 className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--accent-strong)] font-semibold">03 / Actions</h4>
               <p className="mt-3.5 font-[var(--font-sans)] text-[13.5px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty]">
-                3 scheduled crons (2 daily morning scripts + 1 weekly review tracker)
+                9 scheduled crons (daily intelligence, weekly review, and other ingest jobs)
               </p>
             </div>
-          </div>
-
-          <div className="mt-6 flex items-center gap-1.5 font-[var(--font-serif)] text-[12.5px] italic text-[var(--accent)] font-medium">
-            <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] pulse-dot" />
-            Updated via GitHub API: June 9
           </div>
         </div>
       ) : (
@@ -741,6 +920,198 @@ function ProjectDescription({ p }: { p: Project }) {
         </div>
       )}
     </div>
+  );
+}
+
+function TakeawayOutcomeView({ outcome }: { outcome: TakeawayOutcome }) {
+  if (outcome.kind === "delta") {
+    return (
+      <div className="flex w-full items-start justify-center gap-3 sm:gap-4">
+        <div className="flex min-w-0 flex-1 flex-col items-center text-center">
+          <span className="font-[var(--font-serif)] text-[1.85rem] leading-none tabular-nums text-[var(--accent-strong)]">{outcome.from}</span>
+          <span className="mt-1.5 min-h-[2.4em] font-[var(--font-mono)] text-[10px] uppercase leading-snug tracking-[0.12em] text-[var(--gray-10)]">{outcome.fromL}</span>
+        </div>
+        <span className="mt-2 shrink-0 font-[var(--font-serif)] text-[1.35rem] leading-none text-[var(--accent)]" aria-hidden>
+          →
+        </span>
+        <div className="flex min-w-0 flex-1 flex-col items-center text-center">
+          <span className="font-[var(--font-serif)] text-[1.85rem] leading-none tabular-nums text-[var(--accent-strong)]">{outcome.to}</span>
+          <span className="mt-1.5 min-h-[2.4em] font-[var(--font-mono)] text-[10px] uppercase leading-snug tracking-[0.12em] text-[var(--gray-10)]">{outcome.toL}</span>
+        </div>
+      </div>
+    );
+  }
+  if (outcome.kind === "line") {
+    return (
+      <p className="font-[var(--font-serif)] text-[1.05rem] leading-snug text-[var(--gray-12)] [text-wrap:pretty]">{outcome.text}</p>
+    );
+  }
+  const n = outcome.items.length;
+  return (
+    <div className={`flex w-full ${n <= 1 ? "justify-center" : ""}`}>
+      {outcome.items.map((m) => (
+        <div
+          key={m.l}
+          className={`flex min-w-0 flex-col items-center text-center ${n > 1 ? "flex-1" : "w-1/2"}`}
+        >
+          <span className="font-[var(--font-serif)] text-[1.85rem] leading-none tabular-nums text-[var(--accent-strong)]">{m.v}</span>
+          <span className="mt-1.5 min-h-[2.4em] font-[var(--font-mono)] text-[10px] uppercase leading-snug tracking-[0.12em] text-[var(--gray-10)]">{m.l}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function HighlightsCard() {
+  const [filter, setFilter] = useState<SkillFilter>("all");
+  const [rowHover, setRowHover] = useState<string | null>(null);
+  const [filterHover, setFilterHover] = useState<SkillFilter | null>(null);
+
+  return (
+    <section id="highlights" className="scroll-mt-28">
+      <article
+        className="rounded-[var(--card-radius)] border bg-white p-6 sm:p-8 lg:p-12"
+        style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)" }}
+      >
+        <div className="flex items-center gap-3 w-full min-w-0">
+          <span className="h-px w-6 shrink-0" style={{ background: "var(--gray-6)" }} />
+          <span className="font-[var(--font-mono)] text-[10px] sm:text-[11px] uppercase tracking-[0.08em] sm:tracking-[0.16em] text-[var(--gray-10)]">
+            Capability snapshot
+          </span>
+        </div>
+        <h3 className="mt-5 font-[var(--font-serif)] text-4xl leading-[1.04] tracking-[-0.01em] text-[var(--gray-12)] md:text-[2.7rem]">
+          Highlights
+        </h3>
+        <p className="mt-2 font-[var(--font-serif)] text-xl italic text-[var(--gray-10)]">
+          Skills and the facts behind the work
+        </p>
+
+        <div className="mt-6 flex flex-wrap gap-3">
+          {SKILL_FILTERS.map((f) => {
+            const active = filter === f.id;
+            const hovered = filterHover === f.id;
+            const tone =
+              f.id === "ai" ? PILL_BUILD : f.id === "pm" ? PILL_PM : {
+                background: "var(--gray-2)",
+                color: "var(--gray-12)",
+                border: "1px solid var(--gray-4)",
+              };
+            return (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => setFilter(f.id)}
+                onMouseEnter={() => setFilterHover(f.id)}
+                onMouseLeave={() => setFilterHover(null)}
+                className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-center font-[var(--font-mono)] text-[11px] uppercase tracking-[0.12em] transition-[opacity,box-shadow,background-color] duration-200 ease-out cursor-pointer active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7c3112] focus-visible:ring-offset-2"
+                style={{
+                  ...tone,
+                  opacity: active || hovered ? 1 : 0.78,
+                  boxShadow: active
+                    ? "0 0 0 1.5px #ffefd6, var(--card-shadow)"
+                    : hovered
+                      ? "0 0 0 1.5px transparent, var(--card-shadow)"
+                      : "0 0 0 1.5px transparent",
+                }}
+              >
+                <span
+                  className="h-1.5 w-1.5 shrink-0 rounded-full transition-[opacity,background-color,transform] duration-200"
+                  style={{
+                    background: active ? "var(--accent)" : "#8d8d86",
+                    opacity: active || hovered ? 1 : 0,
+                    transform: active ? "scale(1.15)" : "scale(1)",
+                  }}
+                />
+                {f.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {HIGHLIGHT_COLS.map((col) => {
+            const visible = pillsForFilter(col.pills, filter);
+            return (
+              <div
+                key={col.title}
+                className="rounded-[calc(var(--card-radius)-10px)] p-4"
+                style={{ background: "var(--gray-2)" }}
+              >
+                <p className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--gray-10)]">
+                  {col.title}
+                </p>
+                <div className="mt-3 flex flex-wrap justify-start gap-1.5">
+                  {visible.map((pill) => (
+                    <span
+                      key={pill.label}
+                      className="inline-flex items-center justify-start whitespace-nowrap rounded-full px-2.5 py-1 text-left font-[var(--font-sans)] text-[11.5px] leading-none"
+                      style={pillStyle(pill.tag)}
+                    >
+                      {pill.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-10 border-t pt-8" style={{ borderColor: "var(--gray-4)" }}>
+          <p className="font-[var(--font-mono)] text-[10px] sm:text-[11px] uppercase tracking-[0.14em] text-[var(--gray-10)]">
+            Key takeaways
+          </p>
+          <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+            {HIGHLIGHT_TAKEAWAYS.map((t, idx) => {
+              const active = rowHover === t.projectIndex;
+              const spanFullRow = idx === HIGHLIGHT_TAKEAWAYS.length - 1 && HIGHLIGHT_TAKEAWAYS.length % 2 === 1;
+              const facts = [
+                { label: "What", value: t.what },
+                { label: "Problem", value: t.problem },
+                { label: "How", value: t.how },
+              ];
+              return (
+                <button
+                  key={t.title}
+                  type="button"
+                  onMouseEnter={() => setRowHover(t.projectIndex)}
+                  onMouseLeave={() => setRowHover(null)}
+                  onClick={() => {
+                    document.getElementById(`project-${t.projectIndex}`)?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className={`flex flex-col rounded-[var(--card-radius)] border bg-white p-6 text-left cursor-pointer sm:p-7 ${spanFullRow ? "md:col-span-2" : ""}`}
+                  style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)" }}
+                >
+                  <div
+                    className="flex flex-col gap-4 transition-transform duration-300"
+                    style={{ transform: active ? "translateX(8px)" : "translateX(0)" }}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <h4 className="font-[var(--font-serif)] text-[1.35rem] leading-tight text-[var(--gray-12)]">{t.title}</h4>
+                      <span
+                        className="mt-2 h-2 w-2 shrink-0 rounded-full transition-all duration-300"
+                        style={{ background: active ? "var(--accent)" : "var(--gray-5)", transform: active ? "scale(1.15)" : "scale(1)" }}
+                      />
+                    </div>
+                    <dl className="flex flex-col gap-2.5">
+                      {facts.map((row) => (
+                        <div key={row.label} className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-4">
+                          <dt className="w-[68px] shrink-0 font-[var(--font-mono)] text-[10px] uppercase tracking-[0.15em] text-[var(--gray-9)]">{row.label}</dt>
+                          <dd className="text-[14px] leading-snug text-[var(--gray-11)] [text-wrap:pretty]">{row.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <div className="mt-4 border-t pt-4" style={{ borderColor: "var(--gray-4)" }}>
+                      <p className="mb-3 font-[var(--font-mono)] text-[10px] uppercase tracking-[0.15em] text-[var(--gray-9)]">Outcome</p>
+                      <TakeawayOutcomeView outcome={t.outcome} />
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </article>
+    </section>
   );
 }
 
@@ -836,7 +1207,7 @@ function ProfilePhoto() {
 
 /* ── Page ─────────────────────────────────────────────────────────────────── */
 export default function Portfolio() {
-  const [hover, setHover] = useState<number | null>(null);
+  const [hover, setHover] = useState<number | "hl" | null>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -954,7 +1325,28 @@ export default function Portfolio() {
 
           {/* Right: floating contents card + more about me */}
           <aside className="rounded-[var(--card-radius)] border bg-white p-7 sm:p-9 w-full min-w-0" style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)" }}>
-            <div className="flex items-baseline justify-between">
+            <button
+              type="button"
+              onMouseEnter={() => setHover("hl")}
+              onMouseLeave={() => setHover(null)}
+              onClick={() => {
+                document.getElementById("highlights")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="group relative w-full border-b pb-4 text-left cursor-pointer bg-transparent p-0"
+              style={{ borderColor: "var(--gray-4)" }}
+            >
+              <div className="flex items-baseline gap-4 transition-transform duration-300" style={{ transform: hover === "hl" ? "translateX(8px)" : "translateX(0)" }}>
+                <span className="w-[2ch] shrink-0 font-[var(--font-mono)] text-[12px]" style={{ color: hover === "hl" ? "var(--accent-strong)" : "var(--gray-9)" }}>*</span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-[var(--font-serif)] text-[1.35rem] leading-tight text-[var(--gray-12)]">Highlights</p>
+                  <p className="mt-0.5 overflow-hidden font-[var(--font-mono)] text-[11px] uppercase tracking-[0.12em] text-[var(--gray-10)] transition-all duration-300"
+                    style={{ maxHeight: hover === "hl" ? 20 : 0, opacity: hover === "hl" ? 1 : 0 }}>Capability snapshot</p>
+                </div>
+                <span className="mt-1 h-2 w-2 shrink-0 rounded-full transition-all duration-300"
+                  style={{ background: hover === "hl" ? "var(--accent)" : "var(--gray-5)", transform: hover === "hl" ? "scale(1.15)" : "scale(1)" }} />
+              </div>
+            </button>
+            <div className="mt-5 flex items-baseline justify-between">
               <h2 className="whitespace-nowrap font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--gray-11)]">Selected Projects</h2>
               <span className="font-[var(--font-mono)] text-[12px] text-[var(--gray-9)]">({String(PROJECTS.length).padStart(2, "0")})</span>
             </div>
@@ -968,7 +1360,7 @@ export default function Portfolio() {
                     }}
                     className="group relative border-t py-4 cursor-pointer" style={{ borderColor: "var(--gray-4)" }}>
                     <div className="flex items-baseline gap-4 transition-transform duration-300" style={{ transform: active ? "translateX(8px)" : "translateX(0)" }}>
-                      <span className="font-[var(--font-mono)] text-[12px]" style={{ color: active ? "var(--accent-strong)" : "var(--gray-9)" }}>{p.index}</span>
+                      <span className="w-[2ch] shrink-0 font-[var(--font-mono)] text-[12px]" style={{ color: active ? "var(--accent-strong)" : "var(--gray-9)" }}>{p.index}</span>
                       <div className="min-w-0 flex-1">
                         <p className="truncate font-[var(--font-serif)] text-[1.35rem] leading-tight text-[var(--gray-12)]">{p.title}</p>
                         <p className="mt-0.5 overflow-hidden font-[var(--font-mono)] text-[11px] uppercase tracking-[0.12em] text-[var(--gray-10)] transition-all duration-300"
@@ -998,6 +1390,7 @@ export default function Portfolio() {
 
       {/* Projects — alternating floating tiles */}
       <main className="w-full mx-auto flex max-w-[1240px] flex-col gap-20 px-6 pb-24 md:gap-28 md:px-10">
+        <HighlightsCard />
         {PROJECTS.map((p, idx) => <ProjectTile key={p.index} p={p} reversed={idx % 2 === 1} />)}
       </main>
 
