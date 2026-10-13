@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Newsreader, Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import { Newsreader, Instrument_Sans, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -19,6 +19,13 @@ const mono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
+// Joey's brand font, used only for the "Joey" wordmark on its highlight card.
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-jakarta",
+});
+
 export const metadata: Metadata = {
   title: "Michael Hoefert — Product Manager · AI & B2B SaaS",
   description: "Product Manager & B2B SaaS specialist building AI applications.",
@@ -31,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className={`${serif.variable} ${sans.variable} ${mono.variable} min-h-full flex flex-col`}>
+      <body className={`${serif.variable} ${sans.variable} ${mono.variable} ${jakarta.variable} min-h-full flex flex-col`}>
         {children}
         <Analytics />
       </body>

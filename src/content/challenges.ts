@@ -1,0 +1,92 @@
+import type { Challenge } from "./types";
+
+/* Newest first. Dragon and Mallorca stories are Michael's original write-ups (typos fixed only). */
+export const CHALLENGES: Challenge[] = [
+  {
+    slug: "the-hague",
+    title: "London to The Hague in a day",
+    date: "11 May 2026",
+    where: "London to The Hague · 4 countries",
+    stats: [
+      { v: "448 km", l: "distance" },
+      { v: "1,673 m", l: "elevation" },
+      { v: "24h30", l: "start to finish" },
+    ],
+    line: "4 countries, 2 best mates, and a cumulative 0 hours of sleep. Wouldn't do it any different.",
+    cover: "/challenges/hague-cover.webp",
+    coverAlt: "Michael and two friends with their bikes at the finish in The Hague",
+    photos: [
+      { caption: "the finish in The Hague", image: "/challenges/hague-cover-full.webp" },
+      { caption: "crossing into Belgium", image: "/challenges/hague-border.webp" },
+      { caption: "riding through the night", image: "/challenges/hague-dark.webp" },
+      { caption: "a late-night stop", image: "/challenges/hague-night.webp" },
+      { caption: "sunrise, still rolling", image: "/challenges/hague-sunrise.webp" },
+      { caption: "the route", image: "/challenges/hague-route.webp" },
+    ],
+    story: [
+      "Every year I challenge myself to do one monumental, exceedingly challenging thing that really pushes my limits. This year I was lucky enough to do it with two of my best friends, who I met during my three years living in London, right before I left the UK for my next journey.",
+      "4 countries, 2 best mates, and a cumulative 0 hours of sleep. Wouldn't do it any different.",
+    ],
+  },
+  {
+    slug: "chasing-the-dragon",
+    title: "Chasing the Dragon",
+    date: "21 to 22 June 2025",
+    where: "Chase the Sun + Dragon Devil · London to Wales",
+    stats: [
+      { v: "563 km", l: "distance" },
+      { v: "5,250 m", l: "elevation" },
+      { v: "20.5 h", l: "riding" },
+    ],
+    line: "Two flats, a dead phone and mild hypothermia in a Welsh storm. DNF at km 255. The real test was staying calm and finding a way out.",
+    cover: "/challenges/dragon-cover.webp",
+    coverAlt: "Michael riding the Dragon Devil in the rain on a Welsh moorland road",
+    photos: [
+      { caption: "Dragon Devil, Wales", image: "/challenges/dragon-cover-full.webp" },
+      { caption: "the route", image: "/challenges/dragon-route.webp" },
+      { caption: "the weekend", image: "/challenges/dragon-1.webp" },
+      { caption: "the weekend", image: "/challenges/dragon-2.webp" },
+      { caption: "the weekend", image: "/challenges/dragon-3.webp" },
+    ],
+    story: [
+      "Every year I set myself a goal to do hard things, typically some sort of extreme physical challenge that ends up testing my mental resilience as well. This year, the Chase the Sun + Dragon Devil weekend was the second one of those challenges. Earlier in the year I completed the lap of Mallorca (which you can read about on this site as well). The lap of Mallorca was extremely challenging, but I felt I could go deeper, push my boundaries even more. Without a doubt this Chase the Dragon ride would be the biggest physical and mental challenge I will have ever undertaken. However, little did I know that it would test me in a completely different way than I expected.",
+      "Long story short, during both days I felt extremely strong on the bike and wasn't suffering physically or mentally nearly as much as I thought I would be (all that training I'd been doing really paid off). To be quite honest, I felt it was pretty easy all things considered. However, the one thing I didn't expect for the Dragon ride was the weather. Forecasts leading up to the day promised a hot 30+ degree day with sun. Reality was quite different. The weather was biblical to say the least. The storms, the rain, and the wind were brutal. I had never biked through anything like that before and at kilometer 245 of the 295km race all things suddenly went wrong, really wrong.",
+      "The storm is getting incredibly bad, I am in remote Wales, and then I get a flat tire. I am drenched to the bone, temperatures have dropped to 7 degrees, and I am comically underdressed. I scramble to take the wheel and tire off to replace my flat tube. I get tire sorted relatively quickly and am back rolling in 10 minutes. But soon after I get started again, I feel the wheel go flat again. S***. Now I'm out of tubes, stuck in a storm in a remote part of Wales, absolutely freezing and have no way to fix my tire.",
+      "What do I do? I start to panic a bit, naturally. But before I let myself spiral I realize that the situation is actually quite dire and I don't have the luxury to panic. I need to figure out a plan. I knew there was an emergency mechanic van you call, and the phone number is listed on the race number you have to pin to yourself. I get my phone out to call the mechanic and my phone is dead. A wave of dread washes over me. What do I do now? I know I can't let myself panic even though I'm shivering beyond control now, have a flat tire with no means to fix it, and a dead phone.",
+      "Suddenly I remember that about 1km down the climb there was an event photographer. I run down the hill with my bike to the photographer who is sitting in a massive rain coat in the rain. I tap his shoulder and begin to explain the situation to him. He lets me borrow his phone and sit in his car which is parked on the side of the road. I end up managing to call the mechanic and in about an hour the mechanic arrives and sets me up with a new tire.",
+      "There are more details here and there that I've left out in an effort to minimize how long this description is. Long story short, I managed to get to the next feed station at kilometer 255 where I ended up DNFing with several paramedics beside me assessing my condition. I was uncontrollably shivering with mild-hypothermia, the storm was getting even worse and I knew it was incredibly unsafe to continue.",
+      "I went into this event expecting to be challenged physically and mentally purely because of the distance and elevation I was going to be covering. In reality the weekend challenged my ability to remain calm in extremely high stake situations and my ability to focus on solutions rather than letting myself spiral out of control. Rather than focusing on how everything had gone wrong and the dangerous situation I was in, I focused on practical next steps to resolve the situation. My ability to do so translates to all aspects of my life, including my work. In high pressure/stake situations, I have the ability to focus on the tasks at hand and resolve the issues.",
+      "There is so much more to this story and the learnings I took from it, but this description isn't the place to record it all. If you want to hear more, reach out!",
+    ],
+  },
+  {
+    slug: "lap-of-mallorca",
+    title: "The Lap of Mallorca",
+    date: "24 May 2025",
+    where: "Mallorca 312 + Sa Calobra",
+    stats: [
+      { v: "325 km", l: "distance" },
+      { v: "4,572 m", l: "elevation" },
+      { v: "12.4 h", l: "riding" },
+    ],
+    line: "The last day of a week of riding. A 5:30am start under the stars, a seized lower back in the heat, and Sa Calobra to ourselves at sunset.",
+    cover: "/challenges/mallorca-cover.webp",
+    coverAlt: "Michael giving a thumbs up on a Mallorca climb at sunset",
+    photos: [
+      { caption: "sunset on the final climb", image: "/challenges/mallorca-cover-full.webp" },
+      { caption: "the route", image: "/challenges/mallorca-route.webp" },
+      { caption: "the elevation profile", image: "/challenges/mallorca-elevation.webp" },
+    ],
+    story: [
+      "The Mallorca 312 is an iconic road ride around the island of Mallorca. A milestone and goal road cyclists use to test themselves and see where their limits lie. On our last day in Mallorca after 6 days of back to back riding, myself and two friends decided to tackle the challenge, but with one twist. On top of the 312km we were going to add on one of the most famous climbs of the island, Sa Calobra. This brought the total ride statistics to 325km and 4572m of elevation.",
+      "The day started early with a 5:30am rollout time. The goal was to make sure we could end in day light. The first 30 minutes of the ride were in the twilight hours of the morning. If I could describe the feeling during these first 30 minutes, I would say; calm. We were the only ones up and out on the roads. The stars were crystal clear. The birds weren’t even chirping yet. All you could hear was the rhythmic sound of our bike chains and the sound of our tires on the pristine Mallorca tarmac. That sense of calm would only last so long.",
+      "Soon the sun was up and out in full blast, but we kept pushing along. To be honest, everything was going really well and I was feeling really strong. We aimed to minimize our stopping so the first stop was at the 100km mark where we stopped at a gas station to grab a bocadillo. After this first stop is when things started to get harder. The sun was pelting down on us. I started to feel the signs of dehydration and the dehydration was made evident when I stood on the pedals to climb a hill and my lower back seized up. I was in excruciating pain. But I was at the back of our 3 person pace line and I refused to be the reason we stopped or slowed down. Stubborn, I know. I closed my eyes, sat back down on the saddle and gritted my teeth through the pain until my lower back loosened a bit. For the next hour and a half I did all I could to not move around on the saddle in fear that I would cause another seizing up of my lower back.",
+      "At the next pit stop, 200km into the ride, I buy all the electrolyte drinks and big bag of salty chips in an effort to replenish the salt I’d lost. But this is when I knew the ride would start to get challenging. We were staying in Soller, which meant that vast majority of the climbing would take place in the last 120km of the ride.",
+      "After this quick pit stop we apprehensively get back on the bikes to start the final push of the ride where we would tackle Coll de Femenia (the iconic lighthouse climb), Puig Major (the highest accessible climb on the island), and then wrapping it up with the infamous Sa Calobra climb. Three beasts and 120km still lay ahead of us.",
+      "Coll de Femenia is upon us and one of the three of us is feeling strong and decides to push ahead a bit faster. We all finish it with relative ease and then regroup at the end of the climb.",
+      "Next we start approaching Puig Major. The one of us that had gone ahead on Coll de Femenia was starting to crack. At the base of Puig Major he actually split and fell back from us, deciding to go his own pace. The two of us keep pushing on. After 2 hours steadily climbing we make it to the peak of Puig Major where we wait for our friend. After some time he rolls in, defeated. Because of the way the route was made and the nature of Sa Calobra (which is an out and back climb), we always had the option to skip the Sa Calobra climb and head home if we were running short on time. At this point in the day, if we decided to do Sa Calobra we would be pushing it if we wanted to finish in daylight - there could be no messing around and nothing could go wrong. Otherwise we would have to complete the 17km descent back into Soller in the pitch black. Our friend decides to head directly home, whereas myself and my other friend decide to continue with the original plan.",
+      "So next comes Sa Calobra, the most iconic and beautiful climb on the island. It is typically jam packed with tourists in rental cars and massive buses. But considering it was nearing sunset, we were blessed with an empty road. We had all the room in the world to hit every single apex and truly enjoy the wonder that is Sa Calobra. We descend this stunning 11km descent, get to the bottom, grab a quick photo, and 2 minutes later begin the final climb back out. Again, the roads are absolutely empty and I cannot emphasize enough how rare this is. It was truly a magical experience the way the sun was shining and setting into the valley as we climbed back up.",
+      "Long story short, we made it back home. On the final 17km descent back home we were blessed with even more golden light from the sunset, the ultimate finale to an epic adventure. During the day I went through ups and downs. There were moments where I wished the ride was over and others where all I wanted to do was keep riding. But I had this itch. This itch that I hadn’t pushed or tested myself as much as I had wanted. I still had more in me. I guess I needed to find my next challenge. Maybe I would chase a dragon?",
+    ],
+  },
+];
