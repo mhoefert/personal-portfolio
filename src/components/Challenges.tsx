@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { CHALLENGES } from "@/content/challenges";
 import type { Challenge } from "@/content/types";
 import { Carousel } from "./Carousel";
-import { ArrowRight, CloseIcon } from "./icons";
+import { cardPill } from "./Highlights";
+import { ArrowRight, Chevron, CloseIcon } from "./icons";
 import { SectionHeader } from "./SectionHeader";
 
 function Stats({ c }: { c: Challenge }) {
@@ -17,6 +18,86 @@ function Stats({ c }: { c: Challenge }) {
           <span className="mt-1.5 font-[var(--font-mono)] text-[9.5px] uppercase leading-snug tracking-[0.1em] text-[var(--gray-10)]">{s.l}</span>
         </div>
       ))}
+    </div>
+  );
+}
+
+const overlayButton =
+  "absolute top-1/2 z-10 grid h-8 w-8 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-white/40 bg-white/75 text-[var(--gray-12)] shadow-sm backdrop-blur-md transition-opacity duration-300 hover:bg-white opacity-100 md:opacity-0 md:group-hover/photos:opacity-100 focus-visible:opacity-100";
+
+/**
+ * Photo carousel inside a challenge card. The cover is cropped to fill; other
+ * photos (portraits, route maps) are shown whole over a blurred copy of themselves.
+ * Clicking the photo itself opens the full story. Swipe works on touch.
+ */
+function CardCarousel({ c, onOpen }: { c: Challenge; onOpen: () => void }) {
+  const slides = [{ caption: c.coverAlt, image: c.cover, cover: true }, ...c.photos.slice(1).map((p) => ({ ...p, cover: false }))];
+  const n = slides.length;
+  const [i, setI] = useState(0);
+  const [seen, setSeen] = useState<Set<number>>(() => new Set([0, 1]));
+  const touchX = useRef<number | null>(null);
+
+  const go = (d: number) => {
+    const next = (i + d + n) % n;
+    setI(next);
+    setSeen((s) => new Set([...s, next, (next + 1) % n]));
+  };
+  const stop = (fn: () => void) => (e: React.MouseEvent) => {
+    e.stopPropagation();
+    fn();
+  };
+
+  return (
+    <div
+      className="group/photos relative aspect-[16/10] w-full cursor-pointer overflow-hidden rounded-[calc(var(--card-radius)-12px)] bg-[var(--gray-12)]"
+      onClick={onOpen}
+      onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
+      onTouchEnd={(e) => {
+        if (touchX.current === null) return;
+        const dx = e.changedTouches[0].clientX - touchX.current;
+        touchX.current = null;
+        if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+      }}
+      role="group"
+      aria-roledescription="carousel"
+      aria-label={`${c.title} photos`}
+    >
+      {slides.map((s, idx) =>
+        seen.has(idx) ? (
+          <div key={s.image} className={`absolute inset-0 transition-opacity duration-500 ${idx === i ? "opacity-100" : "opacity-0"}`} aria-hidden={idx !== i}>
+            {s.cover ? (
+              <img src={s.image} alt={s.caption} decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover/photos:scale-[1.03]" />
+            ) : (
+              <>
+                <img src={s.image} alt="" decoding="async" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-xl" />
+                <img src={s.image} alt={s.caption} decoding="async" className="absolute inset-0 h-full w-full object-contain" />
+              </>
+            )}
+          </div>
+        ) : null,
+      )}
+
+      <span className="absolute left-3 top-3 z-10 rounded-lg border border-white/50 bg-white/80 px-2 py-0.5 font-[var(--font-mono)] text-[11px] font-semibold tracking-[0.06em] text-[var(--accent-strong)] backdrop-blur-sm">
+        {c.date}
+      </span>
+      <button type="button" aria-label="Previous photo" onClick={stop(() => go(-1))} className={`${overlayButton} left-3`}>
+        <Chevron dir="left" size={15} />
+      </button>
+      <button type="button" aria-label="Next photo" onClick={stop(() => go(1))} className={`${overlayButton} right-3`}>
+        <Chevron dir="right" size={15} />
+      </button>
+      <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 rounded-full bg-black/30 px-2 py-1 backdrop-blur-sm">
+        {slides.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            aria-label={`Photo ${idx + 1} of ${n}`}
+            onClick={stop(() => go(idx - i))}
+            className="h-1.5 cursor-pointer rounded-full transition-all duration-300"
+            style={{ width: idx === i ? 16 : 6, background: idx === i ? "var(--accent)" : "rgba(255,255,255,0.75)" }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -78,48 +159,26 @@ export function Challenges() {
 
   return (
     <section id="challenges" className="scroll-mt-28">
-      <SectionHeader eyebrow="Challenges" title="Hard things on a bike" subtitle="The dumb challenges I mentioned up top" />
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <SectionHeader eyebrow="Challenges" title="Hard things on a bike" subtitle="The challenges I mentioned up top" />
+      {/* Cards are 6-row subgrids so where, title, stats, line and footer line up across cards. */}
+      <div className="grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-3">
         {CHALLENGES.map((c) => (
           <article
             key={c.slug}
-            className="flex flex-col rounded-[var(--card-radius)] border bg-white p-3.5 sm:p-4"
-            style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)" }}
+            className="card-lift row-span-6 grid grid-rows-subgrid gap-0 rounded-[var(--card-radius)] border bg-white p-3.5 sm:p-4"
+            style={{ borderColor: "var(--gray-4)" }}
           >
-            <button
-              type="button"
-              onClick={() => setOpen(c)}
-              className="group relative aspect-[16/10] w-full cursor-pointer overflow-hidden rounded-[calc(var(--card-radius)-12px)] bg-[var(--gray-3)]"
-              aria-label={`Read the story: ${c.title}`}
-            >
-              <img
-                src={c.cover}
-                alt={c.coverAlt}
-                loading="lazy"
-                decoding="async"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-              />
-              <span className="absolute left-3 top-3 rounded-lg border border-white/50 bg-white/80 px-2 py-0.5 font-[var(--font-mono)] text-[11px] font-semibold tracking-[0.06em] text-[var(--accent-strong)] backdrop-blur-sm">
-                {c.date}
-              </span>
-            </button>
-            <div className="flex flex-1 flex-col px-1.5 pb-1.5 pt-5 sm:px-2">
-              <p className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.16em] text-[var(--gray-10)]">{c.where}</p>
-              <h3 className="mt-2 font-[var(--font-serif)] text-[1.55rem] leading-[1.1] text-[var(--gray-12)] [text-wrap:balance]">{c.title}</h3>
-              <div className="mt-4">
-                <Stats c={c} />
-              </div>
-              <p className="mt-4 text-[14px] leading-snug text-[var(--gray-11)] [text-wrap:pretty]">{c.line}</p>
-              <div className="mt-auto flex justify-end pt-6">
-                <button
-                  type="button"
-                  onClick={() => setOpen(c)}
-                  className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border bg-white px-4 py-2 text-[13.5px] text-[var(--gray-12)] transition-all duration-200 hover:border-[var(--accent)] hover:text-[var(--accent-strong)]"
-                  style={{ borderColor: "var(--gray-4)", boxShadow: "var(--card-shadow)" }}
-                >
-                  Read the story <ArrowRight />
-                </button>
-              </div>
+            <CardCarousel c={c} onOpen={() => setOpen(c)} />
+            <p className="px-1.5 pt-5 font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.16em] text-[var(--gray-10)] sm:px-2">{c.where}</p>
+            <h3 className="px-1.5 pt-2 font-[var(--font-serif)] text-[1.55rem] leading-[1.1] text-[var(--gray-12)] [text-wrap:balance] sm:px-2">{c.title}</h3>
+            <div className="px-1.5 pt-4 sm:px-2">
+              <Stats c={c} />
+            </div>
+            <p className="px-1.5 pt-4 text-[14px] leading-snug text-[var(--gray-11)] [text-wrap:pretty] sm:px-2">{c.line}</p>
+            <div className="flex items-end justify-end px-1.5 pb-1.5 pt-6 sm:px-2">
+              <button type="button" onClick={() => setOpen(c)} className={cardPill} style={{ borderColor: "var(--gray-4)", boxShadow: "var(--card-shadow)" }}>
+                Read the story <ArrowRight />
+              </button>
             </div>
           </article>
         ))}

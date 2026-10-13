@@ -9,7 +9,7 @@ export const HIGHLIGHTS: Highlight[] = [
     title: "Joey",
     what: "Custom resume generator built on your career knowledge graph",
     problem: "Tailoring a resume for every job takes too long",
-    stat: "30 → 10 min per application",
+    stat: "30 min → 10 min per application",
     status: "Live",
     live: { label: "Live", href: "https://growwithjoey.com" },
     art: { kind: "logo", brand: "joey", backdrop: "/art/joey-backdrop.webp" },
@@ -48,7 +48,7 @@ export const HIGHLIGHTS: Highlight[] = [
     problem: "Strava ride data was a tiny piece of the puzzle. I needed my qualitative injury feel data and leading ITB rehab research all analyzed together",
     stat: "416h of training analyzed YTD",
     status: "Live",
-    art: { kind: "image", src: "/art/cycling-coach.webp", alt: "A lone cyclist climbing mountain switchbacks at dawn, trailed by a ribbon of orange light" },
+    art: { kind: "image", effect: "cycling", src: "/art/cycling-coach.webp", alt: "A lone cyclist climbing mountain switchbacks at dawn, trailed by a ribbon of orange light" },
   },
   {
     badge: "05",
@@ -61,7 +61,7 @@ export const HIGHLIGHTS: Highlight[] = [
     stat: "~$0.50 a month in LLM costs",
     statSub: "9 jobs running",
     status: "Live",
-    art: { kind: "image", src: "/art/automation-engine.webp", alt: "A rail switching yard at night with one lit signal box and tracks fanning into fog" },
+    art: { kind: "image", effect: "rail", src: "/art/automation-engine.webp", alt: "A rail switching yard at night with one lit signal box and tracks fanning into fog" },
   },
   {
     badge: "+",
@@ -70,6 +70,6 @@ export const HIGHLIGHTS: Highlight[] = [
     what: "Got a problem you want solved?",
     problem: "Tell me about it. I like the weird ones.",
     status: PROFILE.availability,
-    art: { kind: "image", src: "/art/open-slot.webp", alt: "A workshop door left half open at dusk, warm light spilling onto a wet street" },
+    art: { kind: "image", effect: "workshop", src: "/art/open-slot.webp", alt: "A workshop door left half open at dusk, warm light spilling onto a wet street" },
   },
 ];

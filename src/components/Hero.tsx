@@ -101,7 +101,7 @@ const TOC: { label?: string; rows: Row[] }[] = [
   { label: "Automations & AI workflows", rows: AUTOMATIONS.map(projectRow) },
   {
     rows: [
-      { id: "experience", marker: "*", title: "Experience", sub: "Mitie · JLL Technologies" },
+      { id: "experience", marker: "*", title: "Career Work Experience", sub: "Mitie · JLL Technologies" },
       { id: "challenges", marker: "*", title: "Challenges", sub: "The Hague · Dragon · Mallorca" },
     ],
   },

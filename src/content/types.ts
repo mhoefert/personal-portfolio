@@ -35,7 +35,7 @@ export type Project = {
 
 export type HighlightArt =
   | { kind: "logo"; brand: "joey" | "playi"; backdrop: string }
-  | { kind: "image"; src: string; alt: string }
+  | { kind: "image"; src: string; alt: string; effect?: "cycling" | "rail" | "workshop" }
   | { kind: "network" };
 
 export type Highlight = {
@@ -61,7 +61,8 @@ export type Role = {
   dates: string;
   context: string;
   bullets: { lead?: string; text: string }[];
-  stat: { v: string; l: string };
+  /** Headline results, each with what it measures and where it came from. */
+  impact: { v: string; l: string; sub: string }[];
 };
 
 export type Challenge = {

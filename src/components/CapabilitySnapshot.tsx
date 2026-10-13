@@ -69,18 +69,29 @@ export function CapabilitySnapshot() {
           {SKILL_COLUMNS.map((col) => (
             <div key={col.title} className="rounded-[calc(var(--card-radius)-10px)] p-4" style={{ background: "var(--gray-2)" }}>
               <p className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--gray-10)]">{col.title}</p>
-              <div className="mt-3 flex flex-wrap justify-start gap-1.5">
-                {col.pills
-                  .filter((p) => filter === "all" || p.tag === filter)
-                  .map((pill) => (
-                    <span
-                      key={pill.label}
-                      className="inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-1 font-[var(--font-sans)] text-[11.5px] leading-none"
-                      style={pill.tag === "ai" ? PILL_BUILD : PILL_PM}
-                    >
+              {/* The full, invisible list and the filtered list share one grid cell, so each
+               * column keeps its "All" height and filtering never moves the page below. */}
+              <div className="mt-3 grid">
+                <div className="invisible flex flex-wrap justify-start gap-1.5 [grid-area:1/1]" aria-hidden>
+                  {col.pills.map((pill) => (
+                    <span key={pill.label} className="inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-1 font-[var(--font-sans)] text-[11.5px] leading-none" style={PILL_ALL}>
                       {pill.label}
                     </span>
                   ))}
+                </div>
+                <div className="flex flex-wrap content-start justify-start gap-1.5 [grid-area:1/1]">
+                  {col.pills
+                    .filter((p) => filter === "all" || p.tag === filter)
+                    .map((pill) => (
+                      <span
+                        key={pill.label}
+                        className="inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-1 font-[var(--font-sans)] text-[11.5px] leading-none"
+                        style={pill.tag === "ai" ? PILL_BUILD : PILL_PM}
+                      >
+                        {pill.label}
+                      </span>
+                    ))}
+                </div>
               </div>
             </div>
           ))}
