@@ -5,17 +5,17 @@ import { useEffect, useRef } from "react";
 /* The orb always has an orange core; its outer glow drifts between orange, peach
  * and soft coral. Alphas are tuned to be clearly visible on the off-white page
  * without fighting the text. */
-const CORE = "radial-gradient(circle, rgba(247,107,21,0.26) 0%, rgba(247,107,21,0.13) 22%, rgba(247,107,21,0.04) 42%, transparent 60%)";
+const CORE = "radial-gradient(circle, rgba(247,107,21,0.30) 0%, rgba(247,107,21,0.15) 20%, rgba(247,107,21,0.05) 40%, transparent 60%)";
 const HUES = [
-  "radial-gradient(circle, rgba(247,107,21,0.10) 20%, rgba(247,107,21,0.07) 42%, transparent 70%)",
-  "radial-gradient(circle, rgba(253,170,90,0.14) 20%, rgba(253,191,116,0.09) 42%, transparent 70%)",
-  "radial-gradient(circle, rgba(255,122,92,0.11) 20%, rgba(255,140,110,0.07) 42%, transparent 70%)",
+  "radial-gradient(circle, rgba(247,107,21,0.12) 20%, rgba(247,107,21,0.07) 42%, transparent 70%)",
+  "radial-gradient(circle, rgba(253,170,90,0.16) 20%, rgba(253,191,116,0.09) 42%, transparent 70%)",
+  "radial-gradient(circle, rgba(255,122,92,0.13) 20%, rgba(255,140,110,0.07) 42%, transparent 70%)",
 ];
 /* A soft ring that expands from the core and fades: the outward pulse. */
-const RING = "radial-gradient(circle, transparent 38%, rgba(247,107,21,0.13) 50%, rgba(253,170,90,0.06) 58%, transparent 68%)";
+const RING = "radial-gradient(circle, transparent 38%, rgba(247,107,21,0.16) 50%, rgba(253,170,90,0.07) 58%, transparent 68%)";
 const RINGS = 2;
 const PULSE_PERIOD = 6.5; // seconds per ring
-const WARM_SIZE = 1150;
+const WARM_SIZE = 680;
 const GREY_SIZE = 1000;
 
 /**

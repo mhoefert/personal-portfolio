@@ -113,40 +113,46 @@ function StoryModal({ c, onClose }: { c: Challenge; onClose: () => void }) {
     };
   }, [onClose]);
 
+  /* Fixed header (title + stats); the body scrolls inside the dialog. On wide
+   * screens photos sit on the left and the story scrolls on the right. */
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-[rgba(33,32,28,0.55)] p-4 backdrop-blur-sm sm:items-center sm:p-8" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(33,32,28,0.55)] p-3 backdrop-blur-sm sm:p-6" onClick={onClose}>
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby={`${c.slug}-title`}
-        className="relative my-auto w-full max-w-3xl rounded-[var(--card-radius)] border bg-white p-5 sm:p-8"
+        className="relative flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-[var(--card-radius)] border bg-white"
         style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={onClose}
-          aria-label="Close story"
-          className="absolute right-4 top-4 z-10 grid h-9 w-9 cursor-pointer place-items-center rounded-full border bg-white text-[var(--gray-11)] transition-colors hover:text-[var(--accent-strong)]"
-          style={{ borderColor: "var(--gray-4)" }}
-        >
-          <CloseIcon size={16} />
-        </button>
-        <p className="pr-12 font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.16em] text-[var(--gray-10)]">
-          {c.date} · {c.where}
-        </p>
-        <h3 id={`${c.slug}-title`} className="mt-2 font-[var(--font-serif)] text-[2.2rem] leading-[1.05] text-[var(--gray-12)]">
-          {c.title}
-        </h3>
-        <div className="mt-5">
-          <Stats c={c} />
-        </div>
-        <div className="mt-6">
-          <Carousel slides={c.photos} aspect="4 / 3" />
-        </div>
-        <div className="mt-6 flex flex-col gap-4 text-[15px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty]">
-          {c.story.map((p) => (
-            <p key={p.slice(0, 32)}>{p}</p>
-          ))}
+        <header className="shrink-0 border-b px-5 pb-5 pt-5 sm:px-8 sm:pt-7" style={{ borderColor: "var(--gray-4)" }}>
+          <button
+            onClick={onClose}
+            aria-label="Close story"
+            className="absolute right-4 top-4 z-10 grid h-9 w-9 cursor-pointer place-items-center rounded-full border bg-white text-[var(--gray-11)] transition-colors hover:text-[var(--accent-strong)]"
+            style={{ borderColor: "var(--gray-4)" }}
+          >
+            <CloseIcon size={16} />
+          </button>
+          <p className="pr-12 font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.16em] text-[var(--gray-10)]">
+            {c.date} · {c.where}
+          </p>
+          <h3 id={`${c.slug}-title`} className="mt-2 font-[var(--font-serif)] text-[2rem] leading-[1.05] text-[var(--gray-12)] sm:text-[2.2rem]">
+            {c.title}
+          </h3>
+          <div className="mt-4 max-w-md">
+            <Stats c={c} />
+          </div>
+        </header>
+        <div className="custom-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-8 sm:py-6 lg:grid lg:grid-cols-2 lg:grid-rows-[minmax(0,1fr)] lg:gap-8 lg:overflow-hidden">
+          <div className="lg:min-h-0">
+            <Carousel slides={c.photos} aspect="4 / 3" />
+          </div>
+          <div className="custom-scrollbar mt-6 flex flex-col gap-4 text-[15px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty] lg:mt-0 lg:min-h-0 lg:overflow-y-auto lg:pr-4">
+            {c.story.map((p) => (
+              <p key={p.slice(0, 32)}>{p}</p>
+            ))}
+          </div>
         </div>
       </div>
     </div>,

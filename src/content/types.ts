@@ -35,8 +35,7 @@ export type Project = {
 
 export type HighlightArt =
   | { kind: "logo"; brand: "joey" | "playi"; backdrop: string }
-  | { kind: "image"; src: string; alt: string; effect?: "cycling" | "rail" | "workshop" }
-  | { kind: "network" };
+  | { kind: "scene"; scene: "network" | "cycling" | "engine" | "open" };
 
 export type Highlight = {
   badge: string;

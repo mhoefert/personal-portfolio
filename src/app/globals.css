@@ -41,28 +41,8 @@ body {
   box-shadow: var(--float-shadow-hover);
 }
 
-/* Slow, subtle motion for the highlight card art. */
-@keyframes kenBurnsA { from { transform: scale(1.02) translate(0, 0); } to { transform: scale(1.11) translate(-2%, -1.5%); } }
-@keyframes kenBurnsB { from { transform: scale(1.03) translate(0, 0); } to { transform: scale(1.1) translate(1.5%, -2%); } }
-@keyframes glowBreath { 0%,100% { opacity: .35; } 50% { opacity: .85; } }
-@keyframes lampFlicker {
-  0%,100% { opacity: .55; } 8% { opacity: .7; } 11% { opacity: .5; } 14% { opacity: .72; }
-  40% { opacity: .62; } 62% { opacity: .78; } 66% { opacity: .58; } 80% { opacity: .7; }
-}
-@keyframes headlight {
-  0% { transform: translate(-50%, -50%) scale(.82); opacity: .55; }
-  50% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
-  100% { transform: translate(-50%, -50%) scale(.82); opacity: .55; }
-}
-.art-kenburns-a { animation: kenBurnsA 22s ease-in-out infinite alternate; }
-.art-kenburns-b { animation: kenBurnsB 26s ease-in-out infinite alternate; }
-.art-glow { animation: glowBreath 6s ease-in-out infinite; }
-.art-flicker { animation: lampFlicker 5s linear infinite; }
-.art-headlight { animation: headlight 4.5s ease-in-out infinite; }
-
 @media (prefers-reduced-motion: reduce) {
   .card-lift, .card-lift:hover { transform: none; transition: none; }
-  .art-kenburns-a, .art-kenburns-b, .art-glow, .art-flicker, .art-headlight { animation: none; }
 }
 
 .custom-scrollbar::-webkit-scrollbar {

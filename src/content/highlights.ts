@@ -37,7 +37,7 @@ export const HIGHLIGHTS: Highlight[] = [
     stat: "66 links between my AI research and Joey's build docs",
     statSub: "5,100+ notes in one vault",
     status: "Live",
-    art: { kind: "network" },
+    art: { kind: "scene", scene: "network" },
   },
   {
     badge: "04",
@@ -48,7 +48,7 @@ export const HIGHLIGHTS: Highlight[] = [
     problem: "Strava ride data was a tiny piece of the puzzle. I needed my qualitative injury feel data and leading ITB rehab research all analyzed together",
     stat: "416h of training analyzed YTD",
     status: "Live",
-    art: { kind: "image", effect: "cycling", src: "/art/cycling-coach.webp", alt: "A lone cyclist climbing mountain switchbacks at dawn, trailed by a ribbon of orange light" },
+    art: { kind: "scene", scene: "cycling" },
   },
   {
     badge: "05",
@@ -56,12 +56,12 @@ export const HIGHLIGHTS: Highlight[] = [
     category: "Automation",
     title: "Harness-Agnostic Automation Engine",
     tagline: "Because I don't want to be locked in to one AI lab.",
-    what: "Scheduled GitHub jobs that keep my second brain clean and current, and keep Joey's models from going stale",
-    problem: "Harness automation features lock you in, and paying an LLM to do deterministic work wastes money",
+    what: "Scheduled GitHub jobs with scripts and LLM API calls that monitor the health of my second brain system and make sure it is clean and current (since the AI world moves so fast)",
+    problem: "Harness automation features (like Codex/Cursor) lock you in, and paying these labs to do deterministic work wastes money",
     stat: "~$0.50 a month in LLM costs",
     statSub: "9 jobs running",
     status: "Live",
-    art: { kind: "image", effect: "rail", src: "/art/automation-engine.webp", alt: "A rail switching yard at night with one lit signal box and tracks fanning into fog" },
+    art: { kind: "scene", scene: "engine" },
   },
   {
     badge: "+",
@@ -70,6 +70,6 @@ export const HIGHLIGHTS: Highlight[] = [
     what: "Got a problem you want solved?",
     problem: "Tell me about it. I like the weird ones.",
     status: PROFILE.availability,
-    art: { kind: "image", effect: "workshop", src: "/art/open-slot.webp", alt: "A workshop door left half open at dusk, warm light spilling onto a wet street" },
+    art: { kind: "scene", scene: "open" },
   },
 ];

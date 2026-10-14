@@ -61,12 +61,13 @@ function HighlightCard({ h }: { h: Highlight }) {
         <p className="mt-1 text-[14.5px] leading-snug text-[var(--gray-11)] [text-wrap:pretty]">{h.problem}</p>
       </div>
 
-      <div className="px-1.5 pt-5 sm:px-2">
+      <div className="px-1.5 pt-3 sm:px-2">
         {h.stat && (
-          <div className="border-t pt-4" style={{ borderColor: "var(--gray-4)" }}>
-            <p className="font-[var(--font-serif)] text-[1.25rem] leading-snug text-[var(--accent-strong)] [text-wrap:balance]">{h.stat}</p>
-            {h.statSub && <p className="mt-1 text-[13px] leading-snug text-[var(--gray-10)]">{h.statSub}</p>}
-          </div>
+          <>
+            <p className={label}>Outcome</p>
+            <p className="mt-1 text-[14.5px] leading-snug text-[var(--gray-11)] [text-wrap:pretty]">{h.stat}</p>
+            {h.statSub && <p className="text-[14.5px] leading-snug text-[var(--gray-11)] [text-wrap:pretty]">{h.statSub}</p>}
+          </>
         )}
       </div>
 
