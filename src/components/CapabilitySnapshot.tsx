@@ -28,6 +28,7 @@ export function CapabilitySnapshot() {
     <section id="capabilities" className="scroll-mt-28">
       <SectionHeader eyebrow="Capability snapshot" title="Skills & tools" subtitle="Industries, expertise and the stack behind the work" />
       <article
+        data-reveal
         className="rounded-[var(--card-radius)] border bg-white p-6 sm:p-8 lg:p-10"
         style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)" }}
       >

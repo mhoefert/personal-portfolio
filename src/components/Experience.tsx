@@ -7,11 +7,12 @@ export function Experience() {
       <SectionHeader eyebrow="Experience" title="Where I've worked" subtitle="Product at Mitie, strategy at JLL" />
       {/* Cards are 6-row subgrids so the context, bullets and impact rows start level across both roles. */}
       <div className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-2">
-        {EXPERIENCE.map((role) => (
+        {EXPERIENCE.map((role, i) => (
           <article
             key={role.company}
+            data-reveal
             className="row-span-6 grid grid-rows-subgrid gap-0 rounded-[var(--card-radius)] border bg-white p-6 sm:p-8"
-            style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)" }}
+            style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)", "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
           >
             <p className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.16em] text-[var(--gray-10)]">
               {role.place} · {role.dates}

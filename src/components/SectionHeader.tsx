@@ -8,7 +8,7 @@ export function SectionHeader({
   subtitle?: string;
 }) {
   return (
-    <header className="mb-8 md:mb-10">
+    <header className="mb-8 md:mb-10" data-reveal>
       <div className="flex items-center gap-3">
         <span className="h-px w-6 shrink-0" style={{ background: "var(--gray-6)" }} />
         <span className="font-[var(--font-mono)] text-[10px] sm:text-[11px] uppercase tracking-[0.08em] sm:tracking-[0.16em] text-[var(--gray-10)]">

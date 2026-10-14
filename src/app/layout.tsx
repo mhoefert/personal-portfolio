@@ -39,6 +39,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className={`${serif.variable} ${sans.variable} ${mono.variable} ${jakarta.variable} min-h-full flex flex-col`}>
+        {/* Without JavaScript, show everything the scroll reveal would have faded in. */}
+        <noscript>
+          <style>{"[data-reveal]{opacity:1!important;translate:none!important}"}</style>
+        </noscript>
         {children}
         <Analytics />
       </body>

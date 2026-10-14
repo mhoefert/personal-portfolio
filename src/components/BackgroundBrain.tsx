@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { BrainControls } from "./BrainControls";
 
 /* The page background: the dot grid, a grey wash, and a "second brain" sphere (in
  * the spirit of incident.io's Nexus globe, built from scratch). A slowly rotating
  * globe with a fuzzy rim of dust, a soft peach glow, grey notes inside, and clusters
  * of orange notes on its surface, each labelled with an area of this site. The near
  * side is crisp; the far side fades as it turns. The globe wanders the page and
- * gets a push from scrolling; the top-left button locks it to the pointer instead. */
+ * gets a push from scrolling; the top-left controls can lock it to the pointer or
+ * turn it off. */
 
 const SIZE = 440;
 const GREY_SIZE = 1000;
@@ -91,11 +93,14 @@ export function BackgroundBrain() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const greyRef = useRef<HTMLDivElement>(null);
   const [follow, setFollow] = useState(false);
+  const [visible, setVisible] = useState(true);
   const followRef = useRef(false);
+  const visibleRef = useRef(true);
 
   useEffect(() => {
     followRef.current = follow;
-  }, [follow]);
+    visibleRef.current = visible;
+  }, [follow, visible]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -216,10 +221,14 @@ export function BackgroundBrain() {
     }
 
     const start = performance.now();
+    let fade = 1; // keeps drawing while the globe fades out, then stops
     const tick = (now: number) => {
       const sec = (now - start) / 1000 + 8;
-      place(sec);
-      draw(sec);
+      fade = visibleRef.current ? 1 : Math.max(0, fade - 1 / 45);
+      if (fade > 0) {
+        place(sec);
+        draw(sec);
+      }
       raf = requestAnimationFrame(tick);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -259,34 +268,24 @@ export function BackgroundBrain() {
             background: "radial-gradient(circle, rgba(130,130,124,0.12) 0%, rgba(130,130,124,0.03) 45%, transparent 70%)",
           }}
         />
-        <div ref={boxRef} className="absolute left-0 top-0 will-change-transform" style={{ width: SIZE, height: SIZE }}>
+        <div
+          ref={boxRef}
+          className="absolute left-0 top-0 transition-opacity duration-700 will-change-transform"
+          style={{ width: SIZE, height: SIZE, opacity: visible ? 1 : 0 }}
+        >
           <canvas ref={canvasRef} style={{ width: SIZE, height: SIZE }} />
         </div>
       </div>
 
-      {/* Follow-the-pointer toggle. Hidden on touch screens and for reduced motion. */}
-      <button
-        type="button"
-        onClick={() => setFollow((f) => !f)}
-        aria-pressed={follow}
-        aria-label={follow ? "Let the second brain wander" : "Make the second brain follow your cursor"}
-        className="group fixed left-6 top-6 z-40 grid h-10 w-10 cursor-pointer place-items-center rounded-full border shadow-sm transition-all duration-300 hover:border-[var(--accent)] pointer-coarse:hidden motion-reduce:hidden"
-        style={{
-          borderColor: follow ? "var(--accent)" : "var(--gray-4)",
-          background: follow ? "var(--accent-soft)" : "rgba(255,255,255,0.9)",
-          color: follow ? "var(--accent-strong)" : "var(--gray-11)",
-          boxShadow: "var(--card-shadow)",
+      <BrainControls
+        follow={follow}
+        visible={visible}
+        onToggleFollow={() => setFollow((f) => !f)}
+        onToggleVisible={() => {
+          setVisible((v) => !v);
+          setFollow(false);
         }}
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-          <circle cx="9.5" cy="9.5" r="6.5" />
-          <path d="M3 9.5h13M9.5 3c-2.2 2-2.2 11 0 13M9.5 3c2.2 2 2.2 11 0 13" />
-          <path d="M14 14l7 2.6-3 1.1-1.1 3z" fill="currentColor" />
-        </svg>
-        <span className="pointer-events-none absolute left-full top-1/2 ml-3 -translate-x-1 -translate-y-1/2 whitespace-nowrap rounded-full bg-[var(--gray-12)] px-3 py-1.5 font-[var(--font-mono)] text-[11px] tracking-[0.04em] text-white opacity-0 shadow-sm transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100">
-          {follow ? "Following your cursor · click to let it wander" : "Make the second brain follow your cursor"}
-        </span>
-      </button>
+      />
     </>
   );
 }

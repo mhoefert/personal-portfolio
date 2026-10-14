@@ -5,6 +5,7 @@ import { Experience } from "@/components/Experience";
 import { Footer, ScrollTopButton } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Highlights } from "@/components/Highlights";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { ProjectTile } from "@/components/ProjectTile";
 import { SectionHeader } from "@/components/SectionHeader";
 import { SectionNav } from "@/components/SectionNav";
@@ -46,6 +47,7 @@ export default function Portfolio() {
 
       <Footer />
       <ScrollTopButton />
+      <ScrollReveal />
     </div>
   );
 }

@@ -15,7 +15,7 @@ export const cardPill =
 /* Each card is a 7-row subgrid of the section grid, so image, category, title,
  * what, problem, stat and footer start at the same height across a row of cards
  * even when one card's text wraps to more lines. */
-function HighlightCard({ h }: { h: Highlight }) {
+function HighlightCard({ h, i }: { h: Highlight; i: number }) {
   const [active, setActive] = useState(false);
   const isOpenSlot = !h.target;
 
@@ -24,7 +24,8 @@ function HighlightCard({ h }: { h: Highlight }) {
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
       className="card-lift row-span-7 grid grid-rows-subgrid gap-0 rounded-[var(--card-radius)] border bg-white p-3.5 sm:p-4"
-      style={{ borderColor: "var(--gray-4)" }}
+      style={{ borderColor: "var(--gray-4)", "--reveal-delay": `${(i % 2) * 90}ms` } as React.CSSProperties}
+      data-reveal
     >
       <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[calc(var(--card-radius)-12px)] bg-[var(--gray-3)]">
         <CardArt art={h.art} active={active} />
@@ -103,8 +104,8 @@ export function Highlights() {
     <section id="highlights" className="scroll-mt-28">
       <SectionHeader eyebrow="Highlights" title="What I'm working on" subtitle="What each thing is, and the problem it solves" />
       <div className="grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-        {HIGHLIGHTS.map((h) => (
-          <HighlightCard key={h.badge} h={h} />
+        {HIGHLIGHTS.map((h, i) => (
+          <HighlightCard key={h.badge} h={h} i={i} />
         ))}
       </div>
     </section>

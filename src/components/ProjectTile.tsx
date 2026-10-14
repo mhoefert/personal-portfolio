@@ -143,6 +143,7 @@ export function ProjectTile({ p, reversed }: { p: Project; reversed: boolean }) 
   return (
     <section id={p.slug} className="scroll-mt-28">
       <article
+        data-reveal
         className="rounded-[var(--card-radius)] border bg-white p-6 sm:p-8 lg:p-12"
         style={{ borderColor: "var(--gray-4)", boxShadow: "var(--float-shadow)" }}
       >

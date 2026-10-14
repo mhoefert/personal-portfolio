@@ -208,11 +208,12 @@ export function Challenges() {
       <SectionHeader eyebrow="Challenges" title="Hard things on a bike" subtitle="The challenges I mentioned up top" />
       {/* Cards are 6-row subgrids so where, title, stats, line and footer line up across cards. */}
       <div className="grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-3">
-        {CHALLENGES.map((c) => (
+        {CHALLENGES.map((c, i) => (
           <article
             key={c.slug}
             className="card-lift row-span-6 grid grid-rows-subgrid gap-0 rounded-[var(--card-radius)] border bg-white p-3.5 sm:p-4"
-            style={{ borderColor: "var(--gray-4)" }}
+            style={{ borderColor: "var(--gray-4)", "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
+            data-reveal
           >
             <CardCarousel c={c} onOpen={() => setOpen(c)} />
             <p className="px-1.5 pt-5 font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.16em] text-[var(--gray-10)] sm:px-2">{c.where}</p>
