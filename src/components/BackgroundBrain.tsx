@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
  * side is crisp; the far side fades as it turns. The globe wanders the page and
  * gets a push from scrolling; the top-left button locks it to the pointer instead. */
 
-const SIZE = 560;
+const SIZE = 440;
 const GREY_SIZE = 1000;
 const TURN_SECONDS = 80; // one full rotation
 const TILT = 0.32; // radians, so we see a little of the top
@@ -174,7 +174,7 @@ export function BackgroundBrain() {
       }
 
       // Labels: crisp on the near side, fading out as they turn away.
-      ctx.font = `500 11px ${font}`;
+      ctx.font = `500 10.5px ${font}`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       anchors.forEach((a, i) => {
@@ -183,8 +183,8 @@ export function BackgroundBrain() {
         if (alpha <= 0.02) return;
         ctx.fillStyle = `rgba(33,32,28,${0.12 + 0.78 * alpha})`;
         const [l1, l2] = CLUSTERS[i].label;
-        ctx.fillText(l1, q.x, q.y - 7);
-        ctx.fillText(l2, q.x, q.y + 7);
+        ctx.fillText(l1, q.x, q.y - 6.5);
+        ctx.fillText(l2, q.x, q.y + 6.5);
       });
     };
 
