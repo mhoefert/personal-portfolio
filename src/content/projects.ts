@@ -136,18 +136,18 @@ export const PROJECTS: Project[] = [
     index: "04",
     slug: "cycling-coach",
     group: "automation",
-    title: "Antigravity Cycling Coach",
+    title: "AI Cycling Coach",
     shortTitle: "Cycling Coach",
-    subtitle: "Live Dashboards & Professional AI Coaching",
-    tag: "PERSONAL AI · ENDURANCE PERFORMANCE",
+    subtitle: "Live Dashboards & AI Coaching From Any Harness",
+    tag: "PERSONAL AI · ENDURANCE PERFORMANCE · ITB REHAB",
     summary:
-      "An elite-level training intelligence engine built on Next.js that processes raw sensor streams (power, heart rate, cadence) directly from the Strava API. The system performs advanced mathematical modeling, including cardiac drift (aerobic decoupling), Normalized Power (NP), and a dynamic CTL/ATL fatigue decay model, to compute performance metrics far beyond Strava's out-of-the-box analytics.\nUsing daily scheduled workflows (GitHub Actions scripts and Antigravity agentic scheduled tasks), an autonomous Antigravity AI Agent processes these metrics along with my subjective training feedback in Airtable to self-correct, adapt training plans, and write morning coaching digests.\n\nBuilt as a fully custom, self-improving training engine, the real complexity lives in the automated closed feedback loop. Raw data is server-side rendered directly from Airtable, ensuring the dashboard is always hydrated with live metrics. Every activity logged on Strava triggers a scheduled GitHub Actions workflow that streams raw sensor data into our Python math engine. Here, we run decay calculations to track CTL (Fitness), ATL (Fatigue), and TSB (Form), along with cardiac drift (Pa:HR) metrics to flag aerobic decoupling. Every morning, an autonomous Antigravity AI Agent runs an analysis on the updated metrics, cross-references my subjective recovery notes and IT-band pain logs in Airtable, and writes back detailed coaching narratives. These narratives actively shape future workout intensities, closing the loop from raw biometrics to physical adaptations.",
+      "An elite-level training intelligence engine built on Next.js that brings three streams of data together: raw sensor streams (power, heart rate, cadence) directly from the Strava API, my qualitative ride feel and IT-band pain logs in Airtable, and Gemini Deep Research on ITB rehab and return-to-cycling protocols. The system performs advanced mathematical modeling, including cardiac drift (aerobic decoupling), Normalized Power (NP), and a dynamic CTL/ATL fatigue decay model, to compute performance metrics far beyond Strava's out-of-the-box analytics.\nUsing daily scheduled GitHub Actions workflows, an AI coaching agent processes all of it to self-correct, adapt training plans, and write morning coaching digests. The agent isn't tied to one tool: it runs in whichever harness has the leading model that week (Claude Code, Codex, or Cursor).\n\nBuilt as a fully custom, self-improving training engine, the real complexity lives in the automated closed feedback loop and how the data flows into it. Every activity logged on Strava triggers a scheduled GitHub Actions workflow that streams raw sensor data into our Python math engine. Here, we run decay calculations to track CTL (Fitness), ATL (Fatigue), and TSB (Form), along with cardiac drift (Pa:HR) metrics to flag aerobic decoupling, and write the results back to Airtable. Airtable is also where my subjective recovery notes and IT-band pain logs live, right next to the ITB rehab research Gemini Deep Research pulled together for me.\n\nEvery morning, the coaching agent runs an analysis on the updated metrics, cross-references my recovery notes, pain logs, and the rehab research, and writes back detailed coaching narratives. Its coaching and workout-modification instructions live as plain markdown in my own repo rather than inside any one tool's automation feature, so I can point Claude Code, Codex, or Cursor at them without rebuilding anything. Raw data is server-side rendered directly from Airtable, ensuring the dashboard is always hydrated with live metrics, and the narratives actively shape future workout intensities, closing the loop from raw biometrics to physical adaptations.",
     specs: [
       {
         heading: "Core Platform",
         items: [
           { title: "Next.js 16", sub: "SSR App Router & Vercel" },
-          { title: "Airtable API", sub: "Live Data Revalidation" },
+          { title: "Airtable API", sub: "Metrics, Ride Feel & Pain Logs" },
         ],
       },
       {
@@ -155,12 +155,13 @@ export const PROJECTS: Project[] = [
         items: [
           { title: "Strava API", sub: "Raw Stream Ingestion" },
           { title: "Python Engine", sub: "NP, TSS, Cardiac Drift, & CTL/ATL/TSB" },
+          { title: "Gemini Deep Research", sub: "ITB Rehab Evidence" },
         ],
       },
       {
         heading: "Agentic AI & Crons",
         items: [
-          { title: "Antigravity SDK", sub: "Morning Coaching Narratives" },
+          { title: "Any Harness", sub: "Claude Code, Codex, or Cursor" },
           { title: "GitHub Actions", sub: "Daily/Weekly Scheduled Workflows" },
         ],
       },
