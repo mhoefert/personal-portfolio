@@ -10,7 +10,7 @@ import { SectionHeader } from "./SectionHeader";
 
 const label = "font-[var(--font-mono)] text-[10px] uppercase tracking-[0.15em] text-[var(--gray-9)]";
 export const cardPill =
-  "inline-flex items-center gap-1.5 rounded-full border bg-white px-4 py-2 text-[13.5px] text-[var(--gray-12)] transition-all duration-200 hover:border-[var(--accent)] hover:text-[var(--accent-strong)] cursor-pointer";
+  "inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border bg-white px-4 py-2 text-[13.5px] text-[var(--gray-12)] transition-all duration-200 hover:border-[var(--accent)] hover:text-[var(--accent-strong)] cursor-pointer";
 
 /* Each card is a 7-row subgrid of the section grid, so image, category, title,
  * what, problem, stat and footer start at the same height across a row of cards

@@ -6,7 +6,7 @@ import { CHALLENGES } from "@/content/challenges";
 import type { Challenge } from "@/content/types";
 import { Carousel } from "./Carousel";
 import { cardPill } from "./Highlights";
-import { ArrowRight, Chevron, CloseIcon } from "./icons";
+import { ArrowRight, ArrowUpRight, Chevron, CloseIcon } from "./icons";
 import { SectionHeader } from "./SectionHeader";
 
 function Stats({ c }: { c: Challenge }) {
@@ -14,11 +14,48 @@ function Stats({ c }: { c: Challenge }) {
     <div className="grid grid-cols-3 gap-3">
       {c.stats.map((s) => (
         <div key={s.l} className="flex flex-col">
-          <span className="font-[var(--font-serif)] text-[1.3rem] leading-none tabular-nums text-[var(--accent-strong)]">{s.v}</span>
+          <span className="whitespace-nowrap font-[var(--font-serif)] text-[1.3rem] leading-none tabular-nums text-[var(--accent-strong)]">{s.v}</span>
           <span className="mt-1.5 font-[var(--font-mono)] text-[9.5px] uppercase leading-snug tracking-[0.1em] text-[var(--gray-10)]">{s.l}</span>
         </div>
       ))}
     </div>
+  );
+}
+
+function StravaMark({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" aria-hidden className="shrink-0">
+      <rect width="16" height="16" rx="3.5" fill="#fc4c02" />
+      <g fill="#fff" fillRule="evenodd">
+        <path d="M6.9 8.8l2.5 4.5 2.4-4.5h-1.5l-.9 1.7-1-1.7z" opacity=".6" />
+        <path d="M7.2 2.5l3.1 6.3H4zm0 3.8l1.2 2.5H5.9z" />
+      </g>
+    </svg>
+  );
+}
+
+/** Strava logo plus one link per ride ("See the ride", or "Day 1" / "Day 2"). */
+function RideLinks({ c }: { c: Challenge }) {
+  return (
+    <span className="inline-flex items-center gap-2 whitespace-nowrap text-[13px] text-[var(--gray-11)]">
+      <StravaMark />
+      {c.rides.map((r, i) => (
+        <span key={r.href} className="inline-flex items-center gap-2">
+          {i > 0 && <span className="text-[var(--gray-7)]">·</span>}
+          <a
+            href={r.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${c.rides.length > 1 ? `${r.label} of ${c.title}` : c.title} on Strava`}
+            className="inline-flex items-center gap-1 underline decoration-[var(--gray-6)] underline-offset-[3px] transition-colors hover:text-[#fc4c02] hover:decoration-[#fc4c02]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {r.label}
+            <ArrowUpRight size={10} />
+          </a>
+        </span>
+      ))}
+    </span>
   );
 }
 
@@ -146,6 +183,9 @@ function StoryModal({ c, onClose }: { c: Challenge; onClose: () => void }) {
             <Carousel slides={c.photos} aspect="4 / 3" />
             <div className="mt-6 border-t pt-5" style={{ borderColor: "var(--gray-4)" }}>
               <Stats c={c} />
+              <div className="mt-5">
+                <RideLinks c={c} />
+              </div>
             </div>
           </div>
           <div className="custom-scrollbar mt-6 flex flex-col gap-4 text-[15px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty] lg:mt-0 lg:min-h-0 lg:overflow-y-auto lg:pr-4">
@@ -181,7 +221,8 @@ export function Challenges() {
               <Stats c={c} />
             </div>
             <p className="px-1.5 pt-4 text-[14px] leading-snug text-[var(--gray-11)] [text-wrap:pretty] sm:px-2">{c.line}</p>
-            <div className="flex items-end justify-end px-1.5 pb-1.5 pt-6 sm:px-2">
+            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-3 self-end px-1.5 pb-1.5 pt-6 sm:px-2">
+              <RideLinks c={c} />
               <button type="button" onClick={() => setOpen(c)} className={cardPill} style={{ borderColor: "var(--gray-4)", boxShadow: "var(--card-shadow)" }}>
                 Read the story <ArrowRight />
               </button>

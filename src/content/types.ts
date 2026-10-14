@@ -77,4 +77,6 @@ export type Challenge = {
   coverAlt: string;
   photos: Slide[];
   story: string[];
+  /** Strava activity links; one per day for multi-day challenges. */
+  rides: { label: string; href: string }[];
 };

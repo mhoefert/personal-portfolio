@@ -54,11 +54,15 @@ export function SectionNav() {
                 type="button"
                 onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" })}
                 aria-current={on ? "location" : undefined}
-                className="flex cursor-pointer items-center gap-2.5 py-1.5 focus-visible:outline-none"
+                className="group/item flex cursor-pointer items-center gap-2.5 py-1.5 focus-visible:outline-none"
               >
+                {/* Three states: current (long, orange), other (short, grey), hovered other (a little longer, darker). */}
                 <span
-                  className="h-[2px] rounded-full transition-all duration-300"
-                  style={{ width: on ? 22 : 10, background: on ? "var(--accent)" : "var(--gray-7)" }}
+                  className={`h-[2px] rounded-full transition-all duration-300 ${
+                    on
+                      ? "w-[22px] bg-[var(--accent)]"
+                      : "w-[10px] bg-[var(--gray-7)] group-hover/item:w-[15px] group-hover/item:bg-[var(--gray-9)] group-focus-visible/item:w-[15px] group-focus-visible/item:bg-[var(--gray-9)]"
+                  }`}
                 />
                 <span
                   className={`whitespace-nowrap rounded-full bg-[var(--gray-1)]/85 px-2 py-0.5 font-[var(--font-mono)] text-[10px] uppercase tracking-[0.14em] backdrop-blur-sm transition-opacity duration-300 group-hover/nav:opacity-100 group-focus-within/nav:opacity-100 ${

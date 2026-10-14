@@ -2,19 +2,37 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/* The page background: the dot grid, a grey wash, and a small "second brain" (a
- * two-lobed network of notes with signals firing between them, an orange core that
- * breathes and rings pulsing outward). It wanders on its own and gets a push from
- * scrolling; the top-left button locks it to the visitor's pointer instead. */
+/* The page background: the dot grid, a grey wash, and a "second brain" sphere (in
+ * the spirit of incident.io's Nexus globe, built from scratch). A slowly rotating
+ * globe with a fuzzy rim of dust, a soft peach glow, grey notes inside, and clusters
+ * of orange notes on its surface, each labelled with an area of this site. The near
+ * side is crisp; the far side fades as it turns. The globe wanders the page and
+ * gets a push from scrolling; the top-left button locks it to the pointer instead. */
 
-const SIZE = 440;
+const SIZE = 560;
 const GREY_SIZE = 1000;
-const NODE_COUNT = 58;
-const SIGNALS = 4;
-const PULSE = 6.5; // seconds per breath / ring
+const TURN_SECONDS = 80; // one full rotation
+const TILT = 0.32; // radians, so we see a little of the top
+const DUST = 1100;
+const INNER = 70;
 
-type BrainNode = { x: number; y: number; hub: boolean; phase: number; fire: number };
-type Signal = { from: number; to: number; t: number; hops: number; speed: number };
+const CLUSTERS: { label: [string, string]; count: number; hue: string }[] = [
+  { label: ["Joey resume", "engine"], count: 18, hue: "247,107,21" },
+  { label: ["Playi adaptive", "playbooks"], count: 15, hue: "240,92,62" },
+  { label: ["AI landscape", "research"], count: 16, hue: "255,138,91" },
+  { label: ["Career history", "& resumes"], count: 13, hue: "247,107,21" },
+  { label: ["ITB rehab", "research"], count: 10, hue: "232,118,96" },
+  { label: ["Strava ride", "data"], count: 14, hue: "247,107,21" },
+  { label: ["Books &", "reading notes"], count: 9, hue: "255,138,91" },
+  { label: ["Product specs", "& plans"], count: 15, hue: "240,92,62" },
+  { label: ["Model watch", "& LLM costs"], count: 11, hue: "232,118,96" },
+  { label: ["Mitie operator", "workshops"], count: 12, hue: "247,107,21" },
+  { label: ["JLL market", "strategy"], count: 10, hue: "255,138,91" },
+  { label: ["Hard rides", "& challenges"], count: 13, hue: "240,92,62" },
+];
+
+type P3 = { x: number; y: number; z: number };
+type Dot = P3 & { r: number; hue: string };
 
 function mulberry32(seed: number) {
   return () => {
@@ -26,42 +44,46 @@ function mulberry32(seed: number) {
   };
 }
 
-/** Two overlapping lobes with a fissure down the middle, linked to near neighbours. */
-function buildBrain() {
-  const rand = mulberry32(42);
-  const nodes: BrainNode[] = [];
-  const inLobe = (x: number, y: number, cx: number) => ((x - cx) / 0.52) ** 2 + (y / 0.66) ** 2 <= 1;
-  while (nodes.length < NODE_COUNT) {
-    const x = rand() * 2 - 1;
-    const y = rand() * 2 - 1;
-    if (Math.abs(x) < 0.06 || y > 0.58) continue;
-    if (!inLobe(x, y, -0.46) && !inLobe(x, y, 0.46)) continue;
-    nodes.push({ x, y, hub: rand() < 0.16, phase: rand() * Math.PI * 2, fire: 0 });
-  }
-  const adj: number[][] = nodes.map(() => []);
-  const link = (i: number, j: number) => {
-    if (i === j || adj[i].includes(j)) return;
-    adj[i].push(j);
-    adj[j].push(i);
-  };
-  nodes.forEach((n, i) => {
-    nodes
-      .map((m, j) => ({ j, d: (m.x - n.x) ** 2 + (m.y - n.y) ** 2, same: Math.sign(m.x) === Math.sign(n.x) }))
-      .filter((o) => o.j !== i && o.same)
-      .sort((a, b) => a.d - b.d)
-      .slice(0, n.hub ? 4 : 2)
-      .forEach(({ j }) => link(i, j));
+function normalize(p: P3): P3 {
+  const l = Math.hypot(p.x, p.y, p.z) || 1;
+  return { x: p.x / l, y: p.y / l, z: p.z / l };
+}
+
+/** Everything lives on or inside a unit sphere; the renderer scales it. */
+function buildGlobe() {
+  const rand = mulberry32(19);
+  const gauss = () => Math.sqrt(-2 * Math.log(rand() + 1e-9)) * Math.cos(2 * Math.PI * rand());
+  const dir = () => normalize({ x: gauss(), y: gauss(), z: gauss() });
+
+  const dust: P3[] = Array.from({ length: DUST }, () => {
+    const d = dir();
+    const r = 0.965 + rand() * 0.07;
+    return { x: d.x * r, y: d.y * r, z: d.z * r };
   });
-  // A few bridges across the fissure.
-  const left = nodes.map((n, i) => ({ n, i })).filter(({ n }) => n.x < 0 && n.x > -0.3);
-  const right = nodes.map((n, i) => ({ n, i })).filter(({ n }) => n.x > 0 && n.x < 0.3);
-  left.slice(0, 4).forEach(({ n, i }) => {
-    const best = right.reduce((a, b) => ((b.n.x - n.x) ** 2 + (b.n.y - n.y) ** 2 < (a.n.x - n.x) ** 2 + (a.n.y - n.y) ** 2 ? b : a));
-    link(i, best.i);
+  const inner: Dot[] = Array.from({ length: INNER }, () => {
+    const d = dir();
+    const r = Math.sqrt(rand()) * 0.5;
+    return { x: d.x * r, y: d.y * r, z: d.z * r, r: 0.9 + rand() * 0.8, hue: "99,99,94" };
   });
-  const edges: [number, number][] = [];
-  adj.forEach((ns, i) => ns.forEach((j) => i < j && edges.push([i, j])));
-  return { nodes, adj, edges };
+
+  // Cluster anchors spread evenly over the sphere (Fibonacci lattice), with a jitter.
+  const golden = Math.PI * (3 - Math.sqrt(5));
+  const anchors: P3[] = CLUSTERS.map((_, i) => {
+    const y = 1 - ((i + 0.5) * 2) / CLUSTERS.length;
+    const rr = Math.sqrt(1 - y * y);
+    const th = i * golden + rand() * 0.3;
+    return normalize({ x: Math.cos(th) * rr, y: y * 0.9, z: Math.sin(th) * rr });
+  });
+  const clusterDots: Dot[] = [];
+  anchors.forEach((a, i) => {
+    for (let k = 0; k < CLUSTERS[i].count; k++) {
+      const spread = 0.2;
+      const d = normalize({ x: a.x + gauss() * spread, y: a.y + gauss() * spread, z: a.z + gauss() * spread });
+      const r = 0.86 + rand() * 0.13;
+      clusterDots.push({ x: d.x * r, y: d.y * r, z: d.z * r, r: 1.5 + rand() * 1.4, hue: CLUSTERS[i].hue });
+    }
+  });
+  return { dust, inner, anchors, clusterDots };
 }
 
 export function BackgroundBrain() {
@@ -84,19 +106,12 @@ export function BackgroundBrain() {
     canvas.height = SIZE * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    const { nodes, adj, edges } = buildBrain();
-    const rand = mulberry32(7);
-    const spawn = (): Signal => {
-      const from = Math.floor(rand() * nodes.length);
-      const to = adj[from][Math.floor(rand() * adj[from].length)] ?? from;
-      return { from, to, t: 0, hops: 0, speed: 1.1 + rand() * 0.8 };
-    };
-    const signals = Array.from({ length: SIGNALS }, spawn);
+    const { dust, inner, anchors, clusterDots } = buildGlobe();
+    const font = getComputedStyle(document.body).fontFamily;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const pointer = { x: window.innerWidth * 0.62, y: window.innerHeight * 0.4 };
     let pos: { x: number; y: number } | null = null;
     let progress = 0;
-    let last = 0;
     let raf = 0;
 
     const onScroll = () => {
@@ -108,81 +123,68 @@ export function BackgroundBrain() {
       pointer.y = e.clientY;
     };
 
-    const draw = (sec: number, dt: number) => {
-      const c = SIZE / 2;
-      ctx.clearRect(0, 0, SIZE, SIZE);
-      const breath = 0.5 + 0.5 * Math.sin((sec * 2 * Math.PI) / PULSE);
+    const c = SIZE / 2;
+    const R = SIZE * 0.42;
+    const F = 3.2; // perspective distance, in sphere radii
 
-      const core = ctx.createRadialGradient(c, c, 0, c, c, SIZE * 0.5);
-      core.addColorStop(0, `rgba(247,107,21,${0.2 + 0.07 * breath})`);
-      core.addColorStop(0.35, "rgba(247,107,21,0.07)");
-      core.addColorStop(1, "rgba(247,107,21,0)");
-      ctx.fillStyle = core;
+    const draw = (sec: number) => {
+      ctx.clearRect(0, 0, SIZE, SIZE);
+      const rot = (sec / TURN_SECONDS) * Math.PI * 2;
+      const cr = Math.cos(rot);
+      const sr = Math.sin(rot);
+      const ct = Math.cos(TILT);
+      const st = Math.sin(TILT);
+      /** Rotate about the vertical axis, tilt toward the viewer, project with perspective. */
+      const project = (p: P3) => {
+        const x1 = p.x * cr + p.z * sr;
+        const z1 = -p.x * sr + p.z * cr;
+        const y2 = p.y * ct - z1 * st;
+        const z2 = p.y * st + z1 * ct;
+        const s = F / (F - z2);
+        // depth: 1 at the nearest point, 0 at the farthest
+        return { x: c + x1 * R * s, y: c + y2 * R * s, s, d: (z2 + 1) / 2 };
+      };
+
+      // Soft peach glow, breathing gently.
+      const breath = 0.5 + 0.5 * Math.sin(sec * 0.9);
+      const glow = ctx.createRadialGradient(c, c, 0, c, c, R * 1.12);
+      glow.addColorStop(0, `rgba(253,191,116,${0.16 + 0.05 * breath})`);
+      glow.addColorStop(0.6, "rgba(247,107,21,0.07)");
+      glow.addColorStop(1, "rgba(247,107,21,0)");
+      ctx.fillStyle = glow;
       ctx.fillRect(0, 0, SIZE, SIZE);
 
-      for (let k = 0; k < 2; k++) {
-        const phase = (sec / PULSE + k / 2) % 1;
-        ctx.strokeStyle = `rgba(247,107,21,${0.22 * (1 - phase) * Math.min(1, phase / 0.1)})`;
-        ctx.lineWidth = 1.4;
-        ctx.beginPath();
-        ctx.arc(c, c, SIZE * (0.14 + phase * 0.34), 0, Math.PI * 2);
-        ctx.stroke();
+      // Fuzzy rim: fine dust on the shell (projection piles it up at the edge).
+      for (const p of dust) {
+        const q = project(p);
+        ctx.fillStyle = `rgba(140,128,116,${0.07 + 0.2 * q.d})`;
+        const sz = 0.7 + 0.5 * q.s;
+        ctx.fillRect(q.x, q.y, sz, sz);
       }
 
-      const scale = SIZE * 0.4 * (1 + 0.025 * Math.sin(sec * 0.9));
-      const pts = nodes.map((n) => ({
-        x: c + n.x * scale + Math.sin(sec * 0.6 + n.phase) * 2.2,
-        y: c + n.y * scale * 0.8 + Math.cos(sec * 0.5 + n.phase) * 2.2,
-      }));
-
-      ctx.lineWidth = 0.8;
-      ctx.strokeStyle = "rgba(150,108,78,0.22)";
-      ctx.beginPath();
-      edges.forEach(([i, j]) => {
-        ctx.moveTo(pts[i].x, pts[i].y);
-        ctx.lineTo(pts[j].x, pts[j].y);
-      });
-      ctx.stroke();
-
-      signals.forEach((s, k) => {
-        s.t += dt * s.speed;
-        if (s.t >= 1) {
-          nodes[s.to].fire = 1;
-          const options = adj[s.to].filter((j) => j !== s.from);
-          if (s.hops > 7 || options.length === 0) {
-            signals[k] = spawn();
-            return;
-          }
-          s.from = s.to;
-          s.to = options[Math.floor(rand() * options.length)];
-          s.t = 0;
-          s.hops += 1;
-        }
-        const a = pts[s.from];
-        const b = pts[s.to];
-        const x = a.x + (b.x - a.x) * s.t;
-        const y = a.y + (b.y - a.y) * s.t;
-        const glow = ctx.createRadialGradient(x, y, 0, x, y, 9);
-        glow.addColorStop(0, "rgba(247,107,21,0.55)");
-        glow.addColorStop(1, "rgba(247,107,21,0)");
-        ctx.fillStyle = glow;
+      // Grey notes inside, then orange clusters, far side first.
+      const dots = [...inner, ...clusterDots].map((p) => ({ p, q: project(p) })).sort((a, b) => a.q.d - b.q.d);
+      for (const { p, q } of dots) {
+        const isCluster = p.hue !== "99,99,94";
+        const a = isCluster ? 0.18 + 0.8 * q.d ** 1.4 : 0.2 + 0.5 * q.d;
+        ctx.fillStyle = `rgba(${p.hue},${a})`;
         ctx.beginPath();
-        ctx.arc(x, y, 9, 0, Math.PI * 2);
+        ctx.arc(q.x, q.y, p.r * q.s * (isCluster ? 1 : 0.85), 0, Math.PI * 2);
         ctx.fill();
-        ctx.fillStyle = "rgba(247,107,21,0.95)";
-        ctx.beginPath();
-        ctx.arc(x, y, 2, 0, Math.PI * 2);
-        ctx.fill();
-      });
+      }
 
-      nodes.forEach((n, i) => {
-        n.fire = Math.max(0, n.fire - dt * 1.4);
-        const f = n.fire;
-        const r = (n.hub ? 3 : 1.8) + f * 1.8;
-        ctx.fillStyle = n.hub || f > 0.05 ? `rgba(247,107,21,${0.5 + 0.5 * Math.max(f, n.hub ? 0.3 : 0)})` : "rgba(99,99,94,0.45)";
-        ctx.beginPath();
-        ctx.arc(pts[i].x, pts[i].y, r, 0, Math.PI * 2);
-        ctx.fill();
+      // Labels: crisp on the near side, fading out as they turn away.
+      ctx.font = `500 11px ${font}`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      anchors.forEach((a, i) => {
+        const q = project(a);
+        const alpha = Math.min(1, Math.max(0, (q.d - 0.3) / 0.45));
+        if (alpha <= 0.02) return;
+        ctx.fillStyle = `rgba(33,32,28,${0.12 + 0.78 * alpha})`;
+        const [l1, l2] = CLUSTERS[i].label;
+        ctx.fillText(l1, q.x, q.y - 7);
+        ctx.fillText(l2, q.x, q.y + 7);
       });
     };
 
@@ -191,8 +193,8 @@ export function BackgroundBrain() {
       const h = window.innerHeight;
       const p = progress;
       const wander = {
-        x: ((52 + 24 * Math.sin(sec * 0.22 + 0.5) + 9 * Math.sin(sec * 0.08 + 2.1) + 12 * Math.sin(p * Math.PI * 4 + 0.5)) / 100) * w,
-        y: ((42 + 22 * Math.cos(sec * 0.19 - 0.3) + 8 * Math.sin(sec * 0.1 + 1.3) + 14 * Math.cos(p * Math.PI * 3.2 - 0.3)) / 100) * h,
+        x: ((52 + 24 * Math.sin(sec * 0.16 + 0.5) + 9 * Math.sin(sec * 0.06 + 2.1) + 12 * Math.sin(p * Math.PI * 4 + 0.5)) / 100) * w,
+        y: ((44 + 20 * Math.cos(sec * 0.14 - 0.3) + 8 * Math.sin(sec * 0.08 + 1.3) + 14 * Math.cos(p * Math.PI * 3.2 - 0.3)) / 100) * h,
       };
       const target = followRef.current ? pointer : wander;
       pos ??= { ...target };
@@ -209,17 +211,15 @@ export function BackgroundBrain() {
     onScroll();
     if (reduce) {
       place(8);
-      draw(8, 0);
+      draw(8);
       return;
     }
 
     const start = performance.now();
     const tick = (now: number) => {
       const sec = (now - start) / 1000 + 8;
-      const dt = last ? Math.min(0.05, sec - last) : 0;
-      last = sec;
       place(sec);
-      draw(sec, dt);
+      draw(sec);
       raf = requestAnimationFrame(tick);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -279,11 +279,9 @@ export function BackgroundBrain() {
         }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-          <circle cx="6" cy="7" r="2" />
-          <circle cx="15" cy="5" r="1.6" />
-          <circle cx="9" cy="15" r="1.6" />
-          <path d="M7.7 6.4 13.4 5.3M6.7 8.8 8.4 13.5M14.3 6.5 10 13.6" />
-          <path d="M14 13l7 2.6-3 1.1-1.1 3z" fill="currentColor" />
+          <circle cx="9.5" cy="9.5" r="6.5" />
+          <path d="M3 9.5h13M9.5 3c-2.2 2-2.2 11 0 13M9.5 3c2.2 2 2.2 11 0 13" />
+          <path d="M14 14l7 2.6-3 1.1-1.1 3z" fill="currentColor" />
         </svg>
         <span className="pointer-events-none absolute left-full top-1/2 ml-3 -translate-x-1 -translate-y-1/2 whitespace-nowrap rounded-full bg-[var(--gray-12)] px-3 py-1.5 font-[var(--font-mono)] text-[11px] tracking-[0.04em] text-white opacity-0 shadow-sm transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100">
           {follow ? "Following your cursor · click to let it wander" : "Make the second brain follow your cursor"}

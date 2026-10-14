@@ -13,6 +13,7 @@ export const CHALLENGES: Challenge[] = [
       { v: "24h30", l: "start to finish" },
     ],
     line: "4 countries, 2 best mates, and a cumulative 0 hours of sleep. Wouldn't do it any different.",
+    rides: [{ label: "See the ride", href: "https://www.strava.com/activities/18479313181" }],
     cover: "/challenges/hague-cover.webp",
     coverAlt: "Michael and two friends with their bikes at the finish in The Hague",
     photos: [
@@ -39,6 +40,10 @@ export const CHALLENGES: Challenge[] = [
       { v: "20.5 h", l: "riding" },
     ],
     line: "Two flats, a dead phone and mild hypothermia in a Welsh storm. DNF at km 255. The real test was staying calm and finding a way out.",
+    rides: [
+      { label: "Day 1", href: "https://www.strava.com/activities/14873261724" },
+      { label: "Day 2", href: "https://www.strava.com/activities/14884192384" },
+    ],
     cover: "/challenges/dragon-cover.webp",
     coverAlt: "Michael riding the Dragon Devil in the rain on a Welsh moorland road",
     photos: [
@@ -70,6 +75,7 @@ export const CHALLENGES: Challenge[] = [
       { v: "12.4 h", l: "riding" },
     ],
     line: "The last day of a week of riding. A 5:30am start under the stars, a seized lower back in the heat, and Sa Calobra to ourselves at sunset.",
+    rides: [{ label: "See the ride", href: "https://www.strava.com/activities/14275497687" }],
     cover: "/challenges/mallorca-cover.webp",
     coverAlt: "Michael giving a thumbs up on a Mallorca climb at sunset",
     photos: [
