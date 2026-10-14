@@ -73,6 +73,7 @@ export function useArtCanvas(render: (f: Frame) => void, active: boolean) {
     });
     io.observe(canvas);
     document.fonts?.ready.then(() => draw(performance.now()));
+    logosReady().then(() => draw(performance.now()));
 
     return () => {
       cancelAnimationFrame(raf);
@@ -187,9 +188,8 @@ export function drawFlow(
   ctx.bezierCurveTo(c1.x, c1.y, c2.x, c2.y, b.x, b.y);
   ctx.stroke();
   ctx.restore();
-  const s = speed * (1 + glow * 0.6);
   for (let k = 0; k < count; k++) {
-    const t = (sec * s + offset + k / count) % 1;
+    const t = (sec * speed + offset + k / count) % 1;
     const p = bezier(a, c1, c2, b, t);
     const alpha = Math.sin(t * Math.PI) * (0.55 + glow * 0.4) * strength;
     ctx.fillStyle = `rgba(${color},${alpha})`;
@@ -317,5 +317,120 @@ export function drawGlyph(ctx: CanvasRenderingContext2D, glyph: Glyph, x: number
       ctx.fill();
       break;
   }
+  ctx.restore();
+}
+
+/* ── Brand logos, drawn as small app-icon tiles ─────────────────────────────── */
+
+export type Logo = "strava" | "airtable" | "gemini" | "claude" | "codex" | "cursor" | "github";
+
+const RASTER: Partial<Record<Logo, string>> = { airtable: "/logos/airtable.png", codex: "/logos/codex.png", cursor: "/logos/cursor.png" };
+const images: Partial<Record<Logo, HTMLImageElement>> = {};
+let loading: Promise<void> | null = null;
+
+/** Loads the raster logos once (browser only). */
+export function logosReady() {
+  loading ??= Promise.all(
+    (Object.entries(RASTER) as [Logo, string][]).map(
+      ([name, src]) =>
+        new Promise<void>((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            images[name] = img;
+            resolve();
+          };
+          img.onerror = () => resolve();
+          img.src = src;
+        }),
+    ),
+  ).then(() => undefined);
+  return loading;
+}
+
+const STRAVA_SOFT = "M6.9 8.8l2.5 4.5 2.4-4.5h-1.5l-.9 1.7-1-1.7z";
+const STRAVA_MAIN = "M7.2 2.5l3.1 6.3H4zm0 3.8l1.2 2.5H5.9z";
+const CLAUDE =
+  "m19.6 66.5 19.7-11 .3-1-.3-.5h-1l-3.3-.2-11.2-.3L14 53l-9.5-.5-2.4-.5L0 49l.2-1.5 2-1.3 2.9.2 6.3.5 9.5.6 6.9.4L38 49.1h1.6l.2-.7-.5-.4-.4-.4L29 41l-10.6-7-5.6-4.1-3-2-1.5-2-.6-4.2 2.7-3 3.7.3.9.2 3.7 2.9 8 6.1L37 36l1.5 1.2.6-.4.1-.3-.7-1.1L33 25l-6-10.4-2.7-4.3-.7-2.6c-.3-1-.4-2-.4-3l3-4.2L28 0l4.2.6L33.8 2l2.6 6 4.1 9.3L47 29.9l2 3.8 1 3.4.3 1h.7v-.5l.5-7.2 1-8.7 1-11.2.3-3.2 1.6-3.8 3-2L61 2.6l2 2.9-.3 1.8-1.1 7.7L59 27.1l-1.5 8.2h.9l1-1.1 4.1-5.4 6.9-8.6 3-3.5L77 13l2.3-1.8h4.3l3.1 4.7-1.4 4.9-4.4 5.6-3.7 4.7-5.3 7.1-3.2 5.7.3.4h.7l12-2.6 6.4-1.1 7.6-1.3 3.5 1.6.4 1.6-1.4 3.4-8.2 2-9.6 2-14.3 3.3-.2.1.2.3 6.4.6 2.8.2h6.8l12.6 1 3.3 2 1.9 2.7-.3 2-5.1 2.6-6.8-1.6-16-3.8-5.4-1.3h-.8v.4l4.6 4.5 8.3 7.5L89 80.1l.5 2.4-1.3 2-1.4-.2-9.2-7-3.6-3-8-6.8h-.5v.7l1.8 2.7 9.8 14.7.5 4.5-.7 1.4-2.6 1-2.7-.6-5.8-8-6-9-4.7-8.2-.5.4-2.9 30.2-1.3 1.5-3 1.2-2.5-2-1.4-3 1.4-6.2 1.6-8 1.3-6.4 1.2-7.9.7-2.6v-.2H49L43 72l-9 12.3-7.2 7.6-1.7.7-3-1.5.3-2.8L24 86l10-12.8 6-7.9 4-4.6-.1-.5h-.3L17.2 77.4l-4.7.6-2-2 .2-3 1-1 8-5.5Z";
+const paths: Record<string, Path2D> = {};
+function path(d: string) {
+  return (paths[d] ??= new Path2D(d));
+}
+
+function roundedRect(ctx: CanvasRenderingContext2D, x: number, y: number, s: number, r: number) {
+  ctx.beginPath();
+  ctx.roundRect(x, y, s, s, r);
+}
+
+/** Draws a brand logo as a rounded tile of side `s` centred on (x, y). */
+export function drawLogo(ctx: CanvasRenderingContext2D, logo: Logo, x: number, y: number, s: number, alpha = 1) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  const x0 = x - s / 2;
+  const y0 = y - s / 2;
+  roundedRect(ctx, x0, y0, s, s * 0.24);
+  ctx.fillStyle = logo === "strava" ? "#fc4c02" : "#ffffff";
+  ctx.fill();
+  ctx.clip();
+
+  if (logo === "strava") {
+    ctx.translate(x0, y0);
+    ctx.scale(s / 16, s / 16);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill(path(STRAVA_MAIN), "evenodd");
+    ctx.globalAlpha = alpha * 0.6;
+    ctx.fill(path(STRAVA_SOFT));
+  } else if (logo === "claude") {
+    const k = (s * 0.66) / 100;
+    ctx.translate(x - 50 * k, y - 50 * k);
+    ctx.scale(k, k);
+    ctx.fillStyle = "#d97757";
+    ctx.fill(path(CLAUDE));
+  } else if (logo === "github") {
+    const k = (s * 0.66) / 16;
+    ctx.translate(x - 8 * k, y - 8 * k);
+    ctx.scale(k, k);
+    ctx.fillStyle = "#1f2328";
+    ctx.fill(github());
+  } else if (logo === "gemini") {
+    const r = s * 0.34;
+    const g = ctx.createLinearGradient(x - r, y + r, x + r, y - r);
+    g.addColorStop(0, "#4285f4");
+    g.addColorStop(0.55, "#9b72cb");
+    g.addColorStop(1, "#d96570");
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.moveTo(x, y - r);
+    ctx.quadraticCurveTo(x + r * 0.12, y - r * 0.12, x + r, y);
+    ctx.quadraticCurveTo(x + r * 0.12, y + r * 0.12, x, y + r);
+    ctx.quadraticCurveTo(x - r * 0.12, y + r * 0.12, x - r, y);
+    ctx.quadraticCurveTo(x - r * 0.12, y - r * 0.12, x, y - r);
+    ctx.fill();
+  } else {
+    const img = images[logo];
+    if (img) {
+      const fit = s * 0.68;
+      const k = fit / Math.max(img.width, img.height);
+      ctx.drawImage(img, x - (img.width * k) / 2, y - (img.height * k) / 2, img.width * k, img.height * k);
+    }
+  }
+  ctx.restore();
+}
+
+/** Soft orange halo + thin ring behind a logo tile, so tiles read as nodes in the flow. */
+export function drawTileNode(f: Frame, logo: Logo, x: number, y: number, s: number, strength = 1) {
+  const { ctx, glow } = f;
+  const halo = ctx.createRadialGradient(x, y, s * 0.3, x, y, s * 1.35);
+  halo.addColorStop(0, `rgba(${ORANGE},${(0.3 + glow * 0.14) * strength})`);
+  halo.addColorStop(1, `rgba(${ORANGE},0)`);
+  ctx.fillStyle = halo;
+  ctx.beginPath();
+  ctx.arc(x, y, s * 1.35, 0, Math.PI * 2);
+  ctx.fill();
+  drawLogo(ctx, logo, x, y, s, 0.35 + 0.65 * Math.min(1, strength));
+  ctx.save();
+  ctx.strokeStyle = `rgba(${ORANGE},${0.35 + 0.4 * Math.min(1, strength)})`;
+  ctx.lineWidth = 1;
+  roundedRect(ctx, x - s / 2 - 2.5, y - s / 2 - 2.5, s + 5, (s + 5) * 0.26);
+  ctx.stroke();
   ctx.restore();
 }

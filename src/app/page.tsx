@@ -1,4 +1,4 @@
-import { BackgroundOrb } from "@/components/BackgroundOrb";
+import { BackgroundBrain } from "@/components/BackgroundBrain";
 import { CapabilitySnapshot } from "@/components/CapabilitySnapshot";
 import { Challenges } from "@/components/Challenges";
 import { Experience } from "@/components/Experience";
@@ -7,13 +7,15 @@ import { Hero } from "@/components/Hero";
 import { Highlights } from "@/components/Highlights";
 import { ProjectTile } from "@/components/ProjectTile";
 import { SectionHeader } from "@/components/SectionHeader";
+import { SectionNav } from "@/components/SectionNav";
 import { AUTOMATIONS, PRODUCTS } from "@/content/projects";
 
 /* Content lives in src/content; components only render it. */
 export default function Portfolio() {
   return (
     <div className="relative z-[1] min-h-screen w-full overflow-x-hidden">
-      <BackgroundOrb />
+      <BackgroundBrain />
+      <SectionNav />
       <Hero />
 
       <main className="mx-auto flex w-full max-w-[1240px] flex-col gap-24 px-6 pb-24 md:gap-32 md:px-10">

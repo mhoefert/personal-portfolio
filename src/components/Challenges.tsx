@@ -113,7 +113,7 @@ function StoryModal({ c, onClose }: { c: Challenge; onClose: () => void }) {
     };
   }, [onClose]);
 
-  /* Fixed header (title + stats); the body scrolls inside the dialog. On wide
+  /* Fixed header (date + title); the body scrolls inside the dialog. Ride stats sit under the photos. On wide
    * screens photos sit on the left and the story scrolls on the right. */
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(33,32,28,0.55)] p-3 backdrop-blur-sm sm:p-6" onClick={onClose}>
@@ -140,13 +140,13 @@ function StoryModal({ c, onClose }: { c: Challenge; onClose: () => void }) {
           <h3 id={`${c.slug}-title`} className="mt-2 font-[var(--font-serif)] text-[2rem] leading-[1.05] text-[var(--gray-12)] sm:text-[2.2rem]">
             {c.title}
           </h3>
-          <div className="mt-4 max-w-md">
-            <Stats c={c} />
-          </div>
         </header>
         <div className="custom-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-8 sm:py-6 lg:grid lg:grid-cols-2 lg:grid-rows-[minmax(0,1fr)] lg:gap-8 lg:overflow-hidden">
           <div className="lg:min-h-0">
             <Carousel slides={c.photos} aspect="4 / 3" />
+            <div className="mt-6 border-t pt-5" style={{ borderColor: "var(--gray-4)" }}>
+              <Stats c={c} />
+            </div>
           </div>
           <div className="custom-scrollbar mt-6 flex flex-col gap-4 text-[15px] leading-relaxed text-[var(--gray-11)] [text-wrap:pretty] lg:mt-0 lg:min-h-0 lg:overflow-y-auto lg:pr-4">
             {c.story.map((p) => (

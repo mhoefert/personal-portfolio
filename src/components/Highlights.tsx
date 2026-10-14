@@ -73,7 +73,10 @@ function HighlightCard({ h }: { h: Highlight }) {
 
       <div className="flex items-end justify-between gap-3 px-1.5 pb-1.5 pt-6 sm:px-2">
         <span className="inline-flex min-w-0 items-center gap-2 pb-2 text-[13px] text-[var(--gray-10)]">
-          <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${isOpenSlot ? "pulse-dot" : ""}`} style={{ background: isOpenSlot ? "var(--accent)" : "#2f9e5b" }} />
+          <span
+            className={`h-1.5 w-1.5 shrink-0 rounded-full ${h.tone === "open" ? "pulse-dot" : ""}`}
+            style={{ background: h.tone === "open" ? "var(--accent)" : h.tone === "partners" ? "#3b82f6" : "#2f9e5b" }}
+          />
           <span className="truncate">{h.status}</span>
         </span>
         {isOpenSlot ? (

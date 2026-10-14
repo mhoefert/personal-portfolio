@@ -49,6 +49,8 @@ export type Highlight = {
   stat?: string;
   statSub?: string;
   status: string;
+  /** Status dot colour: green live, blue design partners, pulsing orange open slot. */
+  tone?: "live" | "partners" | "open";
   live?: { label: string; href: string };
   art: HighlightArt;
 };

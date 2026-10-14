@@ -1,15 +1,15 @@
 "use client";
 
-import { CREAM, ORANGE, PEACH, drawFlow, drawGlyph, drawLabel, drawNode, paintBackdrop, useArtCanvas, type Frame, type Glyph } from "./canvas";
+import { CREAM, ORANGE, PEACH, drawFlow, drawLabel, drawNode, drawTileNode, paintBackdrop, useArtCanvas, type Frame, type Logo } from "./canvas";
 
-/* GitHub Actions call whichever LLM provider is best that week (the active one
+/* GitHub Actions call whichever harness or model is best that week (the active one
  * rotates), the answers land in the second brain, and a dashed lane underneath
  * carries the deterministic script work that never touches a model. */
-const PROVIDERS: { glyph: Glyph; y: number }[] = [
-  { glyph: "spark", y: 0.13 },
-  { glyph: "hex", y: 0.31 },
-  { glyph: "sparkle", y: 0.49 },
-  { glyph: "ring", y: 0.67 },
+const PROVIDERS: { logo: Logo; y: number }[] = [
+  { logo: "claude", y: 0.13 },
+  { logo: "codex", y: 0.31 },
+  { logo: "cursor", y: 0.49 },
+  { logo: "gemini", y: 0.67 },
 ];
 const BRAIN_NODES = 11;
 
@@ -37,11 +37,9 @@ function render(f: Frame) {
   });
 
   PROVIDERS.forEach((p, i) => {
-    const on = i === activeIdx;
-    drawNode(f, pX, h * p.y, nodeR * 0.8, on ? 1.3 : 0.35);
-    drawGlyph(ctx, p.glyph, pX, h * p.y, nodeR * 0.85, `rgba(${CREAM},${on ? 0.95 : 0.45})`);
+    drawTileNode(f, p.logo, pX, h * p.y, nodeR * 1.5, i === activeIdx ? 1.2 : 0.3);
   });
-  drawLabel(f, "LLM APIs", pX + nodeR * 0.8 + 8, h * PROVIDERS[0].y, "left");
+  drawLabel(f, "Any harness or model", pX + nodeR * 0.75 + 10, h * PROVIDERS[0].y, "left");
 
   // Second brain: a small turning cluster of linked notes.
   const rot = sec * 0.18;
@@ -69,8 +67,7 @@ function render(f: Frame) {
   drawNode(f, brain.x, brain.y, nodeR * 0.55, 1.2);
   drawLabel(f, "Second brain", brain.x, brain.y + brainR + 14);
 
-  drawNode(f, gh.x, gh.y, nodeR * 1.3, 1.2);
-  drawGlyph(ctx, "github", gh.x, gh.y, nodeR * 1.35);
+  drawTileNode(f, "github", gh.x, gh.y, nodeR * 2.1, 1.2);
   drawLabel(f, "GitHub Actions", gh.x, gh.y + nodeR * 1.3 + 12);
 }
 

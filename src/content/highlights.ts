@@ -24,6 +24,7 @@ export const HIGHLIGHTS: Highlight[] = [
     stat: "15+ design partners",
     statSub: "40% token cut, found through a full eval build",
     status: "Used by design partners",
+    tone: "partners",
     live: { label: "Live", href: "https://playihq.com" },
     art: { kind: "logo", brand: "playi", backdrop: "/art/playi-backdrop.webp" },
   },
@@ -68,8 +69,9 @@ export const HIGHLIGHTS: Highlight[] = [
     category: "Open slot",
     title: "Your problem here",
     what: "Got a problem you want solved?",
-    problem: "Tell me about it. I like the weird ones.",
+    problem: "Tell me about it. I like to try new things.",
     status: PROFILE.availability,
+    tone: "open",
     art: { kind: "scene", scene: "open" },
   },
 ];
