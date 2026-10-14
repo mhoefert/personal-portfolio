@@ -2,14 +2,15 @@
 
 import { CREAM, ORANGE, PEACH, drawFlow, drawLabel, drawNode, drawTileNode, paintBackdrop, useArtCanvas, type Frame, type Logo } from "./canvas";
 
-/* GitHub Actions call whichever harness or model is best that week (the active one
+/* GitHub Actions make cheap LLM API calls to whichever provider is best that week (the active one
  * rotates), the answers land in the second brain, and a dashed lane underneath
  * carries the deterministic script work that never touches a model. */
 const PROVIDERS: { logo: Logo; y: number }[] = [
-  { logo: "claude", y: 0.13 },
-  { logo: "codex", y: 0.31 },
-  { logo: "cursor", y: 0.49 },
-  { logo: "gemini", y: 0.67 },
+  { logo: "claude", y: 0.11 },
+  { logo: "openai", y: 0.26 },
+  { logo: "grok", y: 0.41 },
+  { logo: "gemini", y: 0.56 },
+  { logo: "deepseek", y: 0.71 },
 ];
 const BRAIN_NODES = 11;
 
@@ -37,9 +38,9 @@ function render(f: Frame) {
   });
 
   PROVIDERS.forEach((p, i) => {
-    drawTileNode(f, p.logo, pX, h * p.y, nodeR * 1.5, i === activeIdx ? 1.2 : 0.3);
+    drawTileNode(f, p.logo, pX, h * p.y, nodeR * 1.3, i === activeIdx ? 1.2 : 0.3);
   });
-  drawLabel(f, "Any harness or model", pX + nodeR * 0.75 + 10, h * PROVIDERS[0].y, "left");
+  drawLabel(f, "Cheap LLM API Calls", pX + nodeR * 0.65 + 10, h * PROVIDERS[0].y, "left");
 
   // Second brain: a small turning cluster of linked notes.
   const rot = sec * 0.18;
