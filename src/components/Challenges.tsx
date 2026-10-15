@@ -183,6 +183,7 @@ function StoryModal({ c, onClose }: { c: Challenge; onClose: () => void }) {
             <Carousel slides={c.photos} aspect="4 / 3" />
             <div className="mt-6 border-t pt-5" style={{ borderColor: "var(--gray-4)" }}>
               <Stats c={c} />
+              {c.statsNote && <p className="mt-3 text-[12.5px] leading-relaxed text-[var(--gray-10)]">{c.statsNote}</p>}
               <div className="mt-5">
                 <RideLinks c={c} />
               </div>

@@ -72,11 +72,13 @@ export type Challenge = {
   date: string;
   where: string;
   stats: Metric[];
+  /** Optional context beneath the stats in the full story. */
+  statsNote?: string;
   line: string;
   cover: string;
   coverAlt: string;
   photos: Slide[];
   story: string[];
-  /** Strava activity links; one per day for multi-day challenges. */
+  /** Strava activity links for each day or leg of a challenge. */
   rides: { label: string; href: string }[];
 };

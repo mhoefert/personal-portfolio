@@ -1,6 +1,6 @@
 import type { Challenge } from "./types";
 
-/* Newest first. Dragon and Mallorca stories are Michael's original write-ups (typos fixed only). */
+/* Newest first. Stories are Michael's original write-ups (typos fixed only). */
 export const CHALLENGES: Challenge[] = [
   {
     slug: "the-hague",
@@ -93,6 +93,74 @@ export const CHALLENGES: Challenge[] = [
       "Next we start approaching Puig Major. The one of us that had gone ahead on Coll de Femenia was starting to crack. At the base of Puig Major he actually split and fell back from us, deciding to go his own pace. The two of us keep pushing on. After 2 hours steadily climbing we make it to the peak of Puig Major where we wait for our friend. After some time he rolls in, defeated. Because of the way the route was made and the nature of Sa Calobra (which is an out and back climb), we always had the option to skip the Sa Calobra climb and head home if we were running short on time. At this point in the day, if we decided to do Sa Calobra we would be pushing it if we wanted to finish in daylight - there could be no messing around and nothing could go wrong. Otherwise we would have to complete the 17km descent back into Soller in the pitch black. Our friend decides to head directly home, whereas myself and my other friend decide to continue with the original plan.",
       "So next comes Sa Calobra, the most iconic and beautiful climb on the island. It is typically jam packed with tourists in rental cars and massive buses. But considering it was nearing sunset, we were blessed with an empty road. We had all the room in the world to hit every single apex and truly enjoy the wonder that is Sa Calobra. We descend this stunning 11km descent, get to the bottom, grab a quick photo, and 2 minutes later begin the final climb back out. Again, the roads are absolutely empty and I cannot emphasize enough how rare this is. It was truly a magical experience the way the sun was shining and setting into the valley as we climbed back up.",
       "Long story short, we made it back home. On the final 17km descent back home we were blessed with even more golden light from the sunset, the ultimate finale to an epic adventure. During the day I went through ups and downs. There were moments where I wished the ride was over and others where all I wanted to do was keep riding. But I had this itch. This itch that I hadn’t pushed or tested myself as much as I had wanted. I still had more in me. I guess I needed to find my next challenge. Maybe I would chase a dragon?",
+    ],
+  },
+  {
+    slug: "cowichan-valley-nightmare",
+    title: "Cowichan Valley Nightmare Ride",
+    date: "13 October 2023",
+    where: "Nanaimo to Swartz Bay · Vancouver Island",
+    stats: [
+      { v: "228 km", l: "distance" },
+      { v: "2,064 m", l: "elevation" },
+      { v: "9h09", l: "riding" },
+    ],
+    statsNote: "205.35 km racing + 22.63 km to the ferry. Elevation and riding time include both rides.",
+    line: "Pouring rain, 6 degrees, and 205km of gravel through pitch-black forests. Would I do it again? If you pay me a lot of money. Do I regret it? Nope.",
+    rides: [
+      { label: "Race", href: "https://www.strava.com/activities/10038947160" },
+      { label: "To the ferry", href: "https://www.strava.com/activities/10039059998" },
+    ],
+    cover: "/challenges/cowichan-1.webp",
+    coverAlt: "Cyclists gathering with their bikes on the ferry before the Cowichan Valley Nightmare Ride",
+    photos: [
+      { caption: "on the ferry before the race", image: "/challenges/cowichan-1.webp" },
+      { caption: "the overnight race route", image: "/challenges/cowichan-0.webp" },
+      { caption: "getting to the ferry", image: "/challenges/cowichan-pre-0.webp" },
+      { caption: "rolling through the ferry deck", image: "/challenges/cowichan-2.webp" },
+      { caption: "stocking up before a long night", image: "/challenges/cowichan-3.webp" },
+      { caption: "a stop in the forest", image: "/challenges/cowichan-4.webp" },
+      { caption: "still awake, just about", image: "/challenges/cowichan-5.webp" },
+      { caption: "bikes under the lights", image: "/challenges/cowichan-6.webp" },
+      { caption: "riding through the pitch-black forest", image: "/challenges/cowichan-7.webp" },
+      { caption: "the other side of a sleepless night", image: "/challenges/cowichan-8.webp" },
+    ],
+    story: [
+      "You know how I mentioned I try to do one unforgettable and monumentally challenging thing a year? Well when the opportunity came up to do the renowned Cowichan Valley Nightmare race, I knew I had to make an exception for 2023 and do 2 hard things. There’s really no way to describe this race other than by saying it’s insane.",
+      "It is a race where you have to catch the 19:00 ferry from Vancouver to Nanaimo (on Vancouver Island) to be able to start. The race officially starts 1.5 hours later at 20:30 when the ferry docks. You and 80 other people then have 200km of gravel racing, in pitch black through the night, in some honestly pretty scary and remote forests, all the way down to the capital of Vancouver Island, Victoria. Oh, and to top it off, it was pouring rain and 6 degrees celsius (brutal….).",
+      "So, when my friend who I did the triple triple crown with (read that story!!) asked if I wanted to do this, the only logical response was; yes.",
+      "Our race started 5pm as we rode the 25k from downtown Vancouver to the ferry terminal. Our goal was to end the race the following morning at the Victoria ferry terminal on the south of Vancouver Island in Swartz Bay and catch the very first ferry of the day at 07:00 back to mainland Vancouver. That meant we had to get from Nanaimo at 20:30 to Swartz Bay by 06:30 and cover 205km and 1,742m of off road riding (in the cold rain).",
+      "I don’t think I need to go into the gory details of this one; the countless mechanical issues we had, the terrifying moments where you almost drift off into sleep while riding because it’s the middle of the night, the scary forests in remote Vancouver Island (we have lots of bears and cougars in these forests), and to wrap it all up; you don’t even get to see any pretty scenery because it’s pitch black.",
+      "Anyone that knows me knows that I love my sleep. Reflecting on all the hard things I’ve done, I’d still probably say that this was the hardest simply because of the lack of sleep (and the terrain and the weather). Many of the challenges I have done (and the others in the future on this site that I’ve written about) I look back on and I think to myself; even though that was brutal, I would do it again. This challenge, I wouldn’t do again. This was so hard because it was the perfect storm of challenges; weather (soaking wet and cold), gravel riding (so much harder than road riding), no sleep, and terrifying forests.",
+      "Do I regret doing it? Absolutely not. It is one hell of a story to tell and like always, I truly believe it made me more resilient. Like with any of these stories, reach out if you want to learn more!",
+    ],
+  },
+  {
+    slug: "triple-triple-crown",
+    title: "Triple Triple Crown",
+    date: "29 July 2023",
+    where: "Vancouver · Seymour, Grouse & Cypress",
+    stats: [
+      { v: "235 km", l: "distance" },
+      { v: "6,168 m", l: "elevation" },
+      { v: "11h04", l: "riding" },
+    ],
+    line: "Three mountains, three times each, and one friend still willing to join me. It was really really really hard. I’m smiling thinking about it.",
+    rides: [{ label: "See the ride", href: "https://www.strava.com/activities/5342090966" }],
+    cover: "/challenges/triple-triple-1.webp",
+    coverAlt: "Vancouver and the North Shore mountains, with Cypress, Grouse and Seymour labelled",
+    photos: [
+      { caption: "three mountains, three times each", image: "/challenges/triple-triple-1.webp" },
+      { caption: "the route and all nine climbs", image: "/challenges/triple-triple-0.webp" },
+      { caption: "riding with friends on the North Shore", image: "/challenges/triple-triple-2.webp" },
+    ],
+    story: [
+      "The challenge of the year has been one that has been building for the last 2 years. In Vancouver, there is a notorious ride - almost a rite of passage for any Vancouver rider - called the Triple Crown. Named after the 3 local mountains you can ride up; Seymour, Grouse, and then Cypress. The triple crown is no easy ride; the first one I did was 145km and 2,810m of elevation. It definitely wasn’t easy. I did this ride for the first time in 2021.",
+      "The next year, myself and 3 friends got together and decided to make it a bit harder on ourselves. We would do a double triple crown; each mountain must be completed twice before we could move onto the next one. This meant we did Seymour up/down/up/down, then Grouse up/down/up/down, and then finally Cypress up/down/up/down totaling a grueling 200.6km, 4,512m of elevation, and 9 hours 52 minutes of riding time. We did this in the summer of 2022.",
+      "Naturally, the only logical thing to do next is a triple triple crown. In the summer of 2023, myself and one friend (the group of willing participants was dwindling) set out to do a triple triple crown. Each mountain up and down 3 times before we were allowed to move onto the next. We had some amazing people join us along the way, but there were many hours where it was just the two of us suffering. It was actually 11 hours and 4 minutes of suffering to be exact. We finished the ride with the mind boggling stats of 235km and 6,168m of elevation. There were countless moments in the ride where I wanted to give up. I don’t know how to describe it, but when you are moving so painstakingly slow up these mountains, and you see the distance markers ticking by so slowly, it really is as much a mental challenge as it is a physical one. Honestly, it’s a pretty good lesson in resilience even when things feel like they are moving at a snail’s pace (or even backwards, that’s how the last 2 reps up Cypress felt….).",
+      "In this description I’ve really downplayed just how hard this ride was. Yes, the stats are crazy, but what I can’t even begin to portray is how much harder it is doing this climbing mountains; your body is in a completely different position and using different muscles than when riding on flat roads, so being in that position for 10+ hours really shows you your weak muscles. Then there’s the aspect I touched on with the slow pace; riding so slowly and seeing the elevation and distance move so slowly on your bike computer would drive any person insane.",
+      "I’ll wrap it up here. You get the picture; it was really really really hard. But it was also so much fun and part of me loved every second of it. I’m writing this now and I’m smiling thinking about it. Doing hard things is fun. Doing hard things makes everything else in life a bit easier.",
+      "Feel free to reach out if you want to hear more!",
     ],
   },
 ];
