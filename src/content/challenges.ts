@@ -169,7 +169,7 @@ export const CHALLENGES: Challenge[] = [
       { v: "11h04", l: "riding" },
     ],
     line: "Three mountains, three times each, and one friend still willing to join me. It was really really really hard. I’m smiling thinking about it.",
-    rides: [{ label: "See the ride", href: "https://www.strava.com/activities/5342090966" }],
+    rides: [{ label: "See the ride", href: "https://www.strava.com/activities/9547047701" }],
     cover: "/challenges/triple-triple-1.webp",
     coverAlt: "Vancouver and the North Shore mountains, with Cypress, Grouse and Seymour labelled",
     photos: [
