@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BrainControls } from "./BrainControls";
+import { BackgroundField } from "./BackgroundField";
+import { BrainControls, type BackgroundMode } from "./BrainControls";
 
-/* The page background: the dot grid, a grey wash, and a "second brain" sphere (in
+/* The page background: the dot grid, a grey wash, and one of two animations. The
+ * default is a quiet network that ripples outward from clicks (BackgroundField). The
+ * alternative, picked from the top-left controls, is a "second brain" sphere (in
  * the spirit of incident.io's Nexus globe, built from scratch). A slowly rotating
  * globe with a fuzzy rim of dust, a soft peach glow, grey notes inside, and clusters
  * of orange notes on its surface, each labelled with an area of this site. The near
@@ -94,13 +97,24 @@ export function BackgroundBrain() {
   const greyRef = useRef<HTMLDivElement>(null);
   const [follow, setFollow] = useState(false);
   const [visible, setVisible] = useState(true);
+  const [mode, setMode] = useState<BackgroundMode>("field");
   const followRef = useRef(false);
   const visibleRef = useRef(true);
+  const globeOn = visible && mode === "globe";
+
+  // Remember the viewer's pick between visits; the field is the default.
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("bg-mode");
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- read once after hydration
+      if (saved === "globe" || saved === "field") setMode(saved);
+    } catch {}
+  }, []);
 
   useEffect(() => {
     followRef.current = follow;
-    visibleRef.current = visible;
-  }, [follow, visible]);
+    visibleRef.current = globeOn;
+  }, [follow, globeOn]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -248,8 +262,9 @@ export function BackgroundBrain() {
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden>
         {/* Dot grid */}
         <div
-          className="absolute inset-0 opacity-[0.8]"
+          className="absolute inset-0 transition-opacity duration-700"
           style={{
+            opacity: mode === "field" && visible ? 0.45 : 0.8,
             backgroundImage: `
               radial-gradient(circle at 0px 0px, rgba(99,99,94,.22) 1.2px, transparent 1.2px),
               radial-gradient(circle at 22px 22px, rgba(99,99,94,.22) 1.2px, transparent 1.2px),
@@ -268,10 +283,11 @@ export function BackgroundBrain() {
             background: "radial-gradient(circle, rgba(130,130,124,0.12) 0%, rgba(130,130,124,0.03) 45%, transparent 70%)",
           }}
         />
+        <BackgroundField active={visible && mode === "field"} follow={follow} />
         <div
           ref={boxRef}
           className="absolute left-0 top-0 transition-opacity duration-700 will-change-transform"
-          style={{ width: SIZE, height: SIZE, opacity: visible ? 1 : 0 }}
+          style={{ width: SIZE, height: SIZE, opacity: globeOn ? 1 : 0 }}
         >
           <canvas ref={canvasRef} style={{ width: SIZE, height: SIZE }} />
         </div>
@@ -280,6 +296,15 @@ export function BackgroundBrain() {
       <BrainControls
         follow={follow}
         visible={visible}
+        mode={mode}
+        onToggleMode={() => {
+          const next = mode === "field" ? "globe" : "field";
+          setMode(next);
+          setVisible(true);
+          try {
+            localStorage.setItem("bg-mode", next);
+          } catch {}
+        }}
         onToggleFollow={() => setFollow((f) => !f)}
         onToggleVisible={() => {
           setVisible((v) => !v);

@@ -2,15 +2,24 @@
 
 import { useEffect, useRef, useState } from "react";
 
+export type BackgroundMode = "field" | "globe";
+
 type Props = {
   follow: boolean;
   visible: boolean;
+  mode: BackgroundMode;
+  onToggleMode: () => void;
   onToggleFollow: () => void;
   onToggleVisible: () => void;
 };
 
 const round =
   "grid cursor-pointer place-items-center rounded-full border shadow-sm transition-colors duration-200 hover:border-[var(--accent)] hover:text-[var(--accent-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2";
+/** The three smaller buttons sit on a quarter circle around the main one, evenly spaced. */
+const ORBIT = [0, 45, 90].map((deg) => ({
+  x: Math.round(56 * Math.cos((deg * Math.PI) / 180)),
+  y: Math.round(56 * Math.sin((deg * Math.PI) / 180)),
+}));
 const tip =
   "pointer-events-none absolute whitespace-nowrap rounded-full bg-[var(--gray-12)] px-3 py-1.5 font-[var(--font-mono)] text-[11px] tracking-[0.04em] text-white opacity-0 shadow-sm transition-opacity duration-200";
 
@@ -69,11 +78,11 @@ function SubButton({
 }
 
 /**
- * Top-left control for the background second brain. Hover or click the main button
- * and two smaller buttons fan out to the right: follow the cursor, and turn the
- * animation off / on.
+ * Top-left control for the background animation. Hover or click the main button
+ * and three smaller buttons wrap around it: swap between the rippling network
+ * and the second brain globe, follow the cursor, and turn the animation off / on.
  */
-export function BrainControls({ follow, visible, onToggleFollow, onToggleVisible }: Props) {
+export function BrainControls({ follow, visible, mode, onToggleMode, onToggleFollow, onToggleVisible }: Props) {
   const [open, setOpen] = useState(false);
   const closeTimer = useRef<number | undefined>(undefined);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -110,7 +119,7 @@ export function BrainControls({ follow, visible, onToggleFollow, onToggleVisible
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        aria-label="Control the second brain animation"
+        aria-label="Control the background animation"
         className={`group/main ${round} relative h-10 w-10`}
         style={{
           borderColor: open || follow ? "var(--accent)" : "var(--gray-4)",
@@ -120,20 +129,54 @@ export function BrainControls({ follow, visible, onToggleFollow, onToggleVisible
         }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-          <circle cx="12" cy="12" r="8" />
-          <path d="M4 12h16M12 4c-2.8 2.4-2.8 13.6 0 16M12 4c2.8 2.4 2.8 13.6 0 16" />
+          {mode === "globe" ? (
+            <>
+              <circle cx="12" cy="12" r="8" />
+              <path d="M4 12h16M12 4c-2.8 2.4-2.8 13.6 0 16M12 4c2.8 2.4 2.8 13.6 0 16" />
+            </>
+          ) : (
+            <>
+              <circle cx="12" cy="12" r="1.8" fill="currentColor" />
+              <path d="M12 6.5a5.5 5.5 0 0 1 5.5 5.5M12 17.5A5.5 5.5 0 0 1 6.5 12M12 2.8a9.2 9.2 0 0 1 9.2 9.2M12 21.2A9.2 9.2 0 0 1 2.8 12" />
+            </>
+          )}
           {!visible && <path d="M4 4l16 16" />}
         </svg>
         <span className={`${tip} left-0 top-full mt-2.5 ${open ? "" : "group-hover/main:opacity-100 group-focus-visible/main:opacity-100"}`}>
-          Control the second brain animation
+          Control the background animation
         </span>
       </button>
 
       <SubButton
         open={open}
-        x={50}
-        y={-20}
+        x={ORBIT[0].x}
+        y={ORBIT[0].y}
         delay={0}
+        pressed={mode === "globe"}
+        label={mode === "field" ? "Show the second brain globe" : "Back to the rippling network"}
+        onClick={onToggleMode}
+      >
+        {mode === "field" ? (
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <circle cx="12" cy="12" r="8" />
+            <path d="M4 12h16M12 4c-2.8 2.4-2.8 13.6 0 16M12 4c2.8 2.4 2.8 13.6 0 16" />
+          </svg>
+        ) : (
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <path d="M5 6l7 3 6-4M12 9l-2 8 9-3M5 6l5 11M18 5l1 9" />
+            <circle cx="5" cy="6" r="1.6" fill="currentColor" />
+            <circle cx="12" cy="9" r="1.6" fill="currentColor" />
+            <circle cx="18" cy="5" r="1.6" fill="currentColor" />
+            <circle cx="10" cy="17" r="1.6" fill="currentColor" />
+            <circle cx="19" cy="14" r="1.6" fill="currentColor" />
+          </svg>
+        )}
+      </SubButton>
+      <SubButton
+        open={open}
+        x={ORBIT[1].x}
+        y={ORBIT[1].y}
+        delay={50}
         pressed={follow}
         disabled={!visible}
         label={follow ? "Stop following my cursor" : "Follow my cursor"}
@@ -146,9 +189,9 @@ export function BrainControls({ follow, visible, onToggleFollow, onToggleVisible
       </SubButton>
       <SubButton
         open={open}
-        x={52}
-        y={14}
-        delay={60}
+        x={ORBIT[2].x}
+        y={ORBIT[2].y}
+        delay={100}
         pressed={!visible}
         label={visible ? "Turn the animation off" : "Turn the animation on"}
         onClick={onToggleVisible}
