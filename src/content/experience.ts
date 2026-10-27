@@ -14,7 +14,7 @@ export const EXPERIENCE: Role[] = [
     bullets: [
       { text: "Shadowed cleaning teams and risk analysts on site and ran journey workshops across our top 20 accounts, then turned what I learned into PRDs and the roadmap for two 0-to-1 products." },
       { lead: "Intelligent Cleaning:", text: "replaced static cleaning schedules with data-driven ones, so teams cut reactive tasks, travel and redundant cleans." },
-      { lead: "Intelligent Security:", text: "pulled 8+ operational systems into one transparent risk view on a Medallion data architecture." },
+      { lead: "Intelligent Security:", text: "combined data from 8+ operational systems in a transparent risk view built on a Medallion architecture. The data covered 8,000+ sites across the top 10 retailers Mitie served for security." },
       { text: "Scaled from ~10 to 690+ sites, using Pendo to spot where operators stalled and fixing it with onboarding guides, help content and video demos." },
     ],
     impact: [
@@ -39,7 +39,7 @@ export const EXPERIENCE: Role[] = [
     impact: [
       { v: "20+", l: "capabilities evaluated", sub: "For an acquired property-management product, leading to the vendor marketplace call" },
       { v: "6 of 10", l: "markets prioritized", sub: "Core and adjacent markets carried into the leadership growth plan" },
-      { v: "20+ hrs", l: "of manual work saved", sub: "Python automation of the PropTech market scans" },
+      { v: "20+ hrs", l: "of manual work saved each month", sub: "Python automation of the PropTech market scans" },
     ],
   },
 ];
